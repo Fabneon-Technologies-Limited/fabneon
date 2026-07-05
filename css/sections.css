@@ -222,6 +222,10 @@
   background: var(--bg-tertiary);
   padding: var(--space-sm);
   border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
 }
 
 .service-card h4 {

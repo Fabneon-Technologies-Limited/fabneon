@@ -116,10 +116,10 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   width: 100%;
+  height: 100px;
   z-index: 100;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   background: transparent;
-  padding: 1.5rem 0;
 }
 
 .premium-nav.is-scrolled {
@@ -127,12 +127,13 @@ onUnmounted(() => {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border-bottom: none !important;
-  padding: 1rem 0;
+  height: 80px;
   box-shadow: var(--nav-shadow);
 }
 
 .nav-container {
   max-width: 1200px;
+  height: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
