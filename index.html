@@ -80,7 +80,9 @@
         try {
           var theme = localStorage.getItem('fabneon-theme');
           var systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (theme === 'light' || (!theme && !systemPrefersDark)) {
+          var calculatedTheme = theme || (systemPrefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', calculatedTheme);
+          if (calculatedTheme === 'light') {
             document.documentElement.classList.add('light-theme-loader');
           }
         } catch(e) {}

@@ -19,10 +19,17 @@ const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color
 const defaultTheme = systemPrefersDark ? 'dark' : 'light';
 const theme = ref<'light' | 'dark'>(savedTheme || defaultTheme);
 
+const applyTheme = (newTheme: 'light' | 'dark') => {
+  theme.value = newTheme;
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('fabneon-theme', newTheme);
+};
+
+// Initialize theme immediately on script setup execution to avoid flicker
+document.documentElement.setAttribute('data-theme', theme.value);
+
 const toggleTheme = () => {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('fabneon-theme', theme.value);
-  document.documentElement.setAttribute('data-theme', theme.value);
+  applyTheme(theme.value === 'dark' ? 'light' : 'dark');
 };
 
 const navItems = [
@@ -282,7 +289,7 @@ onMounted(() => {
 
         <div class="container">
           <div class="grid md:grid-cols-2 gap-8 items-center h-full">
-            <div class="hero-content text-left md:text-left mx-0 max-w-none relative z-20">
+            <div class="hero-content text-center md:text-left mx-auto md:mx-0 max-w-none relative z-20 flex flex-col items-center md:items-start">
               <div class="badge badge-purple reveal-up invisible-until-scroll"
                 style="margin-bottom: var(--space-md); display: inline-flex;">
                 Innovation Driven IT Solutions
@@ -293,13 +300,13 @@ onMounted(() => {
                 <span class="text-gradient">Future of Tech</span>
               </h1>
 
-              <p class="lead reveal-up invisible-until-scroll"
-                style="animation-delay: 0.2s; max-width: 500px; margin: 0;">
+              <p class="lead reveal-up invisible-until-scroll text-center md:text-left mx-auto md:mx-0"
+                style="animation-delay: 0.2s; max-width: 500px;">
                 Fabneon is a premier technology partner delivering scalable software, ERP systems, and digital
                 experiences that drive business transformation.
               </p>
 
-              <div class="hero-cta reveal-up invisible-until-scroll flex flex-wrap justify-start gap-4"
+              <div class="hero-cta reveal-up invisible-until-scroll flex flex-col md:flex-row flex-wrap justify-center md:justify-start gap-4 w-full"
                 style="animation-delay: 0.3s; margin-top: var(--space-xl);">
                 <a href="#portfolio" class="btn btn-primary btn-lg magnetic">Explore Our Work</a>
                 <a href="#services" class="btn btn-outline-purple btn-lg magnetic">Our Services</a>
@@ -308,7 +315,7 @@ onMounted(() => {
 
             <!-- CardSwap Showcase -->
             <div
-              class="relative w-full h-[350px] md:h-[500px] z-10 mt-12 md:mt-0 -translate-x-20 md:translate-x-0 translate-y-4 md:translate-y-[60px]">
+              class="relative w-full min-w-0 h-[350px] md:h-[500px] z-10 mt-12 md:mt-0 translate-y-4 md:translate-y-[60px] flex justify-center overflow-visible">
               <CardSwap :card-distance="60" :vertical-distance="70" :delay="5000" :pause-on-hover="false">
                 <!-- Card 1 -->
                 <div
@@ -462,37 +469,37 @@ onMounted(() => {
           </div>
           <div class="process-grid grid-3">
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">01</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">01</div>
               <h3 class="mb-2">Discovery & Strategy</h3>
               <p class="text-sm text-[var(--text-secondary)]">We deeply analyze your business needs, target audience,
                 and technical requirements.</p>
             </BorderGlow>
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">02</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">02</div>
               <h3 class="mb-2">Design & Prototyping</h3>
               <p class="text-sm text-[var(--text-secondary)]">Our UI/UX team creates beautiful, intuitive wireframes and
                 interactive prototypes.</p>
             </BorderGlow>
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">03</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">03</div>
               <h3 class="mb-2">Development</h3>
               <p class="text-sm text-[var(--text-secondary)]">We write clean, modular code building robust, scalable
                 architecture using modern technologies.</p>
             </BorderGlow>
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">04</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">04</div>
               <h3 class="mb-2">Testing & QA</h3>
               <p class="text-sm text-[var(--text-secondary)]">Rigorous automated and manual testing to ensure security,
                 performance, and reliability.</p>
             </BorderGlow>
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">05</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">05</div>
               <h3 class="mb-2">Deployment</h3>
               <p class="text-sm text-[var(--text-secondary)]">A seamless launch process with CI/CD pipelines ensuring
                 zero downtime.</p>
             </BorderGlow>
             <BorderGlow className="process-step reveal-stagger-child invisible-until-scroll" backgroundColor="var(--bg-primary)" :animated="false">
-              <div class="step-number text-[3rem] font-bold text-[var(--border-muted)] opacity-50 mb-2">06</div>
+              <div class="step-number text-[3rem] font-bold text-[var(--text-muted)] opacity-30 mb-2">06</div>
               <h3 class="mb-2">Maintenance & Support</h3>
               <p class="text-sm text-[var(--text-secondary)]">Continuous monitoring, updates, and optimization to keep
                 your system performing at its best.</p>
@@ -637,7 +644,7 @@ onMounted(() => {
               <div
                 class="accordion-item mb-4 border border-[var(--border-muted)] rounded-lg overflow-hidden bg-[var(--bg-overlay)]">
                 <button
-                  class="accordion-header w-full text-left p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
+                  class="accordion-header w-full text-left p-4 md:p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
                   <span>What technologies do you specialize in?</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -645,8 +652,8 @@ onMounted(() => {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </button>
-                <div class="accordion-body px-6 max-h-0 overflow-hidden transition-all duration-300">
-                  <p class="pb-6 m-0 text-[var(--text-secondary)]">We specialize in modern web and mobile stacks,
+                <div class="accordion-body px-4 md:px-6 max-h-0 overflow-hidden transition-all duration-300">
+                  <p class="pb-4 md:pb-6 m-0 text-[var(--text-secondary)]">We specialize in modern web and mobile stacks,
                     including React, Next.js, Vue, Node.js, Python/Django, Flutter, and cloud infrastructure on AWS and
                     Google Cloud.</p>
                 </div>
@@ -654,7 +661,7 @@ onMounted(() => {
               <div
                 class="accordion-item mb-4 border border-[var(--border-muted)] rounded-lg overflow-hidden bg-[var(--bg-overlay)]">
                 <button
-                  class="accordion-header w-full text-left p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
+                  class="accordion-header w-full text-left p-4 md:p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
                   <span>Do you provide ongoing support after launch?</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -662,15 +669,15 @@ onMounted(() => {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </button>
-                <div class="accordion-body px-6 max-h-0 overflow-hidden transition-all duration-300">
-                  <p class="pb-6 m-0 text-[var(--text-secondary)]">Absolutely. We offer dedicated maintenance and
+                <div class="accordion-body px-4 md:px-6 max-h-0 overflow-hidden transition-all duration-300">
+                  <p class="pb-4 md:pb-6 m-0 text-[var(--text-secondary)]">Absolutely. We offer dedicated maintenance and
                     support SLAs to ensure your software remains secure, updated, and highly performant post-launch.</p>
                 </div>
               </div>
               <div
                 class="accordion-item mb-4 border border-[var(--border-muted)] rounded-lg overflow-hidden bg-[var(--bg-overlay)]">
                 <button
-                  class="accordion-header w-full text-left p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
+                  class="accordion-header w-full text-left p-4 md:p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
                   <span>How do you handle project communication and updates?</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -678,8 +685,8 @@ onMounted(() => {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </button>
-                <div class="accordion-body px-6 max-h-0 overflow-hidden transition-all duration-300">
-                  <p class="pb-6 m-0 text-[var(--text-secondary)]">We use Agile methodologies and provide weekly sprint
+                <div class="accordion-body px-4 md:px-6 max-h-0 overflow-hidden transition-all duration-300">
+                  <p class="pb-4 md:pb-6 m-0 text-[var(--text-secondary)]">We use Agile methodologies and provide weekly sprint
                     updates. You'll have a dedicated project manager and access to our Slack channel and Jira board for
                     full transparency.</p>
                 </div>
@@ -687,7 +694,7 @@ onMounted(() => {
               <div
                 class="accordion-item mb-4 border border-[var(--border-muted)] rounded-lg overflow-hidden bg-[var(--bg-overlay)]">
                 <button
-                  class="accordion-header w-full text-left p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
+                  class="accordion-header w-full text-left p-4 md:p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
                   <span>What is your typical project timeline?</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -695,8 +702,8 @@ onMounted(() => {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </button>
-                <div class="accordion-body px-6 max-h-0 overflow-hidden transition-all duration-300">
-                  <p class="pb-6 m-0 text-[var(--text-secondary)]">Timelines vary depending on scope, but a standard MVP
+                <div class="accordion-body px-4 md:px-6 max-h-0 overflow-hidden transition-all duration-300">
+                  <p class="pb-4 md:pb-6 m-0 text-[var(--text-secondary)]">Timelines vary depending on scope, but a standard MVP
                     typically takes 8-12 weeks from discovery to deployment. Enterprise solutions may take 4-6 months.
                   </p>
                 </div>
@@ -704,7 +711,7 @@ onMounted(() => {
               <div
                 class="accordion-item mb-4 border border-[var(--border-muted)] rounded-lg overflow-hidden bg-[var(--bg-overlay)]">
                 <button
-                  class="accordion-header w-full text-left p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
+                  class="accordion-header w-full text-left p-4 md:p-6 font-semibold flex justify-between items-center cursor-pointer bg-transparent border-none text-[var(--text-primary)]">
                   <span>Can you scale our existing software?</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -712,8 +719,8 @@ onMounted(() => {
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                 </button>
-                <div class="accordion-body px-6 max-h-0 overflow-hidden transition-all duration-300">
-                  <p class="pb-6 m-0 text-[var(--text-secondary)]">Yes, we specialize in modernizing legacy systems,
+                <div class="accordion-body px-4 md:px-6 max-h-0 overflow-hidden transition-all duration-300">
+                  <p class="pb-4 md:pb-6 m-0 text-[var(--text-secondary)]">Yes, we specialize in modernizing legacy systems,
                     migrating infrastructure to the cloud, and optimizing codebases for high scalability and
                     performance.</p>
                 </div>
@@ -734,7 +741,7 @@ onMounted(() => {
                 24 hours. We're excited to hear about your project.</p>
 
               <div class="contact-details flex flex-col gap-8">
-                <div class="contact-item flex items-start gap-5">
+                <div class="contact-item flex items-center gap-5">
                   <div
                     class="contact-icon-wrapper flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--bg-overlay)] border border-[var(--border-muted)] text-[var(--brand-teal)]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -750,7 +757,7 @@ onMounted(() => {
                   </div>
                 </div>
 
-                <div class="contact-item flex items-start gap-5">
+                <div class="contact-item flex items-center gap-5">
                   <div
                     class="contact-icon-wrapper flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--bg-overlay)] border border-[var(--border-muted)] text-[var(--brand-purple)]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -767,7 +774,7 @@ onMounted(() => {
                   </div>
                 </div>
 
-                <div class="contact-item flex items-start gap-5">
+                <div class="contact-item flex items-center gap-5">
                   <div
                     class="contact-icon-wrapper flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--bg-overlay)] border border-[var(--border-muted)] text-[var(--brand-gold)]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -785,34 +792,34 @@ onMounted(() => {
             </div>
 
             <div
-              class="contact-form-container reveal-right invisible-until-scroll bg-[var(--bg-overlay)] p-8 rounded-2xl border border-[var(--border-muted)]">
+              class="contact-form-container reveal-right invisible-until-scroll bg-[var(--bg-overlay)] p-5 md:p-8 rounded-2xl border border-[var(--border-muted)]">
               <form id="contact-form" class="flex-col gap-lg" @submit.prevent>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="form-group flex-col gap-sm">
+                  <div class="form-group flex flex-col gap-sm">
                     <label class="form-label text-sm font-semibold" for="name">Full Name</label>
                     <input type="text" id="name"
-                      class="form-input p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
+                      class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
                       placeholder="John Doe" required>
                   </div>
-                  <div class="form-group flex-col gap-sm">
+                  <div class="form-group flex flex-col gap-sm">
                     <label class="form-label text-sm font-semibold" for="email">Email Address</label>
                     <input type="email" id="email"
-                      class="form-input p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
+                      class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
                       placeholder="john@company.com" required>
                   </div>
                 </div>
 
-                <div class="form-group flex-col gap-sm mt-6">
+                <div class="form-group flex flex-col gap-sm mt-6">
                   <label class="form-label text-sm font-semibold" for="subject">Subject</label>
                   <input type="text" id="subject"
-                    class="form-input p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
+                    class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]"
                     placeholder="How can we help you?" required>
                 </div>
 
-                <div class="form-group flex-col gap-sm mt-6">
+                <div class="form-group flex flex-col gap-sm mt-6">
                   <label class="form-label text-sm font-semibold" for="message">Message</label>
                   <textarea id="message" rows="5"
-                    class="form-textarea p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] resize-none"
+                    class="form-textarea w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] resize-none"
                     placeholder="Tell us about your project requirements..." required></textarea>
                 </div>
 

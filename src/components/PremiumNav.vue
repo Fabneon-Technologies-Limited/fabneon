@@ -64,8 +64,8 @@ onUnmounted(() => {
           </a>
         </nav>
 
-        <!-- CTA & Theme Switcher -->
-        <div class="nav-actions">
+        <!-- Actions & Mobile Toggle -->
+        <div class="mobile-actions-container">
           <!-- Theme Switcher -->
           <button 
             class="theme-toggle" 
@@ -76,17 +76,20 @@ onUnmounted(() => {
             <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
 
-          <a href="#contact" class="nav-cta-btn">
-            Start Project
-          </a>
-        </div>
+          <!-- Desktop CTA -->
+          <div class="nav-actions">
+            <a href="#contact" class="nav-cta-btn">
+              Start Project
+            </a>
+          </div>
 
-        <!-- Mobile Toggle -->
-        <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
+          <!-- Mobile Toggle -->
+          <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
 
       </div>
 
@@ -115,19 +118,19 @@ onUnmounted(() => {
 .pill-nav-wrapper {
   position: fixed;
   top: 1.5rem;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  left: 1rem;
+  right: 1rem;
+  width: auto;
+  max-width: 1100px;
+  margin: 0 auto;
   z-index: 100;
   pointer-events: none; /* Let clicks pass through outside the pill */
 }
 
 .pill-nav {
   pointer-events: auto; /* Re-enable clicks for the actual nav */
-  width: calc(100% - 2rem);
-  max-width: 1100px;
-  height: 70px;
+  width: 100%;
+  height: 60px;
   background: rgba(var(--bg-secondary-rgb), 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -148,6 +151,16 @@ onUnmounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+@media (min-width: 900px) {
+  .pill-nav-wrapper {
+    left: 2rem;
+    right: 2rem;
+  }
+  .pill-nav {
+    height: 70px;
+  }
+}
+
 .pill-nav.is-scrolled {
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
   transform: translateY(-5px);
@@ -159,10 +172,16 @@ onUnmounted(() => {
 .nav-container {
   height: 100%;
   width: 100%;
-  padding: 0 1rem 0 1.5rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@media (min-width: 900px) {
+  .nav-container {
+    padding: 0 1rem 0 1.5rem;
+  }
 }
 
 .nav-brand {
@@ -226,10 +245,18 @@ onUnmounted(() => {
   display: none;
 }
 
+.mobile-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (min-width: 900px) {
   .nav-actions {
     display: flex;
     align-items: center;
+  }
+  .mobile-actions-container {
     gap: 1rem;
   }
 }
@@ -238,14 +265,21 @@ onUnmounted(() => {
   background: var(--bg-overlay);
   border: 1px solid var(--border-muted);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   color: var(--text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 900px) {
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .theme-toggle:hover {
@@ -280,9 +314,9 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  width: 44px;
-  height: 44px;
+  gap: 4px;
+  width: 36px;
+  height: 36px;
   background: var(--bg-overlay);
   border: 1px solid var(--border-muted);
   border-radius: 50%;

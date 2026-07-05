@@ -126,8 +126,14 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   max-width: 650px;
-  height: 380px;
+  height: 280px;
   transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+  .carousel-track {
+    height: 380px;
+  }
 }
 
 .carousel-slide {
@@ -211,18 +217,31 @@ onUnmounted(() => {
 
 /* Previous Slide */
 .carousel-slide.prev {
-  transform: translateX(-55%) translateZ(-200px) rotateY(25deg);
-  opacity: 0.6;
+  opacity: 0 !important;
+  pointer-events: none;
+  transform: scale(0.9) translateZ(-200px);
   z-index: 5;
-  pointer-events: auto;
 }
 
 /* Next Slide */
 .carousel-slide.next {
-  transform: translateX(55%) translateZ(-200px) rotateY(-25deg);
-  opacity: 0.6;
+  opacity: 0 !important;
+  pointer-events: none;
+  transform: scale(0.9) translateZ(-200px);
   z-index: 5;
-  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .carousel-slide.prev {
+    transform: translateX(-55%) translateY(0) translateZ(-200px) rotateX(0) rotateY(25deg) !important;
+    opacity: 0.6 !important;
+    pointer-events: auto;
+  }
+  .carousel-slide.next {
+    transform: translateX(55%) translateY(0) translateZ(-200px) rotateX(0) rotateY(-25deg) !important;
+    opacity: 0.6 !important;
+    pointer-events: auto;
+  }
 }
 
 /* Hidden Slides */
@@ -296,10 +315,14 @@ html[data-theme='light'] .carousel-slide.active {
     height: 220px;
   }
   .carousel-slide.prev {
-    transform: translateX(-45%) translateZ(-150px) rotateY(20deg);
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: scale(0.9) translateZ(-150px);
   }
   .carousel-slide.next {
-    transform: translateX(45%) translateZ(-150px) rotateY(-20deg);
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: scale(0.9) translateZ(-150px);
   }
   .slide-title {
     font-size: 1.25rem;

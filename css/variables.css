@@ -263,3 +263,10 @@
 .text-primary { color: var(--text-primary); }
 .text-secondary { color: var(--text-secondary); }
 .text-muted { color: var(--text-muted); }
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 768px) {
+  :root, [data-theme="dark"], [data-theme="light"] {
+    --container-padding: var(--space-md);
+  }
+}

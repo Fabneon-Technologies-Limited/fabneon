@@ -282,10 +282,14 @@ html[data-theme='dark'] .carousel-slide.active {
     height: 350px;
   }
   .carousel-slide.prev {
-    transform: translateX(-40%) translateZ(-150px) rotateY(25deg);
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: scale(0.9) translateZ(-150px);
   }
   .carousel-slide.next {
-    transform: translateX(40%) translateZ(-150px) rotateY(-25deg);
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: scale(0.9) translateZ(-150px);
   }
 }
 </style>
