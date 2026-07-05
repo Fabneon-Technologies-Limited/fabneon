@@ -79,7 +79,8 @@
       (function() {
         try {
           var theme = localStorage.getItem('fabneon-theme');
-          if (theme === 'light') {
+          var systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (theme === 'light' || (!theme && !systemPrefersDark)) {
             document.documentElement.classList.add('light-theme-loader');
           }
         } catch(e) {}

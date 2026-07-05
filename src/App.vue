@@ -12,7 +12,9 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const savedTheme = localStorage.getItem('fabneon-theme') as 'light' | 'dark' | null;
-const theme = ref<'light' | 'dark'>(savedTheme || 'dark');
+const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const defaultTheme = systemPrefersDark ? 'dark' : 'light';
+const theme = ref<'light' | 'dark'>(savedTheme || defaultTheme);
 
 const toggleTheme = () => {
   theme.value = theme.value === 'dark' ? 'light' : 'dark';
