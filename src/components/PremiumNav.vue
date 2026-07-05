@@ -42,100 +42,124 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="premium-nav" :class="{ 'is-scrolled': isScrolled }">
-    <div class="nav-container">
-      
-      <!-- Logo -->
-      <a href="#home" class="nav-brand">
-        <img :src="logoSrc" alt="Fabneon" class="nav-logo-img" />
-      </a>
-
-      <!-- Desktop Navigation -->
-      <nav class="nav-menu">
-        <a 
-          v-for="item in items" 
-          :key="item.href"
-          :href="item.href"
-          class="premium-link"
-          :class="{ 'active': activeSection === item.href }"
-        >
-          {{ item.label }}
-          <span class="nav-indicator"></span>
+  <div class="pill-nav-wrapper">
+    <header class="pill-nav" :class="{ 'is-scrolled': isScrolled }">
+      <div class="nav-container">
+        
+        <!-- Logo -->
+        <a href="#home" class="nav-brand">
+          <img :src="logoSrc" alt="Fabneon" class="nav-logo-img" />
         </a>
-      </nav>
 
-      <!-- CTA & Theme Switcher -->
-      <div class="nav-actions">
-        <!-- Theme Switcher -->
-        <button 
-          class="theme-toggle" 
-          @click="emit('toggle-theme')" 
-          :title="theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-        >
-          <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu">
+          <a 
+            v-for="item in items" 
+            :key="item.href"
+            :href="item.href"
+            class="pill-link"
+            :class="{ 'active': activeSection === item.href }"
+          >
+            {{ item.label }}
+          </a>
+        </nav>
+
+        <!-- CTA & Theme Switcher -->
+        <div class="nav-actions">
+          <!-- Theme Switcher -->
+          <button 
+            class="theme-toggle" 
+            @click="emit('toggle-theme')" 
+            :title="theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          >
+            <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+          <a href="#contact" class="nav-cta-btn">
+            Start Project
+          </a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
         </button>
 
-        <a href="#contact" class="nav-cta-btn">
-          Start Project
-        </a>
       </div>
 
-      <!-- Mobile Toggle -->
-      <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-
-    </div>
-
-    <!-- Mobile Dropdown -->
-    <div class="mobile-menu" :class="{ 'is-open': isMobileMenuOpen }">
-      <nav class="mobile-nav">
-        <a 
-          v-for="item in items" 
-          :key="item.href"
-          :href="item.href"
-          class="mobile-link"
-          @click="isMobileMenuOpen = false"
-        >
-          {{ item.label }}
-        </a>
-        <a href="#contact" class="mobile-cta-btn" @click="isMobileMenuOpen = false">
-          Start Project
-        </a>
-      </nav>
-    </div>
-  </header>
+      <!-- Mobile Dropdown -->
+      <div class="mobile-menu" :class="{ 'is-open': isMobileMenuOpen }">
+        <nav class="mobile-nav">
+          <a 
+            v-for="item in items" 
+            :key="item.href"
+            :href="item.href"
+            class="mobile-link"
+            @click="isMobileMenuOpen = false"
+          >
+            {{ item.label }}
+          </a>
+          <a href="#contact" class="mobile-cta-btn" @click="isMobileMenuOpen = false">
+            Start Project
+          </a>
+        </nav>
+      </div>
+    </header>
+  </div>
 </template>
 
 <style scoped>
-.premium-nav {
+.pill-nav-wrapper {
   position: fixed;
-  top: 0;
+  top: 1.5rem;
   left: 0;
   width: 100%;
-  height: 100px;
+  display: flex;
+  justify-content: center;
   z-index: 100;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  background: transparent;
+  pointer-events: none; /* Let clicks pass through outside the pill */
 }
 
-.premium-nav.is-scrolled {
-  background: var(--bg-nav-scrolled);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: none !important;
-  height: 80px;
-  box-shadow: var(--nav-shadow);
+.pill-nav {
+  pointer-events: auto; /* Re-enable clicks for the actual nav */
+  width: calc(100% - 2rem);
+  max-width: 1100px;
+  height: 70px;
+  background: rgba(var(--bg-secondary-rgb), 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-muted);
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+}
+
+[data-theme='dark'] .pill-nav {
+  background: rgba(10, 12, 16, 0.75);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+[data-theme='light'] .pill-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pill-nav.is-scrolled {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+[data-theme='dark'] .pill-nav.is-scrolled {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
-  max-width: 1200px;
   height: 100%;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  width: 100%;
+  padding: 0 1rem 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -144,121 +168,110 @@ onUnmounted(() => {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
   text-decoration: none;
 }
 
 .nav-logo-img {
-  height: 52px; /* Scaled up for full lockup */
+  height: 40px;
   width: auto;
   transition: transform 0.3s ease;
-}
-
-@media (max-width: 768px) {
-  .nav-logo-img {
-    height: 40px;
-  }
 }
 
 .nav-brand:hover .nav-logo-img {
   transform: scale(1.05);
 }
 
-
-
 .nav-menu {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .nav-menu {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 0.5rem;
+    background: var(--bg-overlay);
+    padding: 0.35rem;
+    border-radius: 40px;
+    border: 1px solid var(--border-muted);
   }
 }
 
-.premium-link {
-  position: relative;
+.pill-link {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1.25rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.premium-link:hover, .premium-link.active {
+.pill-link:hover {
   color: var(--text-primary);
 }
 
-.nav-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--brand-teal), var(--brand-purple));
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+.pill-link.active {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
-.premium-link:hover .nav-indicator, .premium-link.active .nav-indicator {
-  transform: scaleX(1);
+[data-theme='dark'] .pill-link.active {
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 .nav-actions {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 }
 
 .theme-toggle {
-  background: transparent;
-  border: none;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-muted);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   color: var(--text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s ease;
-  padding: 0.5rem;
+  transition: all 0.3s ease;
 }
 
 .theme-toggle:hover {
   color: var(--brand-gold);
+  border-color: var(--brand-gold);
+  transform: rotate(15deg);
 }
 
 .nav-cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.75rem;
+  padding: 0.6rem 1.5rem;
   background: var(--gradient-signature);
   color: #fff;
-  font-weight: 600; /* Adjusted to 600 from 700 per guidelines */
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 40px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 90, 107, 0.1);
-}
-
-[data-theme="dark"] .nav-cta-btn {
-  box-shadow: 0 0 15px rgba(0, 90, 107, 0.3); /* Brand glow */
 }
 
 .nav-cta-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
   filter: brightness(1.1);
+  box-shadow: 0 10px 20px rgba(0, 90, 107, 0.3);
 }
 
 /* Mobile Toggle */
@@ -270,14 +283,14 @@ onUnmounted(() => {
   gap: 5px;
   width: 44px;
   height: 44px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-muted);
+  border-radius: 50%;
   cursor: pointer;
   padding: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .mobile-toggle {
     display: none;
   }
@@ -285,9 +298,9 @@ onUnmounted(() => {
 
 .mobile-toggle .bar {
   display: block;
-  width: 20px;
+  width: 18px;
   height: 2px;
-  background-color: #fff;
+  background-color: var(--text-primary);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -305,40 +318,56 @@ onUnmounted(() => {
 /* Mobile Menu */
 .mobile-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.5rem);
   left: 0;
   width: 100%;
-  background: rgba(3, 0, 8, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(var(--bg-secondary-rgb), 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-muted);
+  border-radius: 24px;
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+[data-theme='dark'] .mobile-menu {
+  background: rgba(10, 12, 16, 0.95);
+}
+[data-theme='light'] .mobile-menu {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .mobile-menu.is-open {
   max-height: 500px;
+  opacity: 1;
+  visibility: visible;
 }
 
 .mobile-nav {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .mobile-link {
   color: var(--text-secondary);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: transparent;
 }
 
 .mobile-link:hover {
   color: var(--text-primary);
+  background: var(--bg-overlay);
 }
 
 .mobile-cta-btn {
@@ -350,7 +379,7 @@ onUnmounted(() => {
   color: #fff;
   font-weight: 600;
   font-size: 1.1rem;
-  border-radius: 12px;
+  border-radius: 16px;
   text-decoration: none;
 }
 </style>
