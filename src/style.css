@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@import '../css/variables.css';
+@import '../css/base.css';
+@import '../css/components.css';
+@import '../css/sections.css';
+@import '../css/animations.css';
+
+:root {
+  --base: #030008;
+  --pill-bg: rgba(255, 255, 255, 0.05);
+  --hover-text: #ffffff;
+  --pill-text: #ffffff;
+}
+
+[data-theme="light"] {
+  --base: #ffffff;
+  --pill-bg: #060010;
+  --hover-text: #ffffff;
+  --pill-text: #060010;
+}

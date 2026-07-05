@@ -1,0 +1,265 @@
+/* ============================================
+   FABNEON — Design Tokens & CSS Custom Properties
+   Brand Guidelines v1.0
+   ============================================ */
+
+:root {
+  /* ─── Brand Core Colors ─── */
+  --brand-teal: #005A6B;
+  --brand-teal-light: #00A3C4;
+  --brand-teal-dark: #004754;
+  --brand-purple: #4B1A7F;
+  --brand-purple-light: #6B3FA0;
+  --brand-purple-dark: #361260;
+  --brand-gold: #D48C28;
+  --brand-gold-light: #E8A844;
+  --brand-gold-dark: #B07420;
+  --brand-charcoal: #3E3E3E;
+
+  /* ─── Signature Gradients ─── */
+  --gradient-signature: linear-gradient(135deg, #005A6B 0%, #4B1A7F 50%, #D48C28 100%);
+  --gradient-signature-reverse: linear-gradient(135deg, #D48C28 0%, #4B1A7F 50%, #005A6B 100%);
+  --gradient-signature-horizontal: linear-gradient(90deg, #005A6B 0%, #4B1A7F 50%, #D48C28 100%);
+  --gradient-teal-purple: linear-gradient(135deg, #005A6B, #4B1A7F);
+  --gradient-purple-gold: linear-gradient(135deg, #4B1A7F, #D48C28);
+  --gradient-teal-gold: linear-gradient(135deg, #005A6B, #D48C28);
+  --gradient-text: linear-gradient(135deg, #00A3C4 0%, #6B3FA0 50%, #E8A844 100%);
+
+  /* ─── Spacing Scale ─── */
+  --space-2xs: 0.125rem;   /* 2px */
+  --space-xs: 0.25rem;     /* 4px */
+  --space-sm: 0.5rem;      /* 8px */
+  --space-md: 1rem;        /* 16px */
+  --space-lg: 1.5rem;      /* 24px */
+  --space-xl: 2rem;        /* 32px */
+  --space-2xl: 3rem;       /* 48px */
+  --space-3xl: 4rem;       /* 64px */
+  --space-4xl: 6rem;       /* 96px */
+  --space-5xl: 8rem;       /* 128px */
+  --space-6xl: 10rem;      /* 160px */
+
+  /* ─── Border Radius ─── */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+
+  /* ─── Typography ─── */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Font Sizes — fluid clamp scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: clamp(1.5rem, 2vw + 0.5rem, 1.875rem);
+  --text-4xl: clamp(1.875rem, 3vw + 0.5rem, 2.25rem);
+  --text-5xl: clamp(2.25rem, 4vw + 0.5rem, 3rem);
+  --text-6xl: clamp(2.75rem, 5vw + 0.5rem, 3.75rem);
+  --text-7xl: clamp(2.75rem, 5vw + 0.5rem, 4rem);
+  --text-8xl: clamp(3rem, 6vw + 0.5rem, 5.25rem);
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Line Heights */
+  --leading-none: 1.1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ─── Transitions ─── */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-slower: 700ms ease;
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+
+  /* ─── Z-Index Scale ─── */
+  --z-below: -1;
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-loader: 500;
+  --z-max: 9999;
+
+  /* ─── Container ─── */
+  --container-max: 1280px;
+  --container-padding: var(--space-xl);
+
+  /* ─── Section spacing ─── */
+  --section-padding: var(--space-5xl);
+}
+
+/* =============================================
+   DARK THEME (Default)
+   ============================================= */
+[data-theme="dark"],
+:root {
+  --bg-primary: #0E0F12;
+  --bg-secondary: #16181D;
+  --bg-tertiary: #1C1F26;
+  --bg-elevated: #21242C;
+  --bg-overlay: rgba(14, 15, 18, 0.85);
+  --bg-nav-scrolled: rgba(10, 10, 15, 1);
+
+  --border-muted: #242730;
+  --border-subtle: #1A1D24;
+  --border-accent: rgba(0, 90, 107, 0.3);
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #E4E6EB;
+  --text-muted: #9A9EAB;
+  --text-inverse: #0E0F12;
+
+  --nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+  --cta-solid: #00A3C4;
+  --cta-solid-hover: #008BA8;
+  --cta-gradient: var(--gradient-signature);
+
+  --glow-teal: 0 0 30px rgba(0, 163, 196, 0.15), 0 0 60px rgba(0, 90, 107, 0.1);
+  --glow-purple: 0 0 30px rgba(75, 26, 127, 0.15);
+  --glow-gold: 0 0 30px rgba(212, 140, 40, 0.15);
+  --glow-btn: 0 4px 20px rgba(0, 90, 107, 0.3);
+
+  --glass-bg: rgba(22, 24, 29, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: blur(20px);
+
+  --card-bg: var(--bg-secondary);
+  --card-border: var(--border-muted);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --card-hover-shadow: 0 8px 40px rgba(0, 90, 107, 0.12);
+  --card-hover-border: rgba(0, 163, 196, 0.2);
+
+  --input-bg: var(--bg-tertiary);
+  --input-border: var(--border-muted);
+  --input-focus-border: var(--brand-teal);
+  --input-text: var(--text-secondary);
+  --input-placeholder: var(--text-muted);
+
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: var(--border-muted);
+  --scrollbar-thumb-hover: var(--text-muted);
+}
+
+/* =============================================
+   LIGHT THEME
+   ============================================= */
+[data-theme="light"] {
+  --bg-primary: #F8F9FA;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F0F2F5;
+  --bg-elevated: #FFFFFF;
+  --bg-overlay: rgba(248, 249, 250, 0.85);
+  --bg-nav-scrolled: rgba(255, 255, 255, 1);
+
+  --border-muted: #E9ECEF;
+  --border-subtle: #DEE2E6;
+  --border-accent: rgba(0, 90, 107, 0.2);
+
+  --text-primary: #1A1A1A;
+  --text-secondary: #3E3E3E;
+  --text-muted: #6C757D;
+  --text-inverse: #FFFFFF;
+
+  --nav-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --cta-solid: #005A6B;
+  --cta-solid-hover: #004754;
+  --cta-gradient: var(--gradient-signature);
+
+  --glow-teal: none;
+  --glow-purple: none;
+  --glow-gold: none;
+  --glow-btn: 0 4px 12px rgba(0, 90, 107, 0.15);
+
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-blur: blur(20px);
+
+  --card-bg: var(--bg-secondary);
+  --card-border: var(--border-muted);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --card-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  --card-hover-border: rgba(0, 90, 107, 0.3);
+
+  --input-bg: var(--bg-secondary);
+  --input-border: var(--border-muted);
+  --input-focus-border: var(--brand-teal);
+  --input-text: var(--text-secondary);
+  --input-placeholder: var(--text-muted);
+
+  --scrollbar-track: var(--bg-tertiary);
+  --scrollbar-thumb: var(--border-subtle);
+  --scrollbar-thumb-hover: var(--text-muted);
+}
+
+/* =============================================
+   UTILITY CLASSES — Colors
+   ============================================= */
+.text-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient {
+  background: var(--gradient-signature);
+}
+
+.bg-gradient-subtle {
+  background: var(--gradient-signature);
+  opacity: 0.08;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--gradient-signature);
+  z-index: -1;
+}
+
+.text-brand-teal { color: var(--brand-teal-light); }
+.text-brand-purple { color: var(--brand-purple-light); }
+.text-brand-gold { color: var(--brand-gold); }
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }

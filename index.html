@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/fabneon_logo_only.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabneon</title>
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('fabneon-theme');
+          if (theme === 'light') {
+            document.documentElement.classList.add('light-theme-loader');
+          }
+        } catch(e) {}
+      })();
+    </script>
+    <style>
+      /* Pre-mount loader styles to prevent FOUC */
+      body {
+        margin: 0;
+        background-color: var(--bg-primary, #0E0F12); /* Dark slate fallback */
+      }
+      html.light-theme-loader body {
+        background-color: var(--bg-primary, #F8F9FA);
+      }
+
+      /* Hide Vue app until CSS is loaded */
+      #app:empty {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      // The initial loader will be removed by Vue, but we can also ensure it fades out
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.remove(), 500);
+        }
+      });
+    </script>
+  </body>
+</html>
