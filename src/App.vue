@@ -289,7 +289,7 @@ onMounted(() => {
 
         <div class="container">
           <div class="grid md:grid-cols-2 gap-8 items-center h-full">
-            <div class="hero-content text-center md:text-left mx-auto md:mx-0 max-w-none relative z-20 flex flex-col items-center md:items-start">
+            <div class="hero-content text-center md:text-left mx-0 max-w-none relative z-20">
               <div class="badge badge-purple reveal-up invisible-until-scroll"
                 style="margin-bottom: var(--space-md); display: inline-flex;">
                 Innovation Driven IT Solutions
@@ -306,7 +306,7 @@ onMounted(() => {
                 experiences that drive business transformation.
               </p>
 
-              <div class="hero-cta reveal-up invisible-until-scroll flex flex-col md:flex-row flex-wrap justify-center md:justify-start gap-4 w-full"
+              <div class="hero-cta reveal-up invisible-until-scroll flex flex-wrap justify-center md:justify-start gap-4"
                 style="animation-delay: 0.3s; margin-top: var(--space-xl);">
                 <a href="#portfolio" class="btn btn-primary btn-lg magnetic">Explore Our Work</a>
                 <a href="#services" class="btn btn-outline-purple btn-lg magnetic">Our Services</a>
