@@ -291,6 +291,55 @@ onMounted(() => {
         </div>
       </section>
 
+      <!-- 3.75. About & Team Section -->
+      <section class="section section-alt" id="about">
+        <div class="container">
+          <div class="section-header text-center reveal-up invisible-until-scroll">
+            <div class="badge mb-4">Who We Are</div>
+            <h2>Meet The Team</h2>
+            <p class="lead">Passionate experts dedicated to building the future of technology.</p>
+          </div>
+          
+          <div class="team-grid grid md:grid-cols-3 gap-8 mt-12">
+            <!-- Team Member 1 -->
+            <div class="team-card reveal-stagger-child invisible-until-scroll bg-[var(--bg-primary)] rounded-2xl overflow-hidden border border-[var(--border-muted)] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[var(--glow-teal)]">
+              <div class="team-image-wrapper relative aspect-square overflow-hidden">
+                <img src="/assets/images/team_ceo.webp" alt="CEO" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-90"></div>
+              </div>
+              <div class="team-info p-6 text-center">
+                <h3 class="text-xl font-bold mb-1">Md. Mahfuzur Rahman</h3>
+                <p class="text-[var(--brand-teal)] text-sm font-semibold mb-4">Founder & CEO</p>
+              </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-card reveal-stagger-child invisible-until-scroll bg-[var(--bg-primary)] rounded-2xl overflow-hidden border border-[var(--border-muted)] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[var(--glow-purple)]">
+              <div class="team-image-wrapper relative aspect-square overflow-hidden">
+                <img src="/assets/images/team_cto.webp" alt="CTO" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-90"></div>
+              </div>
+              <div class="team-info p-6 text-center">
+                <h3 class="text-xl font-bold mb-1">Chief Technology Officer</h3>
+                <p class="text-[var(--brand-purple)] text-sm font-semibold mb-4">Lead Architect</p>
+              </div>
+            </div>
+
+            <!-- Team Member 3 (Golam Rabbani) -->
+            <div class="team-card reveal-stagger-child invisible-until-scroll bg-[var(--bg-primary)] rounded-2xl overflow-hidden border border-[var(--border-muted)] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[var(--glow-gold)]">
+              <div class="team-image-wrapper relative aspect-square overflow-hidden">
+                <img src="/assets/images/team_rabbani.webp" alt="Golam Rabbani" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-90"></div>
+              </div>
+              <div class="team-info p-6 text-center">
+                <h3 class="text-xl font-bold mb-1">Golam Rabbani</h3>
+                <p class="text-[var(--brand-gold)] text-sm font-semibold mb-4">Senior Software Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- 4. Testimonials Section -->
       <section class="section" id="testimonials">
         <div class="container">
