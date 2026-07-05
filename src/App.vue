@@ -142,7 +142,7 @@ onMounted(() => {
             </div>
 
             <!-- CardSwap Showcase -->
-            <div class="relative w-full h-[350px] md:h-[500px] z-10 mt-12 md:mt-0 translate-y-4 md:translate-y-[60px]">
+            <div class="relative w-full h-[350px] md:h-[500px] z-10 mt-12 md:mt-0 -translate-x-12 md:translate-x-0 translate-y-4 md:translate-y-[60px]">
               <CardSwap 
                 :card-distance="60"
                 :vertical-distance="70"
