@@ -8,6 +8,7 @@ import TermsAndConditions from './components/TermsAndConditions.vue';
 import PrivacyPolicy from './components/PrivacyPolicy.vue';
 import BorderGlow from './components/BorderGlow.vue';
 import LogoMarquee from './components/LogoMarquee.vue';
+import ProjectCarousel from './components/ProjectCarousel.vue';
 import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -74,6 +75,30 @@ const portfolioItems = [
     image: '/assets/images/proj_crm.png',
     title: 'Portfolio CRM',
     description: 'Client relationship management tool tailored for tracking leads and sales pipelines.',
+    link: '#'
+  },
+  {
+    image: '/assets/images/proj_healthcare.png',
+    title: 'Healthcare System',
+    description: 'Modern hospital dashboard for managing patient records, appointments, and medical charts.',
+    link: '#'
+  },
+  {
+    image: '/assets/images/proj_ecommerce.png',
+    title: 'B2B E-Commerce Platform',
+    description: 'Scalable digital storefront with comprehensive sales analytics and inventory management.',
+    link: '#'
+  },
+  {
+    image: '/assets/images/proj_hrms.png',
+    title: 'Enterprise HRMS',
+    description: 'Centralized human resources portal for payroll, employee directory, and attendance tracking.',
+    link: '#'
+  },
+  {
+    image: '/assets/images/proj_fleet.png',
+    title: 'Fleet Management System',
+    description: 'Logistics tracking platform featuring live maps, delivery routes, and fleet metrics.',
     link: '#'
   }
 ];
@@ -526,29 +551,8 @@ onMounted(() => {
             <p class="lead">A showcase of our world-class enterprise software solutions.</p>
           </div>
           
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            <BorderGlow v-for="(item, index) in portfolioItems" :key="index" 
-              className="portfolio-card reveal-stagger-child invisible-until-scroll rounded-2xl overflow-hidden flex flex-col h-full group" 
-              backgroundColor="var(--bg-secondary)" :animated="true">
-              <div class="relative overflow-hidden aspect-video w-full rounded-t-2xl">
-                <img :src="item.image" :alt="item.title" 
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] to-transparent opacity-80"></div>
-              </div>
-              <div class="p-8 flex flex-col flex-grow">
-                <h3 class="text-2xl font-bold mb-3">{{ item.title }}</h3>
-                <p class="text-base text-[var(--text-secondary)] flex-grow">{{ item.description }}</p>
-                <div class="mt-6 pt-6 border-t border-[var(--border-muted)] flex justify-between items-center">
-                  <a :href="item.link" class="text-[var(--brand-teal)] font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-                    View Project
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </BorderGlow>
+          <div class="w-full mt-12 reveal-up invisible-until-scroll">
+            <ProjectCarousel :items="portfolioItems" />
           </div>
         </div>
       </section>
