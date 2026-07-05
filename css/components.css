@@ -133,6 +133,17 @@
   border-radius: var(--radius-xl);
 }
 
+@media (max-width: 768px) {
+  .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1.05rem;
+  }
+}
+
 .btn-icon {
   width: 44px;
   height: 44px;

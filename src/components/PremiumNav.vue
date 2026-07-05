@@ -153,6 +153,12 @@ onUnmounted(() => {
   transition: transform 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .nav-logo-img {
+    height: 40px;
+  }
+}
+
 .nav-brand:hover .nav-logo-img {
   transform: scale(1.05);
 }

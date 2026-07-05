@@ -135,14 +135,14 @@ onMounted(() => {
                 Fabneon is a premier technology partner delivering scalable software, ERP systems, and digital experiences that drive business transformation.
               </p>
               
-              <div class="hero-cta reveal-up invisible-until-scroll flex justify-start gap-4" style="animation-delay: 0.3s; margin-top: var(--space-xl);">
+              <div class="hero-cta reveal-up invisible-until-scroll flex flex-wrap justify-start gap-4" style="animation-delay: 0.3s; margin-top: var(--space-xl);">
                 <a href="#portfolio" class="btn btn-primary btn-lg magnetic">Explore Our Work</a>
                 <a href="#services" class="btn btn-outline-purple btn-lg magnetic">Our Services</a>
               </div>
             </div>
 
             <!-- CardSwap Showcase -->
-            <div class="hidden md:block relative w-full h-[500px] z-10" style="transform: translateY(60px);">
+            <div class="relative w-full h-[350px] md:h-[500px] z-10 mt-12 md:mt-0 translate-y-4 md:translate-y-[60px]">
               <CardSwap 
                 :card-distance="60"
                 :vertical-distance="70"
@@ -439,7 +439,7 @@ onMounted(() => {
             
             <div class="contact-form-container reveal-right invisible-until-scroll bg-[var(--bg-overlay)] p-8 rounded-2xl border border-[var(--border-muted)]">
               <form id="contact-form" class="flex-col gap-lg" @submit.prevent>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="form-group flex-col gap-sm">
                     <label class="form-label text-sm font-semibold" for="name">Full Name</label>
                     <input type="text" id="name" class="form-input p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)]" placeholder="John Doe" required>

@@ -255,6 +255,7 @@ h6 {
 
   h1 { font-size: var(--text-6xl); }
   h2 { font-size: var(--text-4xl); }
+  .display { font-size: var(--text-5xl); line-height: 1.05; }
 
   .grid-4,
   .grid-3,
@@ -272,4 +273,5 @@ h6 {
 @media (max-width: 480px) {
   h1 { font-size: var(--text-5xl); }
   h2 { font-size: var(--text-3xl); }
+  .display { font-size: var(--text-4xl); }
 }
