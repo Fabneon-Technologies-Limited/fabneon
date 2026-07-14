@@ -123,9 +123,10 @@ const teamMembers = ref([
     id: 3,
     name: 'Golam Rabbani',
     role: 'Senior Software Engineer',
-    image: '/assets/images/team_rabbani.webp',
+    image: '/assets/images/team_rabbani.png',
     colorClass: 'text-[var(--brand-gold)]',
-    shadowClass: 'hover:shadow-[var(--glow-gold)]'
+    shadowClass: 'hover:shadow-[var(--glow-gold)]',
+    objectPosition: '75% 50%'
   },
   {
     id: 1,
