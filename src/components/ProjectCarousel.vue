@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const props = defineProps<{
-  items?: { image?: string; title?: string; description?: string }[]
+  items?: { image?: string; title?: string; description?: string; link?: string; badge?: string }[]
 }>()
 
 const activeIndex = ref(0)
@@ -34,6 +34,16 @@ const setActive = (index: number) => {
   if (displayItems.value.length <= 1) return
   activeIndex.value = index
   resetAutoPlay()
+}
+
+const handleSlideClick = (item: any, index: number) => {
+  if (index === activeIndex.value) {
+    if (item.link && item.link !== '#') {
+      window.open(item.link, '_blank')
+    }
+  } else {
+    setActive(index)
+  }
 }
 
 const nextSlide = () => {
@@ -71,14 +81,28 @@ onUnmounted(() => {
           :key="idx" 
           class="carousel-slide" 
           :class="getSlideClass(idx)"
-          @click="setActive(idx)"
+          @click="handleSlideClick(item, idx)"
         >
           <img :src="item.image" :alt="item.title" />
           <div class="slide-overlay">
             <template v-if="item.title">
-              <div class="slide-text-container absolute inset-x-0 bottom-0 p-6 flex flex-col items-center justify-center z-10 pointer-events-none">
+              <div class="slide-text-container absolute inset-x-0 bottom-0 p-6 flex flex-col items-center justify-center z-10">
+                <span v-if="item.badge" class="mb-1.5 px-3 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-teal)]/20 text-[var(--brand-teal)] border border-[var(--brand-teal)]/30 backdrop-blur-md pointer-events-auto">
+                  {{ item.badge }}
+                </span>
                 <h3 class="slide-title mb-2 text-center">{{ item.title }}</h3>
                 <p class="slide-desc m-0 text-center max-w-sm">{{ item.description }}</p>
+                <a 
+                  v-if="item.link && item.link !== '#'"
+                  :href="item.link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-3 px-5 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-all duration-200 pointer-events-auto shadow-lg flex items-center gap-1.5 hover:scale-105"
+                  @click.stop
+                >
+                  <span>Launch Live SaaS</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
               </div>
             </template>
           </div>
@@ -188,9 +212,7 @@ onUnmounted(() => {
 }
 
 .slide-text-container {
-  background: rgba(10, 12, 16, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 12, 16, 0.92);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 

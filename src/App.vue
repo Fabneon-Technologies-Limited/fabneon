@@ -2,6 +2,7 @@
 import { ref, onMounted, nextTick } from 'vue';
 import PremiumNav from './components/PremiumNav.vue';
 import StatCounter from './components/StatCounter.vue';
+
 import CardSwap from './components/CardSwap.vue';
 import HeroCarousel from './components/HeroCarousel.vue';
 import TermsAndConditions from './components/TermsAndConditions.vue';
@@ -48,6 +49,13 @@ const navigateTo = (page: string) => {
 };
 
 const portfolioItems = [
+  {
+    image: '/assets/images/proj_gktool.png',
+    title: 'GKTool — Repair Centre & Tool Inventory SaaS',
+    description: 'Enterprise repair shop operating system for mobile tool inventory, repair tickets, workshop POS, and parts management.',
+    link: 'https://gktool.fabneon.com',
+    badge: 'Live SaaS Product'
+  },
   {
     image: '/assets/images/proj_school.png',
     title: 'School Management System',
@@ -212,31 +220,35 @@ onMounted(() => {
   document.documentElement.setAttribute('data-theme', theme.value);
   document.documentElement.classList.remove('light-theme-loader');
 
-
-
   nextTick(() => {
-    // Re-initialize GSAP animations
-    gsap.utils.toArray('.reveal-up, .reveal-left, .reveal-right').forEach((element: any) => {
-      element.classList.remove('invisible-until-scroll');
+    // Re-initialize GSAP animations with Batching for massive performance gains
+    const revealElements = gsap.utils.toArray('.reveal-up, .reveal-left, .reveal-right') as HTMLElement[];
+    revealElements.forEach(el => el.classList.remove('invisible-until-scroll'));
 
-      let xOffset = 0;
-      let yOffset = 30;
+    ScrollTrigger.batch(revealElements, {
+      start: 'top 90%',
+      onEnter: (batch) => {
+        batch.forEach((element) => {
+          let xOffset = 0;
+          let yOffset = 30;
 
-      if (element.classList.contains('reveal-left')) {
-        xOffset = -50;
-        yOffset = 0;
-      } else if (element.classList.contains('reveal-right')) {
-        xOffset = 50;
-        yOffset = 0;
-      }
+          if (element.classList.contains('reveal-left')) {
+            xOffset = -50;
+            yOffset = 0;
+          } else if (element.classList.contains('reveal-right')) {
+            xOffset = 50;
+            yOffset = 0;
+          }
 
-      gsap.fromTo(element,
-        { x: xOffset, y: yOffset, opacity: 0 },
-        {
-          scrollTrigger: { trigger: element, start: 'top 90%' },
-          x: 0, y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
-        }
-      );
+          gsap.fromTo(element,
+            { x: xOffset, y: yOffset, opacity: 0 },
+            {
+              x: 0, y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', overwrite: 'auto'
+            }
+          );
+        });
+      },
+      once: true
     });
 
     const staggerContainers = ['.services-grid', '.portfolio-grid', '.tech-grid', '.team-grid', '.process-grid', '.testimonials-grid', '.impact-stats-container'];
@@ -246,21 +258,28 @@ onMounted(() => {
       const children = container.querySelectorAll('.reveal-stagger-child');
       if (!children.length) return;
 
+      // Immediately remove invisible class so GSAP takes over entirely
+      children.forEach(c => c.classList.remove('invisible-until-scroll'));
+
       ScrollTrigger.create({
         trigger: container,
-        start: 'top 80%',
+        start: 'top 85%',
         onEnter: () => {
           gsap.fromTo(children,
             { y: 30, opacity: 0 },
             {
-              y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-              onStart: () => children.forEach(c => c.classList.remove('invisible-until-scroll'))
+              y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out', overwrite: 'auto'
             }
           );
         },
         once: true
       });
     });
+
+    // Refresh ScrollTrigger after a slight delay to ensure all DOM paints are finished
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
 
     // FAQ Accordion
     document.querySelectorAll('.accordion-header').forEach(header => {
@@ -320,16 +339,16 @@ onMounted(() => {
               <CardSwap :card-distance="60" :vertical-distance="70" :delay="5000" :pause-on-hover="false">
                 <!-- Card 1 -->
                 <div
-                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden]"
-                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);">
+                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
+                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
                   <img src="/assets/images/card_scalable.png" alt="Scalable Solutions"
-                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110" />
+                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110 [will-change:transform]" style="transform: translateZ(0);" />
                   <div class="absolute inset-0 bg-gradient-to-t from-[#0E0F12] via-[#0E0F12]/50 to-transparent z-10">
                   </div>
 
                   <div class="relative z-20">
                     <div
-                      class="w-10 h-10 rounded-full bg-[var(--bg-primary)]/80 backdrop-blur-sm flex items-center justify-center text-[var(--brand-teal)] mb-4 border border-white/10"
+                      class="w-10 h-10 rounded-full bg-[#1A1D24] flex items-center justify-center text-[var(--brand-teal)] mb-4 border border-white/10"
                       style="margin-bottom: 1rem;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -347,16 +366,16 @@ onMounted(() => {
 
                 <!-- Card 2 -->
                 <div
-                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden]"
-                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);">
+                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
+                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
                   <img src="/assets/images/card_uiux.png" alt="Stunning UI/UX"
-                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110" />
+                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110 [will-change:transform]" style="transform: translateZ(0);" />
                   <div class="absolute inset-0 bg-gradient-to-t from-[#0E0F12] via-[#0E0F12]/50 to-transparent z-10">
                   </div>
 
                   <div class="relative z-20">
                     <div
-                      class="w-10 h-10 rounded-full bg-[var(--bg-primary)]/80 backdrop-blur-sm flex items-center justify-center text-[var(--brand-purple)] mb-4 border border-white/10"
+                      class="w-10 h-10 rounded-full bg-[#1A1D24] flex items-center justify-center text-[var(--brand-purple)] mb-4 border border-white/10"
                       style="margin-bottom: 1rem;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -372,16 +391,16 @@ onMounted(() => {
 
                 <!-- Card 3 -->
                 <div
-                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden]"
-                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);">
+                  class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
+                  style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
                   <img src="/assets/images/card_growth.png" alt="Business Growth"
-                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110" />
+                    class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-110 [will-change:transform]" style="transform: translateZ(0);" />
                   <div class="absolute inset-0 bg-gradient-to-t from-[#0E0F12] via-[#0E0F12]/50 to-transparent z-10">
                   </div>
 
                   <div class="relative z-20">
                     <div
-                      class="w-10 h-10 rounded-full bg-[var(--bg-primary)]/80 backdrop-blur-sm flex items-center justify-center text-[var(--brand-gold)] mb-4 border border-white/10"
+                      class="w-10 h-10 rounded-full bg-[#1A1D24] flex items-center justify-center text-[var(--brand-gold)] mb-4 border border-white/10"
                       style="margin-bottom: 1rem;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
