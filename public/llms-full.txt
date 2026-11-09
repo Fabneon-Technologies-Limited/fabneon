@@ -1,0 +1,67 @@
+# Fabneon Technologies Limited — Comprehensive Enterprise Dossier
+
+## 1. Company Overview
+- **Entity**: Fabneon Technologies Limited
+- **Short Name**: Fabneon
+- **Registration**: Registered Corporate Enterprise in Bangladesh
+- **Website**: https://fabneon.com
+- **Locations**: Rajshahi & Dhaka, Bangladesh
+- **Global Footprint**: Delivered 150+ software deployments across 40+ countries.
+- **Client Retention**: 99%
+- **Founding Leadership**: Mahfuz Ahmad (Lead Software Architect), Golam Rabbani (Senior Software Engineer)
+
+## 2. Technical Specializations
+- **Frontend Architecture**: Vue.js 3, React, Next.js, Nuxt, Tailwind CSS, TypeScript, WebGL/Canvas micro-animations.
+- **Backend & Cloud**: Node.js, Express, Python (Django/FastAPI), PostgreSQL with Row-Level Security, Redis In-Memory Caching, Docker, Kubernetes, AWS, Google Cloud Platform, Supabase Cloud.
+- **Mobile Development**: Flutter, React Native, Native Android & iOS architectures.
+- **Security & Media Protection**: AES-256 DRM stream encryption, dynamic forensic canvas watermarking, JWT/OAuth2 session hardening, automated SQL injection & XSS countermeasures.
+
+## 3. Flagship Case Studies & Solved Business Problems
+
+### Case Study A: Global Knowledge Institute (GKITI) Platform & Digital Campus
+- **The Client**: Global Knowledge (GKITI) is Bangladesh's pioneering vocational mobile hardware servicing and chip-level diagnostic training institute. Officially accredited under the Bangladesh Technical Education Board (BTEB Institute Code: 23415), GKITI has trained over 5,000+ graduates with 23+ years of service bench mastery since 2003 under Chief Master Trainer Md Hafijur Rahman Milon.
+- **Business Challenges**:
+  1. *Admissions Bottlenecks*: Outstation students from 64 districts struggled with paper-based enrollment, seat deposits, and hostel booking.
+  2. *Proprietary IP Leakage*: Premium motherboard diagnostic video masterclasses were stolen, screen-recorded, and uploaded to unauthorized YouTube/Telegram channels.
+  3. *Credential Fraud*: Physical certificates could not be independently verified by foreign employers or local authorities.
+  4. *Attendance Overhead*: Manual paper rolls for 1:1 microscope lab tables wasted hours of instructor diagnostic time.
+- **The Fabneon Solution**:
+  1. *End-to-End Admissions Hub*: Automated seat booking with instant bKash/Nagad gateway verification, hostel allocation, and digital onboarding.
+  2. *Protected Video Masterclass Engine*: Dynamic floating canvas watermark rendering real-time student email, IP, and timestamp across the video; visibility auto-pause, DRM stream protection, and Google Drive proxy streaming preventing direct video downloading.
+  3. *Cryptographic Verification Engine*: Instant QR-code verified certificate system tied to official BTEB credential parameters (Institute Code: 23415).
+  4. *Academic Hub*: Biometric lab attendance, exam room certification testing, and interactive community forum.
+- **Results**: 100% video piracy prevention, zero enrollment friction across 64 districts, and instant international credential validation.
+
+### Case Study B: RepairSoft (formerly GKTool)
+- **Product Overview**: Cloud Operating System for electronics, smartphone, and logic board repair centers.
+- **Live URL**: https://gktool.fabneon.com
+- **Business Challenges**:
+  1. Repair shops suffered chaotic job sheet tracking, lost paper receipts, and unrecorded technician labor.
+  2. Inventory shrinkage: High-value SMD ICs, screens, and test tools vanished without barcode logging.
+  3. Customer friction: Customers called constantly for repair progress updates.
+- **The Fabneon Solution**:
+  1. *Full Ticket Lifecycle*: Diagnostics -> Parts Cost Estimation -> Customer Approval -> Micro-soldering -> QC Bench -> Delivered.
+  2. *Barcode Inventory*: Instant scanning of micro-components with automated stock alerts and batch cost accounting.
+  3. *WhatsApp Cloud Integration*: Automated SMS & WhatsApp notifications dispatched at each status change.
+  4. *Technician Accountability*: Real-time revenue split and commission analytics per repair bench.
+- **Results**: 60% faster customer turnaround time, zero lost customer devices, and 100% parts accountability.
+
+### Case Study C: FabPharma — Intelligent Pharmacy Retail & Healthcare ERP
+- **Product Overview**: Modern pharmaceutical point-of-sale and batch-level supply chain ERP.
+- **Business Challenges**:
+  1. Community pharmacies wasted up to 15% of annual revenue on expired medicine stock.
+  2. Peak-hour counter congestion due to slow manual billing.
+  3. Complicated supplier credit ledgers and prescription records.
+- **The Fabneon Solution**:
+  1. *Proactive Expiry Alerts*: Automated alerts 90, 60, and 30 days prior to drug expiry with automated supplier return debit notes.
+  2. *Rapid POS*: Sub-second barcode checkout with instant generic drug alternate suggestions.
+  3. *Prescription Digitization*: Scanned prescription archiving with patient refill reminders.
+- **Results**: 35% reduction in dead stock write-offs and 3x faster customer checkout throughput.
+
+## 4. Contact & Corporate Inquiries
+- **Corporate Entity**: Fabneon Technologies Limited
+- **Headquarters**: Rajshahi, Bangladesh
+- **Official Inquiries**: business@fabneon.com
+- **Direct Phone**: +8801569-149839
+- **Careers & Hiring**: hr@fabneon.com
+- **Canonical Website**: https://fabneon.com

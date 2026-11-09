@@ -305,7 +305,7 @@ const angleDeg = computed(() => `${cursorAngle.value.toFixed(3)}deg`);
     </span>
 
     <!-- content -->
-    <div class="z-[1] relative flex flex-col overflow-auto h-full w-full">
+    <div class="z-10 relative flex flex-col h-full w-full">
       <slot />
     </div>
   </div>

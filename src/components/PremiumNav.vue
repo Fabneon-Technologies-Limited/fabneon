@@ -13,12 +13,13 @@ const emit = defineEmits<{
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 const activeSection = ref('#home');
+let ticking = false;
 
 const logoSrc = computed(() => 
   props.theme === 'dark' ? '/fabneon_logo_dark.png' : '/fabneon_logo_light.png'
 );
 
-const handleScroll = () => {
+const updateScrollState = () => {
   isScrolled.value = window.scrollY > 50;
   
   const sections = props.items.map(item => document.querySelector(item.href)).filter(Boolean);
@@ -29,11 +30,19 @@ const handleScroll = () => {
     }
   }
   activeSection.value = current;
+  ticking = false;
+};
+
+const handleScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateScrollState);
+    ticking = true;
+  }
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  updateScrollState();
 });
 
 onUnmounted(() => {
@@ -131,9 +140,9 @@ onUnmounted(() => {
   pointer-events: auto; /* Re-enable clicks for the actual nav */
   width: 100%;
   height: 60px;
-  background: rgba(var(--bg-secondary-rgb), 0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(var(--bg-secondary-rgb), 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-muted);
   border-radius: 50px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -356,8 +365,8 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   background: rgba(var(--bg-secondary-rgb), 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-muted);
   border-radius: 24px;
   overflow: hidden;

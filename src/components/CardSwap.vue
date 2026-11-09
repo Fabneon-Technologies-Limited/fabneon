@@ -80,7 +80,7 @@ const placeNow = (el: HTMLElement, slot: ReturnType<typeof makeSlot>, skew: numb
 
 const getConfig = () =>
   props.easing === 'elastic'
-    ? { ease: 'elastic.out(0.6,0.9)', durDrop: 2, durMove: 2, durReturn: 2, promoteOverlap: 0.9, returnDelay: 0.05 }
+    ? { ease: 'power4.out', durDrop: 1.2, durMove: 1.2, durReturn: 1.2, promoteOverlap: 0.7, returnDelay: 0.05 }
     : { ease: 'power1.inOut', durDrop: 0.8, durMove: 0.8, durReturn: 0.8, promoteOverlap: 0.45, returnDelay: 0.2 };
 
 let tlRef: gsap.core.Timeline | null = null;
@@ -176,17 +176,37 @@ function teardownHover() {
   resumeHandler = null;
 }
 
+let visibilityObserver: IntersectionObserver | null = null;
+
 onMounted(async () => {
   await nextTick();
   init();
   swap();
   startInterval();
   setupHover();
+
+  // Pause animation when off-screen to save GPU/CPU
+  if (container.value) {
+    visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!intervalId) startInterval();
+          tlRef?.play();
+        } else {
+          stopInterval();
+          tlRef?.pause();
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(container.value);
+  }
 });
 
 onUnmounted(() => {
   stopInterval();
   teardownHover();
+  visibilityObserver?.disconnect();
 });
 
 watch(

@@ -142,6 +142,8 @@
   background: radial-gradient(circle, rgba(75, 26, 127, 0.15) 0%, transparent 70%);
   z-index: var(--z-below);
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hero-bg-glow-2 {
@@ -154,6 +156,8 @@
   background: radial-gradient(circle, rgba(0, 90, 107, 0.1) 0%, transparent 70%);
   z-index: var(--z-below);
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hero-content {

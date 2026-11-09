@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" fill="none">
+    <rect width="160" height="50" rx="8" fill="rgba(217,119,6,0.08)" stroke="rgba(217,119,6,0.25)" stroke-width="1"/>
+    <circle cx="28" cy="25" r="9" fill="#D97706"/>
+    <text x="48" y="31" fill="#D97706" font-family="system-ui, sans-serif" font-weight="800" font-size="18">Aarong</text>
+  </svg>

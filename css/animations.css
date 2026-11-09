@@ -98,8 +98,7 @@
     var(--brand-purple),
     var(--brand-gold)
   );
-  background-size: 600% 600%;
-  animation: gradient-shift 12s ease infinite;
+  background-size: 100% 100%;
 }
 
 /* ─── Reveal Helper Classes (for GSAP/ScrollTrigger) ─── */
@@ -130,15 +129,15 @@
   opacity: 0;
 }
 
-/* Used for staggered children */
+/* Used for staggered children - default visible for zero-flicker and crawler resilience */
 .reveal-stagger-child {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Prevent layout shift during initialization */
+/* Fallback visibility: never lock DOM out of view */
 .invisible-until-scroll {
-  visibility: hidden;
+  visibility: visible;
 }
 
 /* ─── Hover Micro-Interactions ─── */

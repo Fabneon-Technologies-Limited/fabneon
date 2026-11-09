@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" fill="none">
+    <rect width="160" height="50" rx="8" fill="rgba(237,28,36,0.08)" stroke="rgba(237,28,36,0.25)" stroke-width="1"/>
+    <polygon points="28,15 38,33 18,33" fill="#ED1C24"/>
+    <text x="46" y="31" fill="#ED1C24" font-family="system-ui, sans-serif" font-weight="800" font-size="17">City Bank</text>
+  </svg>

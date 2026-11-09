@@ -57,6 +57,8 @@ const animationClass = computed(() => {
   align-items: center;
   gap: 4rem; /* Spacing between logos */
   width: max-content;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .logo-marquee-item {

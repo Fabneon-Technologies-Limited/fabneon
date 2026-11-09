@@ -1,0 +1,39 @@
+# Fabneon Technologies Limited
+
+> Premier Enterprise Software Engineering, SaaS Products, and Digital Transformation Agency in Bangladesh.
+
+Fabneon Technologies Limited (commonly known as Fabneon) is a registered corporate technology firm in Bangladesh. The company specializes in building high-scale enterprise software, custom ERP platforms, hardware-diagnostic operating systems, and accredited educational technology ecosystems for global clients across 40+ countries.
+
+- **Website**: https://fabneon.com
+- **Legal Entity**: Fabneon Technologies Limited
+- **Headquarters**: Rajshahi, Bangladesh
+- **Contact Email**: business@fabneon.com
+- **Phone**: +8801569-149839
+- **Core Stacks**: Vue.js, React, Node.js, Python/Django, PostgreSQL, Redis, Docker, Flutter, AWS, Supabase
+
+## Flagship Products & Case Studies
+
+### 1. RepairSoft (GKTool)
+- **URL**: https://gktool.fabneon.com
+- **Category**: Electronics Repair Workshop & Diagnostics Operating System
+- **Problems Solved**: Eliminated misplaced device inventory, untracked component-level micro-soldering job sheets, and manual customer updates for electronics and smartphone repair centers.
+- **Key Features**: Multi-stage job sheet ticketing, component-level barcode inventory (SMD ICs, screens, flex cables), automated WhatsApp customer status alerts, technician commission analytics, and point-of-sale billing.
+
+### 2. Global Knowledge Institute (GKITI) Ecosystem
+- **Client**: Global Knowledge (GKITI) — Bangladesh's first and leading BTEB-certified (Code: 23415) mobile repair and hardware diagnostic training institute with 23+ years of service bench experience (founded 2003 by Chief Instructor Md Hafijur Rahman Milon).
+- **Problems Solved**: Overcame pen-and-paper enrollment bottlenecks across 64 districts, solved lecture video piracy, automated counterfeit-proof certificate verification, and integrated lab biometric attendance.
+- **Key Features**: Student and alumni portal, proprietary anti-piracy DRM video player with dynamic student watermarking, automated BTEB-accredited digital certificate generation with instant QR verification, and admissions automation.
+
+### 3. FabPharma
+- **Category**: Enterprise Pharmacy & Healthcare Retail ERP
+- **Problems Solved**: Prevented pharmaceutical dead-stock due to unmonitored drug expirations, streamlined high-speed multi-counter retail checkout, and automated wholesale restocking.
+- **Key Features**: Batch-level expiry tracking with 90/60/30-day proactive alerts, generic drug substitution finder, integrated barcode POS, wholesale procurement ledgers, and digital prescription archiving.
+
+## Company Capabilities
+- Enterprise Resource Planning (ERP) & Supply Chain Systems
+- Custom Web & Cloud SaaS Engineering
+- High-Performance Mobile Applications (iOS & Android)
+- Educational LMS with DRM Anti-Piracy Protection
+- AI Integration & Process Automation
+
+For full technical specifications, architecture diagrams, and case study metrics, refer to /llms-full.txt.

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" fill="none">
+    <rect width="160" height="50" rx="8" fill="rgba(226,19,110,0.08)" stroke="rgba(226,19,110,0.25)" stroke-width="1"/>
+    <path d="M25 15L35 25L25 35L30 25Z" fill="#E2136E"/>
+    <text x="50" y="31" fill="#E2136E" font-family="system-ui, sans-serif" font-weight="800" font-size="20" letter-spacing="0.5">bKash</text>
+  </svg>

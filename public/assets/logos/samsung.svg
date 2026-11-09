@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 50" fill="none">
+    <rect width="170" height="50" rx="8" fill="rgba(3,78,162,0.08)" stroke="rgba(3,78,162,0.25)" stroke-width="1"/>
+    <ellipse cx="28" cy="25" rx="14" ry="9" stroke="#034EA2" stroke-width="2"/>
+    <text x="50" y="31" fill="#034EA2" font-family="system-ui, sans-serif" font-weight="800" font-size="18" letter-spacing="1">SAMSUNG</text>
+  </svg>
