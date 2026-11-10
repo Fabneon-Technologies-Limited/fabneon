@@ -126,7 +126,7 @@ const handleSelectPost = (post: BlogPost) => {
                 </span>
               </div>
 
-              <h3 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white mb-3 group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug">
+              <h3 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-[var(--text-primary)] mb-3 group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug">
                 {{ featuredPost.title }}
               </h3>
 
@@ -151,7 +151,7 @@ const handleSelectPost = (post: BlogPost) => {
               <div class="flex items-center gap-3">
                 <img :src="featuredPost.author.avatar" :alt="featuredPost.author.name" class="w-8 h-8 rounded-full bg-white/10 p-1" />
                 <div>
-                  <h4 class="text-xs font-bold text-white m-0 leading-tight">{{ featuredPost.author.name }}</h4>
+                  <h4 class="text-xs font-bold text-[var(--text-primary)] m-0 leading-tight">{{ featuredPost.author.name }}</h4>
                   <p class="text-[10px] text-[var(--text-muted)] m-0">{{ featuredPost.author.role }}</p>
                 </div>
               </div>
@@ -201,7 +201,7 @@ const handleSelectPost = (post: BlogPost) => {
             </div>
 
             <!-- Title -->
-            <h3 class="text-base font-bold text-white mb-2 group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug line-clamp-2">
+            <h3 class="text-base font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug line-clamp-2">
               {{ post.title }}
             </h3>
 

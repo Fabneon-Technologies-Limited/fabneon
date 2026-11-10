@@ -198,15 +198,32 @@ const startSweepAnimation = () => {
   });
 };
 
+let hasScrolled = false;
+const markScrolled = () => {
+  hasScrolled = true;
+};
+
 onMounted(() => {
+  window.addEventListener('scroll', markScrolled, { passive: true, once: true });
+
   if (props.animated && cardRef.value) {
+    let initialCheckDone = false;
+
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (!initialCheckDone) {
+            initialCheckDone = true;
+            // Ignore initial intersection on page load so it does NOT animate until the user actually scrolls to it
+            if (!hasScrolled && window.scrollY < 120) {
+              return;
+            }
+          }
+
           if (entry.isIntersecting) {
             startSweepAnimation();
           } else {
-            // Reset when leaving viewport so it triggers again when scrolled into view
+            // Reset when leaving viewport so it triggers again whenever scrolled back into view
             isCurrentlySweeping = false;
             sweepActive.value = false;
             edgeProximity.value = 0;
@@ -220,6 +237,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  window.removeEventListener('scroll', markScrolled);
   if (observer) {
     observer.disconnect();
     observer = null;
