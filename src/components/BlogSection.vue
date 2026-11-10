@@ -41,7 +41,7 @@ const handleSelectPost = (post: BlogPost) => {
 </script>
 
 <template>
-  <section class="section" id="blog" style="padding-top: 4rem; padding-bottom: 5.5rem;">
+  <section class="section" id="blog" style="padding-top: 6.5rem; padding-bottom: 6rem; scroll-margin-top: 110px;">
     <div class="container max-w-7xl mx-auto px-4">
       
       <!-- Section Header -->

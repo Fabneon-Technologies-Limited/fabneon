@@ -388,6 +388,18 @@ const currentCaseStudy = computed(() =>
   caseStudies.find(c => c.id === selectedCaseStudyId.value) || caseStudies[0]
 );
 
+const scrollToTarget = (targetId: string, smooth = true) => {
+  const el = document.getElementById(targetId);
+  if (el) {
+    const navOffset = 95;
+    const elTop = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({
+      top: Math.max(0, elTop - navOffset),
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  }
+};
+
 const openCaseStudy = (id: string) => {
   selectedCaseStudyId.value = id;
   currentPage.value = 'case-study';
@@ -399,8 +411,9 @@ const closeCaseStudy = () => {
   currentPage.value = 'home';
   window.location.hash = 'case-studies';
   nextTick(() => {
-    const el = document.getElementById('case-studies');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      scrollToTarget('case-studies');
+    }, 60);
   });
 };
 
@@ -420,8 +433,9 @@ const closeBlogPost = () => {
   currentPage.value = 'home';
   window.location.hash = 'blog';
   nextTick(() => {
-    const el = document.getElementById('blog');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      scrollToTarget('blog');
+    }, 60);
   });
 };
 
@@ -455,8 +469,9 @@ const handleHashRouting = () => {
   if (hash === '#blog' && currentPage.value === 'blog-post') {
     currentPage.value = 'home';
     nextTick(() => {
-      const el = document.getElementById('blog');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        scrollToTarget('blog');
+      }, 60);
     });
     return;
   }
@@ -735,6 +750,15 @@ onMounted(() => {
 
   window.addEventListener('hashchange', handleHashRouting);
   handleHashRouting();
+
+  if (currentPage.value === 'home' && window.location.hash) {
+    const target = window.location.hash.replace('#', '');
+    if (['services', 'case-studies', 'blog', 'process', 'portfolio', 'about', 'contact', 'faq'].includes(target)) {
+      setTimeout(() => {
+        scrollToTarget(target, true);
+      }, 200);
+    }
+  }
 });
 
 onUnmounted(() => {
@@ -776,8 +800,8 @@ onUnmounted(() => {
 
               <div class="hero-cta reveal-up flex flex-wrap justify-center md:justify-start gap-4"
                 style="margin-top: var(--space-xl);">
-                <a href="#case-studies" class="btn btn-primary btn-lg magnetic">Explore Case Studies</a>
-                <a href="#services" class="btn btn-outline-purple btn-lg magnetic">Our Expertise</a>
+                <a href="#case-studies" class="btn btn-primary btn-lg magnetic" @click.prevent="scrollToTarget('case-studies')">Explore Case Studies</a>
+                <a href="#services" class="btn btn-outline-purple btn-lg magnetic" @click.prevent="scrollToTarget('services')">Our Expertise</a>
               </div>
             </div>
 
@@ -867,7 +891,7 @@ onUnmounted(() => {
       </section>
 
       <!-- 2. Services Section -->
-      <section class="section" id="services">
+      <section class="section" id="services" style="padding-top: 6.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
         <div class="container">
           <div class="section-header text-center reveal-up">
             <div class="badge mb-4">What We Do</div>
@@ -917,7 +941,7 @@ onUnmounted(() => {
       </section>
 
       <!-- 2.5 FLAGSHIP CASE STUDIES & PROBLEMS SOLVED -->
-      <section class="section" id="case-studies" style="padding-top: 3.5rem; padding-bottom: 5.5rem;">
+      <section class="section" id="case-studies" style="padding-top: 6.5rem; padding-bottom: 6rem; scroll-margin-top: 110px;">
         <div class="container">
           <div class="section-header text-center reveal-up">
             <div class="badge badge-purple mb-4">Engineering Case Studies</div>
@@ -1024,7 +1048,7 @@ onUnmounted(() => {
       <BlogSection @select-post="openBlogPost" />
 
       <!-- 3. Process Section -->
-      <section class="section section-alt" id="process">
+      <section class="section section-alt" id="process" style="padding-top: 6.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
         <div class="container">
           <div class="section-header text-center reveal-up">
             <div class="badge badge-purple mb-4">How We Work</div>
@@ -1083,7 +1107,7 @@ onUnmounted(() => {
       </section>
 
       <!-- 3.75. About & Team Section -->
-      <section class="section section-alt" id="about">
+      <section class="section section-alt" id="about" style="padding-top: 6.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
         <div class="container relative">
           <div class="grid md:grid-cols-2 gap-12 items-center mt-12">
             <!-- Left Side: Title and Subtitle -->
@@ -1104,7 +1128,7 @@ onUnmounted(() => {
       </section>
 
       <!-- 3.9. Portfolio / Our Work Section -->
-      <section class="section" id="portfolio" style="padding-bottom: 2rem;">
+      <section class="section" id="portfolio" style="padding-top: 6.5rem; padding-bottom: 4rem; scroll-margin-top: 110px;">
         <div class="container mb-8">
           <div class="section-header text-center reveal-up">
             <div class="badge badge-purple mb-4 mx-auto w-max">Our Work</div>
@@ -1292,7 +1316,7 @@ onUnmounted(() => {
       </section>
 
       <!-- 6. Contact Section -->
-      <section class="section" id="contact">
+      <section class="section" id="contact" style="padding-top: 6.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
         <div class="container">
           <div class="contact-grid grid md:grid-cols-2 gap-12">
             <div class="contact-info reveal-left flex flex-col justify-center">

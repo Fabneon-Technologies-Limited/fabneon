@@ -40,6 +40,25 @@ const handleScroll = () => {
   }
 };
 
+const handleNavClick = (e: MouseEvent, href: string) => {
+  if (href.startsWith('#')) {
+    e.preventDefault();
+    isMobileMenuOpen.value = false;
+    const targetId = href.substring(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      const navOffset = 95;
+      const elTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: Math.max(0, elTop - navOffset),
+        behavior: 'smooth'
+      });
+      history.pushState(null, '', href);
+      activeSection.value = href;
+    }
+  }
+};
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   updateScrollState();
@@ -56,7 +75,7 @@ onUnmounted(() => {
       <div class="nav-container">
         
         <!-- Logo -->
-        <a href="#home" class="nav-brand">
+        <a href="#home" class="nav-brand" @click="handleNavClick($event, '#home')">
           <img :src="logoSrc" alt="Fabneon Technologies Limited" class="nav-logo-img" />
         </a>
 
@@ -68,6 +87,7 @@ onUnmounted(() => {
             :href="item.href"
             class="pill-link"
             :class="{ 'active': activeSection === item.href }"
+            @click="handleNavClick($event, item.href)"
           >
             {{ item.label }}
           </a>
@@ -87,7 +107,7 @@ onUnmounted(() => {
           </button>
 
           <!-- Desktop CTA Button -->
-          <a href="#contact" class="nav-cta-btn">
+          <a href="#contact" class="nav-cta-btn" @click="handleNavClick($event, '#contact')">
             <span>Start Project</span>
           </a>
 
@@ -109,11 +129,11 @@ onUnmounted(() => {
             :key="item.href"
             :href="item.href"
             class="mobile-link"
-            @click="isMobileMenuOpen = false"
+            @click="handleNavClick($event, item.href)"
           >
             {{ item.label }}
           </a>
-          <a href="#contact" class="mobile-cta-btn" @click="isMobileMenuOpen = false">
+          <a href="#contact" class="mobile-cta-btn" @click="handleNavClick($event, '#contact')">
             Start Project
           </a>
         </nav>
