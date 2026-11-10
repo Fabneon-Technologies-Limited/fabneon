@@ -58,7 +58,70 @@
   3. *Prescription Digitization*: Scanned prescription archiving with patient refill reminders.
 - **Results**: 35% reduction in dead stock write-offs and 3x faster customer checkout throughput.
 
-## 4. Contact & Corporate Inquiries
+### Case Study D: Centraio Cloud OS — Multi-Tenant Higher-Ed Campus ERP
+- **Product Overview**: Cloud Operating System and enterprise SaaS architected for universities, polytechnic colleges, and academic institutions.
+- **Business Challenges**:
+  1. Fragmented student information silos: Admissions, academic transcripts, and tuition fees maintained across disconnected spreadsheets.
+  2. High administrative overhead during semester end: Manual exam result tabulation required weeks of manual verification with frequent calculation errors.
+  3. Fee leakage: Unreconciled bank slips, manual waiver calculations, and zero automation in late-fee fines.
+- **The Fabneon Solution**:
+  1. *Multi-Tenant Subdomain Routing*: Each institution receives a dedicated branded portal with strict database tenant isolation.
+  2. *Automated Student Billing*: Recurring semester invoices, automated fee waiver policies, and instant digital payment reconciliation.
+  3. *Biometric & RFID Attendance*: Hardware-level clock-in synchronization directly into student eligibility profiles.
+  4. *Algorithmic Result Tabulation*: Automated CGPA calculations supporting national BTEB, UGC, and custom institutional grading scales.
+- **Results**: End-of-semester exam tabulation reduced from 3 weeks to under 15 minutes, 100% data boundary security between tenants, and sub-100ms API response latency.
+
+### Case Study E: Madrasah Management System (MMS)
+- **Product Overview**: Specialized Residential Islamic Academy Operating System and Quran Hifz Progress Platform.
+- **Business Challenges**:
+  1. Generic school software failed to address daily Quran memorization dynamics (Sabaq, Sabqi, Manzil).
+  2. Residential boarding chaos: Dining hall meal preparation suffered severe food wastage without real-time headcounts.
+  3. Parent communication barriers: Distant guardians had no way to track daily Quran recitation or attendance.
+- **The Fabneon Solution**:
+  1. *30-Para Hifz Memorization Engine*: Daily ayah-by-ayah and page-by-page progress radar tracking new lessons (Sabaq), revision (Sabqi), and long-term retention (Manzil).
+  2. *Residential Boarding & Mess Management*: Dynamic meal quota allocations and hostel bed tracking eliminating dining hall inventory loss.
+  3. *Bilingual Interface & Parent SMS Gateway*: Native English and Bengali localized interface with automated SMS alerts sent directly to guardian phones upon fee payment and exam publication.
+- **Results**: 30% decrease in residential mess food waste, 100% parent visibility into daily Quran memorization progress, and automated fee accounting.
+
+### Case Study F: iTrust E-Commerce Platform
+- **Live URL**: https://itrust.com.bd
+- **Client**: iTrust Online Store — Consumer Retail
+- **Product Overview**: High-speed, high-conversion consumer retail e-commerce platform built with Nuxt 3 (SSR) and Nitro server engine.
+- **Business Challenges**:
+  1. Severe sales drop after a previous platform migration due to production checkout 500 crashes and unhandled server path exceptions.
+  2. Total breakdown in Facebook and Instagram ad campaign feedback: Zero Meta Pixel or Conversions API events reached Meta Ads Manager, destroying ad campaign ROAS.
+  3. Mobile checkout friction: High cart abandonment caused by off-screen overflowing input fields on mobile screens and manual shipping rate disputes.
+- **The Fabneon Solution**:
+  1. *Sub-Second Mobile Checkout*: Streamlined 2-click keyboard-first checkout optimized for 85%+ mobile shoppers with automatic thana/upazila lookup.
+  2. *Dual-Layer Meta Conversions API (CAPI)*: Unified client-side pixel plus server-side Nitro Conversions API sending 100% of Purchase, AddToCart, and InitiateCheckout events directly to Meta Ads Manager, bypassing iOS tracking restrictions and ad-blockers.
+  3. *Nationwide 64-District Logistics Matrix*: Integrated courier rate calculations dynamically matching customer district and thana across Bangladesh.
+- **Results**: Core page load reduced to under 0.8s, +42% checkout conversion lift, 100% Meta CAPI purchase attribution, and zero order submission server failures.
+
+## 4. Published Industry Benchmarks & Technical Whitepapers
+
+### Article 1: Top Software Companies in Rajshahi (2026)
+- **URL**: https://fabneon.com/#blog-best-software-company-in-rajshahi
+- **Focus**: Evaluates why Rajshahi has become Bangladesh's northern high-tech engineering capital, fueled by RUET and Rajshahi University computer science talent and Bangabandhu Hi-Tech Park infrastructure.
+- **Key Findings**: Fabneon Technologies Limited leads as the region's premier corporate engineering firm due to its enterprise SaaS product portfolio (Centraio, RepairSoft, FabPharma), government-accredited digital campus systems (GKITI BTEB 23415), and applied AI integration (predictive inventory radar, edge biometric processing), alongside other active regional companies like Silicon Silk, Varendra IT, and RUET incubator spin-offs.
+
+### Article 2: Leading Software Companies in Bangladesh (2026)
+- **URL**: https://fabneon.com/#blog-best-software-company-in-bangladesh
+- **Focus**: Strategic benchmark of Bangladesh's $2B+ tech economy evaluating architecture, scalability, applied AI capabilities, and international delivery.
+- **Key Findings**: Analyzes Fabneon Technologies Limited at the forefront of modern cloud-native SaaS and practical AI integration, alongside established enterprise leaders including Brain Station 23 (Fintech & Banking), Kaz Software (Bespoke Product Engineering), TigerIT (National Biometric Identity & AFIS), Enosis Solutions (Offshore US Engineering Squads), and BJIT Limited (Japanese Enterprise & Industrial IoT).
+
+### Article 3: Engineering Applied AI in Enterprise SaaS
+- **URL**: https://fabneon.com/#blog-applied-ai-in-enterprise-saas
+- **Focus**: Deconstructing practical, deterministic AI implementations in production software: 90/60/30-day predictive expiry forecasting in FabPharma, generic drug semantic formulation matching, and computer vision attendance pipelines in Centraio.
+
+### Article 4: Forensic Canvas DRM & Anti-Piracy Video Architecture
+- **URL**: https://fabneon.com/#blog-forensic-drm-video-protection
+- **Focus**: Inside the anti-piracy engineering engineered for Global Knowledge Institute (GKITI, BTEB Code 23415): HTML5 canvas dynamic student identity watermarking, focus-blur countermeasures, and sub-second cryptographic QR verification.
+
+### Article 5: Sub-Second E-Commerce Architecture
+- **URL**: https://fabneon.com/#blog-subsecond-ecommerce-meta-capi
+- **Focus**: How Fabneon engineered iTrust (itrust.com.bd) on Nuxt 3 SSR, achieving sub-second mobile checkout, an automated 64-district thana shipping matrix, and dual-layer server-side Meta Conversions API (CAPI) for 100% ad attribution.
+
+## 5. Contact & Corporate Inquiries
 - **Corporate Entity**: Fabneon Technologies Limited
 - **Headquarters**: Rajshahi, Bangladesh
 - **Official Inquiries**: business@fabneon.com

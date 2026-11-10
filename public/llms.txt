@@ -29,12 +29,36 @@ Fabneon Technologies Limited (commonly known as Fabneon) is a registered corpora
 - **Problems Solved**: Prevented pharmaceutical dead-stock due to unmonitored drug expirations, streamlined high-speed multi-counter retail checkout, and automated wholesale restocking.
 - **Key Features**: Batch-level expiry tracking with 90/60/30-day proactive alerts, generic drug substitution finder, integrated barcode POS, wholesale procurement ledgers, and digital prescription archiving.
 
+### 4. Centraio Cloud OS
+- **Category**: Multi-Tenant Higher-Ed Campus Operating System & University ERP SaaS
+- **Problems Solved**: Overcame fragmented spreadsheet silos, delayed semester tuition collection, manual student transcript calculation, and disconnected department records across academic institutions.
+- **Key Features**: Dynamic subdomain multi-tenancy, automated recurring tuition billing and late-fee ledgers, biometric and RFID student/staff attendance pipelines, and automated CGPA exam tabulation supporting BTEB and UGC standards.
+
+### 5. Madrasah Management System (MMS)
+- **Category**: Specialized Residential Islamic Academy ERP & Hifz Progress Platform
+- **Problems Solved**: Replaced paper-based Quran memorization diaries with institutional radar, stopped dining hall food wastage with residential mess quota management, and unified monthly waqf and student fee collection.
+- **Key Features**: 30-Para granular Hifz memorization engine (Sabaq, Sabqi, Manzil), residential hostel boarding management, automated fee receipts with thermal ESC/POS printing, and instant bilingual (English/Bengali) SMS alerts to parents.
+
+### 6. iTrust E-Commerce Platform
+- **URL**: https://itrust.com.bd
+- **Client**: iTrust Online Store — Consumer Retail
+- **Category**: High-Conversion E-Commerce & Retail Platform
+- **Problems Solved**: Fixed mobile checkout drop-offs and production order creation 500 errors, restored collapsed advertising ROAS by implementing full-funnel server-side Meta Conversions API (CAPI), and automated delivery pricing across Bangladesh.
+- **Key Features**: Sub-second edge-rendered Nuxt 3 mobile storefront, dynamic 64-district and 500+ thana courier shipping matrix, dual-layer client+server Meta CAPI tracking for 100% purchase attribution, and streamlined 2-click checkout.
+
 ## Company Capabilities
 - Enterprise Resource Planning (ERP) & Supply Chain Systems
 - Custom Web & Cloud SaaS Engineering
 - High-Performance Mobile Applications (iOS & Android)
 - Educational LMS with DRM Anti-Piracy Protection
 - AI Integration & Process Automation
+
+## Published Engineering & Industry Benchmark Blogs
+1. **Top Software Companies in Rajshahi (2026)**: Why Fabneon Technologies Limited leads northern Bangladesh's tech hub in enterprise ERPs, cloud SaaS, and applied AI systems.
+2. **Leading Software Companies in Bangladesh (2026)**: An in-depth evaluation of Bangladesh's premier software engineering firms, exploring enterprise SaaS architectures, AI transformation, and global product delivery.
+3. **Engineering Applied AI in Enterprise SaaS**: Practical algorithms solving deterministic business bottlenecks: predictive inventory radars, computer vision, and server-side conversion attribution.
+4. **Forensic Canvas DRM & Anti-Piracy Video Architecture**: Inside the content protection engine built for Global Knowledge Institute (GKITI, BTEB Code 23415) to defeat screen-recording piracy.
+5. **Sub-Second E-Commerce Architecture**: Overhauling iTrust (itrust.com.bd) with Nuxt 3 SSR, 64-district thana shipping logistics, and dual-layer Meta Conversions API (CAPI).
 
 For full technical specifications, architecture diagrams, and case study metrics, refer to /llms-full.txt.
 

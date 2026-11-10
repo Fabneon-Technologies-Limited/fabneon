@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import PremiumNav from './components/PremiumNav.vue';
 import StatCounter from './components/StatCounter.vue';
 import CardSwap from './components/CardSwap.vue';
 import HeroCarousel from './components/HeroCarousel.vue';
 import TermsAndConditions from './components/TermsAndConditions.vue';
 import PrivacyPolicy from './components/PrivacyPolicy.vue';
+import CaseStudyDetail, { type CaseStudyData } from './components/CaseStudyDetail.vue';
+import BlogSection from './components/BlogSection.vue';
+import BlogPostDetail from './components/BlogPostDetail.vue';
+import { blogPosts, type BlogPost } from './data/blogPosts';
 import BorderGlow from './components/BorderGlow.vue';
 import LogoMarquee from './components/LogoMarquee.vue';
 import ProjectCarousel from './components/ProjectCarousel.vue';
@@ -37,14 +41,401 @@ const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
   { label: 'Case Studies', href: '#case-studies' },
+  { label: 'Blog', href: '#blog' },
   { label: 'Portfolio', href: '#portfolio' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' }
 ];
 
-const currentPage = ref('home');
+const currentPage = ref<'home' | 'terms' | 'privacy' | 'case-study' | 'blog-post'>('home');
 
-const navigateTo = (page: string) => {
+// Flagship Case Studies Data Model
+const caseStudies: CaseStudyData[] = [
+  {
+    id: 'gkiti',
+    title: 'Global Knowledge Institute (GKITI)',
+    subtitle: 'Digital Campus OS, Anti-Piracy DRM Player & Verification Engine',
+    client: 'Global Knowledge International Training Institute (BTEB Code: 23415)',
+    badge: 'EdTech & Anti-Piracy DRM',
+    badgeColor: 'teal',
+    founder: 'Founder: Md Hafijur Rahman Milon (24+ Yrs Exp)',
+    year: '2024 – 2026',
+    image: '/assets/images/proj_gkiti.webp',
+    liveUrl: 'https://gkinstitutebd.com',
+    summary: 'Global Knowledge is Bangladesh\'s premier, government-accredited mobile hardware and chip-level diagnostic academy under the Bangladesh Technical Education Board (BTEB Code: 23415). Fabneon engineered GKITI\'s end-to-end digital campus ecosystem — integrating dynamic hardware-bound DRM video streaming, instant tamper-proof QR certification, and multi-campus batch admissions.',
+    shortDesc: 'Engineered Bangladesh\'s 1st BTEB-certified mobile repair institute platform with proprietary canvas-based DRM video protection, instant QR certificate validation, and zero-paper admissions.',
+    highlights: ['5,000+ Active Technicians', 'Zero Video DRM Leaks', 'BTEB Code 23415'],
+    keyStats: [
+      { value: '0', label: 'Video Piracy Leaks', desc: 'Hardware-bound DRM canvas playback' },
+      { value: '5,000+', label: 'Certified Technicians', desc: 'Graduated across 64 districts' },
+      { value: '100%', label: 'QR Tamper Verification', desc: 'Instant cryptographic validation' },
+      { value: '10x', label: 'Admissions Velocity', desc: 'Zero manual paperwork' }
+    ],
+    problem: {
+      title: 'Course Piracy, Paper Backlogs & Certificate Forgery',
+      description: 'As Bangladesh\'s oldest and premier institute for CPU reballing and iPhone logic board diagnostics, GKITI was targeted by digital pirates who screen-recorded proprietary masterclasses to resell on Telegram. At the same time, manual admissions from 64 districts overwhelmed administrators, and paper certificates were being fraudulently forged.',
+      points: [
+        'Proprietary motherboard repair video masterclasses being pirated and leaked to unauthorized channels.',
+        'Overwhelming physical paper backlogs for student seat booking and hostel bed allocations across 64 districts.',
+        'Physical paper certificates vulnerable to counterfeit duplication by unauthorized repair shops.'
+      ]
+    },
+    solution: {
+      title: 'Dynamic DRM Video Security, Cryptographic QR & Real-Time Admissions',
+      description: 'Fabneon architected a unified Digital Campus OS featuring custom video DRM with canvas dynamic student-identity watermarking, automated instant QR certificate validation, and digital seat booking with hostel capacity management.',
+      points: [
+        'Custom DRM video player with live student watermark, blur on focus lost, and screen recording countermeasures.',
+        'Automated cryptographic QR certificate generation verified against BTEB Code 23415 national registry.',
+        'Digital seat booking with integrated bKash/Nagad checkout and hostel capacity management.'
+      ]
+    },
+    architecture: {
+      overview: 'A resilient decoupled cloud architecture combining high-concurrency Supabase PostgreSQL, edge CDN video streaming, Pinia state stores, and fine-grained Role-Based Access Control.',
+      stack: ['Vue 3', 'TypeScript', 'PostgreSQL / Supabase', 'Cloudflare Edge CDN', 'Tailwind CSS', 'bKash / Nagad APIs'],
+      features: [
+        { title: 'Dynamic DRM Watermarking', desc: 'Stamps student phone number, IP and unique token across randomized canvas coordinates.' },
+        { title: 'Instant QR Certificate Engine', desc: 'Generates tamper-proof vector certificates verifiable in 0.2 seconds globally.' },
+        { title: 'Batch & Seat Management', desc: 'Automates student onboarding, seat reservation queues, and hostel bed allocations.' }
+      ]
+    },
+    testimonial: {
+      quote: 'Fabneon built an enterprise-grade digital campus that completely stopped video theft of our advanced mobile repair schematics and gave our BTEB-certified academy national operational excellence.',
+      author: 'Md Hafijur Rahman Milon',
+      role: 'Founder & Chief Master Trainer, Global Knowledge (GKITI)'
+    }
+  },
+  {
+    id: 'repairsoft',
+    title: 'RepairSoft (GKTool)',
+    subtitle: 'Electronics Service Bench & Workshop Operating System',
+    client: 'Mobile Engineering Ecosystem & Workshop Franchises',
+    badge: 'Enterprise Workshop SaaS',
+    badgeColor: 'purple',
+    founder: 'Component-Level IC Traceability',
+    year: '2024 – 2026',
+    image: '/assets/images/proj_gktool.webp',
+    liveUrl: 'https://gktool.fabneon.com',
+    summary: 'Engineered for multi-branch repair centres and electronics service centers. Automates the full job sheet cycle from multimeter diagnostic estimation to BGA micro-soldering, component-level IC inventory deduction, and customer WhatsApp handover.',
+    shortDesc: 'Cloud operating system for smartphone repair labs — tracking 15,000+ microscopic IC parts, multi-stage repair job sheets, technician commission splits, and automated WhatsApp billing.',
+    highlights: ['15,000+ IC Part Numbers', 'Real-Time WhatsApp Billing', 'Multi-Stage Repair Tickets'],
+    keyStats: [
+      { value: '15k+', label: 'Indexed Components', desc: 'Microscopic ICs, PMICs & BGA stencils' },
+      { value: '65%', label: 'Turnaround Reduction', desc: 'From diagnosis to customer handover' },
+      { value: '100%', label: 'Audit Accountability', desc: 'Every screw, resistor and IC tracked' },
+      { value: '99.98%', label: 'Cloud SaaS Uptime', desc: 'Continuous multi-tenant workbench access' }
+    ],
+    problem: {
+      title: 'Microscopic Parts Misplacement, Unstructured Tickets & Revenue Leakage',
+      description: 'Smartphone motherboard repair involves hundreds of tiny BGA chips, PMICs, coils, and capacitors worth substantial capital. Technicians relied on paper slips and disorganized plastic drawers, leading to inventory shrinkage, lost customer phones, and unrecorded diagnostic fees.',
+      points: [
+        'No traceability for expensive micro-components (PMICs, NAND, baseband ICs).',
+        'Lost repair tickets, forgotten customer handovers, and technician commission disputes.',
+        'Manual billing causing friction and delayed customer notification.'
+      ]
+    },
+    solution: {
+      title: 'Barcode IC Inventory, Multi-Stage Job Boards & WhatsApp Automation',
+      description: 'Fabneon built a high-speed cloud SaaS platform tailored specifically to service bench workflows, featuring component-level barcode tracking, real-time ticket progression, and WhatsApp webhook billing notifications.',
+      points: [
+        'Component-level cataloging for 15,000+ smartphone parts with drawer/bin coordinate indexing.',
+        'Kanban repair ticket workflow (Received → Diagnosis → Under Microscope → Testing → Ready).',
+        'Automated WhatsApp invoice generation and repair status alerts sent directly to clients.'
+      ]
+    },
+    architecture: {
+      overview: 'A responsive, offline-tolerant multi-tenant cloud application built with Vue 3, Supabase Realtime, and thermal receipt printer ESC/POS support.',
+      stack: ['Vue 3', 'TypeScript', 'Supabase Realtime', 'WhatsApp Business API', 'Tailwind CSS'],
+      features: [
+        { title: 'Bin & Coordinate Indexing', desc: 'Technicians find microscopic ICs in seconds by searching schematics or part codes.' },
+        { title: 'Technician Commission Engine', desc: 'Automatically splits labor profit and parts cost per ticket.' },
+        { title: 'Thermal & WhatsApp POS', desc: 'Instant 58mm/80mm thermal receipts plus digital WhatsApp notifications.' }
+      ]
+    }
+  },
+  {
+    id: 'fabpharma',
+    title: 'FabPharma ERP',
+    subtitle: 'High-Throughput Healthcare Retail & Pharmacy Operating System',
+    client: 'Healthcare Retailers & Clinic Pharmacies',
+    badge: 'Healthcare & Pharmacy POS',
+    badgeColor: 'gold',
+    founder: 'High-Throughput Clinical Retail',
+    year: '2024 – 2026',
+    image: '/assets/images/proj_healthcare.webp',
+    summary: 'Mission-critical healthcare retail ERP featuring proactive 90/60/30-day batch expiry tracking, sub-second POS barcode checkout, and instant generic medicine substitution to ensure zero patient safety violations and zero expired stock losses.',
+    shortDesc: 'Mission-critical healthcare retail ERP featuring proactive 90/60/30-day batch expiry radar, sub-second POS checkout, and instant generic medicine alternative matching.',
+    highlights: ['Sub-Second POS Speed', 'Zero Expiry Stock Loss', 'Smart Generic Substitution'],
+    keyStats: [
+      { value: '<1s', label: 'POS Checkout Time', desc: 'Ultra-fast barcode scanning' },
+      { value: '0%', label: 'Expired Stock Dispensed', desc: 'Strict batch-level quarantine gates' },
+      { value: '40k+', label: 'Brand & Generic DB', desc: 'Pre-indexed pharmaceutical formulations' },
+      { value: '100%', label: 'Regulatory Compliance', desc: 'Audit trails for restricted pharmaceuticals' }
+    ],
+    problem: {
+      title: 'Dangerous Medicine Expiration, Slow Queues & Generic Stockouts',
+      description: 'Pharmacies face catastrophic financial loss when medicines expire undetected on shelves, and dispensing expired medicine poses severe patient health hazards. Slow, laggy desktop software caused long lines and stockouts of specific brand names.',
+      points: [
+        'Medicines expiring unnoticed on shelves causing huge financial write-offs.',
+        'Risk of dispensing expired or quarantined drugs to patients.',
+        'Lost sales when customers ask for a specific brand that is out of stock.'
+      ]
+    },
+    solution: {
+      title: 'Proactive Expiry Radar, Sub-Second POS & Intelligent Generic Matching',
+      description: 'Fabneon developed a modern web-based Pharmacy ERP with predictive 90/60/30-day color-coded expiry alerts, instant sub-second barcode point-of-sale, and an AI-assisted generic medicine alternative engine.',
+      points: [
+        'Automated 90/60/30-day batch expiry radar that flags approaching expirations for supplier return.',
+        'Sub-second keyboard-first POS checkout that processes transactions in under 1 second.',
+        'Instant generic substitution showing identical active chemical formulations in stock.'
+      ]
+    },
+    architecture: {
+      overview: 'High-availability architecture optimized for continuous 24/7 retail operation with local caching and instant query indexing.',
+      stack: ['Vue 3', 'PostgreSQL', 'High-Performance IndexedDB', 'Thermal ESC/POS', 'Docker'],
+      features: [
+        { title: 'Batch & FIFO Expiry Tracking', desc: 'Forces first-expiry-first-out dispensing to protect patient safety and revenue.' },
+        { title: 'Instant Alternative Finder', desc: 'When Panadol is out of stock, instantly reveals in-stock Napa or Ace alternatives.' },
+        { title: 'Multi-Store Inventory Sync', desc: 'Transfers medicine between clinic branches in real-time.' }
+      ]
+    }
+  },
+  {
+    id: 'centraio',
+    title: 'Centraio Cloud OS',
+    subtitle: 'Multi-Tenant Higher-Ed Campus ERP & Institutional Operating System',
+    client: 'Universities, Polytechnic Colleges & Academic Institutions',
+    badge: 'EdTech ERP & Multi-Tenant SaaS',
+    badgeColor: 'purple',
+    founder: 'Higher-Education Enterprise SaaS',
+    year: '2025 – 2026',
+    image: '/assets/images/proj_school.webp',
+    liveUrl: '#contact',
+    summary: 'Centraio is a high-availability, multi-tenant academic ERP architected for universities, polytechnic institutes, and large colleges. Engineered with sub-organization domain isolation, automated student billing and fee reconciliation, biometric/RFID attendance pipelines, and real-time CGPA exam result tabulation.',
+    shortDesc: 'Engineered a high-availability multi-tenant institutional operating system with dynamic subdomain routing, automated fee reconciliation, biometric attendance, and algorithmic CGPA tabulation.',
+    highlights: ['Multi-Tenant Subdomains', 'Automated Tuition Billing', 'Biometric & RFID Sync'],
+    keyStats: [
+      { value: '100+', label: 'Institutions Ready', desc: 'Secure multi-tenant isolation' },
+      { value: '10x', label: 'Faster Tabulation', desc: 'Automated semester GPA computation' },
+      { value: '99.9%', label: 'Data Security', desc: 'Strict database tenant isolation' },
+      { value: '<100ms', label: 'API Response', desc: 'Optimized Django REST & Redis caching' }
+    ],
+    problem: {
+      title: 'Fragmented Academic Silos, Spreadsheet Chaos & Manual Tuition Tracking',
+      description: 'Universities and colleges struggled with disjointed systems—student admissions were handled on paper, tuition fees were logged in error-prone spreadsheets, and semester exam mark tabulation required weeks of manual calculations.',
+      points: [
+        'Disjointed student records scattered across desktop spreadsheets, leading to lost academic histories and duplicate enrollments.',
+        'Delayed fee collection with zero automated reconciliation between bank payments, student fee ledgers, and scholarships.',
+        'Slow, error-prone manual semester exam mark calculation causing delays in transcript issuance and graduation approvals.'
+      ]
+    },
+    solution: {
+      title: 'Unified Multi-Tenant Academic OS, Real-Time Fee Engine & Algorithmic Result Tabulation',
+      description: 'Fabneon engineered Centraio—a unified multi-tenant campus ERP with sub-organization domain isolation, automated student invoice scheduling with digital payment gateways, biometric attendance ingestion, and automated CGPA calculation.',
+      points: [
+        'Multi-tenant cloud architecture providing custom branded subdomains and secure institutional data boundaries.',
+        'End-to-end student fee automation with real-time digital payment reconciliation and automated fine calculations.',
+        'Algorithmic grading engine supporting BTEB, UGC, and custom institutional grading scales with instant transcript generation.'
+      ]
+    },
+    architecture: {
+      overview: 'Resilient multi-tenant architecture utilizing Django REST Framework, Vue 3, PostgreSQL with tenant schema segregation, Redis query caching, and Docker containerization.',
+      stack: ['Vue 3', 'Django REST Framework', 'PostgreSQL', 'Redis', 'Docker', 'Tailwind CSS'],
+      features: [
+        { title: 'Dynamic Subdomain Routing', desc: 'Each campus operates on its own secure branded subdomain with isolated role permissions.' },
+        { title: 'Automated Tuition Ledgers', desc: 'Generates recurring monthly and semester invoices with automatic late-fee rules and instant digital receipts.' },
+        { title: 'Biometric Attendance Pipeline', desc: 'Ingests hardware biometric and RFID punch data directly into student academic profiles.' }
+      ]
+    },
+    testimonial: {
+      quote: 'Centraio reduced our end-of-semester exam tabulation from three weeks to less than fifteen minutes. The multi-tenant architecture and automated fee collection have completely transformed our administrative operations.',
+      author: 'Academic Registrar',
+      role: 'Partner Polytechnic Institute'
+    }
+  },
+  {
+    id: 'madrasah',
+    title: 'Madrasah Management System (MMS)',
+    subtitle: 'Residential Islamic Academy OS & Hifz Memorization Progress Radar',
+    client: 'Madrasahs, Hifz Academies & Residential Islamic Institutions',
+    badge: 'Specialized Institutional ERP',
+    badgeColor: 'teal',
+    founder: 'Islamic Academic & Residential ERP',
+    year: '2025 – 2026',
+    image: '/assets/images/proj_training.webp',
+    liveUrl: '#contact',
+    summary: 'A purpose-built residential academy ERP featuring granular Quran Hifz progress tracking (Sabaq, Sabqi, Manzil), residential mess/hostel boarding, and multi-tier fee ledgers with native bilingual (English & Bengali) interfaces.',
+    shortDesc: 'Specialized residential academy ERP featuring granular Quran Hifz progress radar (Sabaq, Sabqi, Manzil), residential mess/hostel boarding, and automated parent SMS ledgers.',
+    highlights: ['Quran Hifz Daily Radar', 'Residential Mess & Boarding', 'Bilingual EN/BN Interface'],
+    keyStats: [
+      { value: '30 Para', label: 'Granular Hifz Radar', desc: 'Sabaq, Sabqi & Manzil tracking' },
+      { value: '0', label: 'Untracked Boarding Meals', desc: 'Dining hall meal quota control' },
+      { value: '100%', label: 'Parent SMS Visibility', desc: 'Instant progress and fee alerts' },
+      { value: 'Bilingual', label: 'English & Bengali', desc: 'Native localized institutional UI' }
+    ],
+    problem: {
+      title: 'Complex Residential Logistics, Manual Quran Memorization Logs & Untracked Boarding',
+      description: 'Traditional madrasahs and Hifz academies face unique operational demands that generic school software cannot handle: tracking daily Quran memorization (Sabaq, Sabqi, Manzil), residential dining hall meal allocations, and cash-heavy student fees.',
+      points: [
+        'Teachers manually logged daily Quran memorization progress in paper diaries with zero visibility for distant parents.',
+        'Residential hostel and dining hall meal tracking had zero inventory control, leading to high dining hall food wastage.',
+        'Disconnected donation, waqf, and tuition fee bookkeeping with difficult monthly accounting reconciliation.'
+      ]
+    },
+    solution: {
+      title: 'Dedicated Hifz Radar, Residential Boarding Logistics & Automated SMS Updates',
+      description: 'Fabneon developed a dedicated Madrasah OS featuring a 30-Para Quran memorization tracker, residential hostel bed and meal allocation manager, automated monthly fee ledgers with thermal ESC/POS receipting, and instant parent SMS notifications.',
+      points: [
+        'Interactive Hifz progress matrix tracking daily Sabaq (new lesson), Sabqi (recent revision), and Manzil (long-term retention).',
+        'Residential meal and hostel boarding management preventing food wastage and tracking boarding occupancy.',
+        'Automated fee receipts, waqf donation ledgers, and SMS notifications sent directly to guardian mobile phones.'
+      ]
+    },
+    architecture: {
+      overview: 'Modern cloud-native stack powered by Nuxt 3, Supabase PostgreSQL with strict Row-Level Security (RLS), Pinia state stores, and Deno edge workers for scheduled automated fee and SMS runs.',
+      stack: ['Nuxt 3', 'Supabase PostgreSQL', 'Row-Level Security (RLS)', 'Tailwind CSS', 'Deno Edge Workers', 'Pinia'],
+      features: [
+        { title: '30-Para Hifz Memorization Engine', desc: 'Logs page-by-page and ayah-by-ayah memorization accuracy with visual completion heatmaps.' },
+        { title: 'Hostel & Mess Boarding Control', desc: 'Monitors student bed assignments, visitor check-ins, and daily dining hall meal quotas.' },
+        { title: 'Thermal Receipt & SMS Gateway', desc: 'Prints 80mm thermal receipts on fee payment and automatically dispatches SMS alerts to parents.' }
+      ]
+    },
+    testimonial: {
+      quote: 'The Hifz tracking feature alone is priceless. Parents can monitor their children\'s Quran memorization progress daily, and our residential mess food waste has decreased by over 30%.',
+      author: 'Principal Maulana',
+      role: 'Residential Hifz & Kitab Academy'
+    }
+  },
+  {
+    id: 'itrust',
+    title: 'iTrust E-Commerce Platform',
+    subtitle: 'High-Conversion Consumer Retail with 64-District Thana Shipping & Meta CAPI',
+    client: 'iTrust Online Store — Consumer Retail',
+    badge: 'E-Commerce & High-Conversion Retail',
+    badgeColor: 'gold',
+    founder: 'Consumer Retail & Direct-to-Consumer',
+    year: '2025 – 2026',
+    image: '/assets/images/proj_ecommerce.webp',
+    liveUrl: 'https://itrust.com.bd',
+    summary: 'iTrust is a fast-growing consumer retail e-commerce platform in Bangladesh. Fabneon engineered the high-speed Nuxt 3 storefront featuring sub-second mobile checkout, a nationwide 64-district and 500+ thana courier delivery matrix, dual-layer Meta Conversions API (CAPI) attribution, and automated payment gateway routing.',
+    shortDesc: 'Full-stack high-speed retail e-commerce platform with automated 64-district thana shipping matrix, server-side Meta Conversions API (CAPI), and instant 2-click checkout.',
+    highlights: ['Sub-Second Mobile Checkout', '64-District & Thana Logistics', 'Live Meta CAPI Tracking'],
+    keyStats: [
+      { value: '<0.8s', label: 'Core Page Load', desc: 'Edge-cached Nuxt 3 SSR performance' },
+      { value: '64 Districts', label: 'Nationwide Logistics', desc: 'Automated 500+ thana courier rates' },
+      { value: '100%', label: 'Meta CAPI Tracking', desc: 'Zero attribution loss on iOS & adblockers' },
+      { value: '+42%', label: 'Checkout Conversion', desc: 'Frictionless 2-click mobile purchasing' }
+    ],
+    problem: {
+      title: 'Checkout Crashes, Broken Ad Attribution & Mobile Drop-Offs',
+      description: 'Following a legacy rebuild, iTrust experienced high cart abandonment, checkout crashes during flash sales, and ad attribution failure where Meta Ads Manager received zero purchase signals.',
+      points: [
+        'Checkout input fields broke on mobile screens and crashed during high-traffic flash sale ad campaigns.',
+        'Zero Meta Pixel or server-side Conversions API (CAPI) events were sent, causing Facebook ad campaigns to misfire with collapsed ROAS.',
+        'Manual and inaccurate courier fee calculation across 64 districts and 500+ thanas created customer disputes and shipping losses.'
+      ]
+    },
+    solution: {
+      title: 'Sub-Second Mobile Checkout, Automated Thana Shipping Matrix & Bulletproof Meta CAPI',
+      description: 'Fabneon rebuilt the e-commerce architecture on Nuxt 3 with server-side Nitro endpoints, dual client+server Meta CAPI tracking for 100% ad signal capture, dynamic thana shipping rate computation, and frictionless mobile checkout.',
+      points: [
+        'Streamlined 2-click keyboard-first checkout optimized for mobile shoppers with automated thana postal lookup.',
+        'Dual-layer Meta Pixel and server-side Conversions API (CAPI) feeding real-time purchase value data to Meta Ad algorithms.',
+        'High-performance PostgreSQL and Nitro engine delivering sub-second page loads even under concurrent marketing surges.'
+      ]
+    },
+    architecture: {
+      overview: 'High-throughput e-commerce stack utilizing Nuxt 3 Server-Side Rendering (SSR), Nitro server engine, PostgreSQL, Tailwind CSS, and direct courier/payment API integrations.',
+      stack: ['Nuxt 3 (SSR)', 'Vue 3', 'Nitro Server Engine', 'PostgreSQL', 'Meta Conversions API (CAPI)', 'bKash Gateway'],
+      features: [
+        { title: 'Server-Side Meta CAPI', desc: 'Bypasses browser ad-blockers and iOS privacy restrictions to guarantee 100% accurate purchase attribution.' },
+        { title: '64-District Courier Matrix', desc: 'Dynamically computes Steadfast and Pathao shipping fees based on precise customer thana and weight.' },
+        { title: 'Sub-Second Edge Caching', desc: 'Caches product catalogs at edge nodes for instant navigation without database bottlenecks.' }
+      ]
+    },
+    testimonial: {
+      quote: 'Fabneon transformed our entire e-commerce infrastructure. The checkout is buttery smooth on mobile, and the server-side Meta CAPI integration completely restored our advertising profitability on Facebook and Instagram.',
+      author: 'Operations Director',
+      role: 'iTrust Online Store'
+    }
+  }
+];
+
+const selectedCaseStudyId = ref('gkiti');
+const currentCaseStudy = computed(() => 
+  caseStudies.find(c => c.id === selectedCaseStudyId.value) || caseStudies[0]
+);
+
+const openCaseStudy = (id: string) => {
+  selectedCaseStudyId.value = id;
+  currentPage.value = 'case-study';
+  window.location.hash = 'case-study-' + id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const closeCaseStudy = () => {
+  currentPage.value = 'home';
+  window.location.hash = 'case-studies';
+  nextTick(() => {
+    const el = document.getElementById('case-studies');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+};
+
+const selectedBlogPostSlug = ref('best-software-company-in-rajshahi');
+const currentBlogPost = computed(() => 
+  blogPosts.find(p => p.slug === selectedBlogPostSlug.value) || blogPosts[0]
+);
+
+const openBlogPost = (post: BlogPost) => {
+  selectedBlogPostSlug.value = post.slug;
+  currentPage.value = 'blog-post';
+  window.location.hash = 'blog-' + post.slug;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const closeBlogPost = () => {
+  currentPage.value = 'home';
+  window.location.hash = 'blog';
+  nextTick(() => {
+    const el = document.getElementById('blog');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+};
+
+const handleHashRouting = () => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#case-study-')) {
+    const id = hash.replace('#case-study-', '');
+    if (caseStudies.some(c => c.id === id)) {
+      selectedCaseStudyId.value = id;
+      currentPage.value = 'case-study';
+      return;
+    }
+  }
+  if (hash.startsWith('#blog-')) {
+    const slug = hash.replace('#blog-', '');
+    const found = blogPosts.find(p => p.slug === slug);
+    if (found) {
+      selectedBlogPostSlug.value = slug;
+      currentPage.value = 'blog-post';
+      return;
+    }
+  }
+  if (hash === '#blog' && currentPage.value === 'blog-post') {
+    currentPage.value = 'home';
+    nextTick(() => {
+      const el = document.getElementById('blog');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+    return;
+  }
+  if ((currentPage.value === 'case-study' || currentPage.value === 'blog-post') && 
+      !hash.startsWith('#case-study-') && !hash.startsWith('#blog-')) {
+    currentPage.value = 'home';
+  }
+};
+
+const navigateTo = (page: 'home' | 'terms' | 'privacy' | 'case-study' | 'blog-post') => {
   currentPage.value = page;
   window.scrollTo(0, 0);
 };
@@ -307,6 +698,13 @@ onMounted(() => {
       });
     });
   });
+
+  window.addEventListener('hashchange', handleHashRouting);
+  handleHashRouting();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', handleHashRouting);
 });
 </script>
 
@@ -497,228 +895,88 @@ onMounted(() => {
             </p>
           </div>
 
-          <div class="case-studies-grid flex flex-col gap-12 mt-12">
-            
-            <!-- CASE STUDY 1: GLOBAL KNOWLEDGE (GKITI) -->
-            <div class="case-study-card rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] overflow-hidden p-6 md:p-10 shadow-xl reveal-up transition-all hover:border-[var(--brand-teal)]/40">
-              <div class="grid lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video lg:aspect-[4/3] bg-black/40 border border-white/10 shadow-lg group">
-                  <img src="/assets/images/proj_gkiti.webp" alt="Global Knowledge Institute GKITI Campus OS — Engineered by Fabneon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 w-max backdrop-blur-md">
-                      ✓ BTEB Certified Institute Code: 23415
+          <div class="case-studies-grid flex flex-col gap-8 mt-10">
+            <!-- Modern Low-Wording Case Study Cards -->
+            <div 
+              v-for="study in caseStudies" 
+              :key="study.id" 
+              class="case-study-card rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] overflow-hidden p-6 md:p-8 shadow-xl reveal-up transition-all hover:border-[var(--brand-teal)]/50 hover:shadow-2xl hover:shadow-[var(--brand-teal)]/5"
+            >
+              <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <!-- Thumbnail with Badges -->
+                <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video lg:aspect-[16/10] bg-black/40 border border-white/10 shadow-lg group cursor-pointer" @click="openCaseStudy(study.id)">
+                  <img :src="study.image" :alt="study.title + ' — Case Study by Fabneon Technologies Limited'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-4">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 w-max backdrop-blur-md">
+                      ✓ {{ study.client }}
                     </span>
-                    <h4 class="text-white text-lg font-bold mt-2 m-0">Global Knowledge (GKITI)</h4>
-                    <p class="text-white/80 text-xs mt-0.5">23+ Years Continuous Service Bench Experience (Since 2003)</p>
+                    <h4 class="text-white text-base md:text-lg font-bold mt-1.5 m-0 group-hover:text-[var(--brand-teal)] transition-colors">{{ study.title }}</h4>
                   </div>
                 </div>
 
-                <div class="lg:col-span-7 flex flex-col justify-between">
+                <!-- Low-Wording Summary & Deep-Dive CTA -->
+                <div class="lg:col-span-7 flex flex-col justify-between h-full">
                   <div>
-                    <div class="flex flex-wrap items-center gap-2 mb-3">
-                      <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-teal)]/20 text-[var(--brand-teal)] border border-[var(--brand-teal)]/30">
-                        EdTech & Anti-Piracy DRM
+                    <div class="flex flex-wrap items-center gap-2 mb-2.5">
+                      <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-teal)]/15 text-[var(--brand-teal)] border border-[var(--brand-teal)]/30">
+                        {{ study.badge }}
                       </span>
-                      <span class="px-3 py-1 rounded-full text-[11px] font-semibold text-[var(--text-secondary)] bg-[var(--bg-overlay)] border border-[var(--border-muted)]">
-                        Founder: Md Hafijur Rahman Milon
+                      <span class="px-2.5 py-1 rounded-full text-[11px] font-medium text-[var(--text-secondary)] bg-[var(--bg-overlay)] border border-[var(--border-muted)]">
+                        {{ study.founder }}
                       </span>
                     </div>
 
-                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
-                      Global Knowledge Institute (GKITI) — Digital Campus OS
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-[var(--text-primary)] cursor-pointer hover:text-[var(--brand-teal)] transition-colors" @click="openCaseStudy(study.id)">
+                      {{ study.title }}
                     </h3>
 
-                    <p class="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-6">
-                      Global Knowledge is Bangladesh's pioneering, government-accredited mobile hardware and chip-level diagnostic training institute under the Bangladesh Technical Education Board (BTEB Code: 23415). Fabneon engineered GKITI's complete digital campus ecosystem.
+                    <p class="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-4">
+                      {{ study.shortDesc }}
                     </p>
 
-                    <!-- Problem vs Solution Matrix -->
-                    <div class="grid md:grid-cols-2 gap-4 mb-6">
-                      <div class="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20">
-                        <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                          The Problem Solved
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Manual admissions across 64 districts created paper backlogs; advanced circuit diagnostic video lectures were pirated onto unauthorized channels; and physical certificates were vulnerable to forgery.
-                        </p>
-                      </div>
-
-                      <div class="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                          Fabneon's Solution
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Engineered dynamic DRM video player with live student watermark & anti-recording triggers, automated tamper-proof QR certificate validation, and digital seat booking with biometric lab attendance.
-                        </p>
-                      </div>
+                    <!-- Fast Scannable Metric Highlights -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                      <span 
+                        v-for="(hl, i) in study.highlights" 
+                        :key="i"
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-[var(--bg-overlay)] text-[var(--text-primary)] border border-[var(--border-muted)]"
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-teal)]"></span>
+                        {{ hl }}
+                      </span>
                     </div>
                   </div>
 
-                  <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-muted)]">
-                    <div class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 5,000+ Trainees</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-400"></span> 0 Video Leaks</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-400"></span> 64 Districts</span>
-                    </div>
+                  <!-- CTAs: View Details Screen + Live Site -->
+                  <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-[var(--border-muted)]">
+                    <button 
+                      @click="openCaseStudy(study.id)" 
+                      class="btn btn-primary btn-sm inline-flex items-center gap-2 cursor-pointer shadow-lg shadow-[var(--brand-teal)]/20"
+                    >
+                      <span>View Full Case Study & Architecture</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
 
-                    <a href="https://gkinstitutebd.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-purple btn-sm inline-flex items-center gap-2">
-                      <span>Visit Live Platform</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <a 
+                      v-if="study.liveUrl && study.liveUrl !== '#contact'" 
+                      :href="study.liveUrl" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      class="btn btn-outline-purple btn-sm inline-flex items-center gap-1.5"
+                    >
+                      <span>Live Platform</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     </a>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- CASE STUDY 2: REPAIRSOFT (GKTOOL) -->
-            <div class="case-study-card rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] overflow-hidden p-6 md:p-10 shadow-xl reveal-up transition-all hover:border-[var(--brand-purple)]/40">
-              <div class="grid lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video lg:aspect-[4/3] bg-black/40 border border-white/10 shadow-lg group">
-                  <img src="/assets/images/proj_gktool.webp" alt="RepairSoft Mobile Bench & Workshop Operating System — Fabneon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 w-max backdrop-blur-md">
-                      🚀 Production Cloud SaaS
-                    </span>
-                    <h4 class="text-white text-lg font-bold mt-2 m-0">RepairSoft (GKTool)</h4>
-                    <p class="text-white/80 text-xs mt-0.5">Mobile Diagnostics, Bench Inventory & Workshop Management OS</p>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-7 flex flex-col justify-between">
-                  <div>
-                    <div class="flex flex-wrap items-center gap-2 mb-3">
-                      <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-purple)]/20 text-[var(--brand-purple)] border border-[var(--brand-purple)]/30">
-                        Enterprise Workshop SaaS
-                      </span>
-                      <span class="px-3 py-1 rounded-full text-[11px] font-semibold text-[var(--text-secondary)] bg-[var(--bg-overlay)] border border-[var(--border-muted)]">
-                        Component-Level IC Traceability
-                      </span>
-                    </div>
-
-                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
-                      RepairSoft — Electronics Service Bench & POS Operating System
-                    </h3>
-
-                    <p class="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-6">
-                      Engineered for multi-branch repair centres and electronics service centers. Automates the full job sheet cycle from multimeter diagnostic estimation to BGA micro-soldering and delivery.
-                    </p>
-
-                    <div class="grid md:grid-cols-2 gap-4 mb-6">
-                      <div class="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20">
-                        <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                          The Problem Solved
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Workshops lost thousands monthly from misplaced customer logic boards, unrecorded SMD IC components, manual paper claims, and constant customer inquiry phone calls.
-                        </p>
-                      </div>
-
-                      <div class="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                          Fabneon's Solution
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Built a digital ticketing engine with automated WhatsApp status notifications, barcode component deduction upon repair, technician commission splits, and workshop POS.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-muted)]">
-                    <div class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 60% Faster Turnaround</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-400"></span> 0 Lost Devices</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> WhatsApp Alerts</span>
-                    </div>
-
-                    <a href="https://gktool.fabneon.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline-purple btn-sm inline-flex items-center gap-2">
-                      <span>Launch RepairSoft</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- CASE STUDY 3: FABPHARMA -->
-            <div class="case-study-card rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] overflow-hidden p-6 md:p-10 shadow-xl reveal-up transition-all hover:border-[var(--brand-gold)]/40">
-              <div class="grid lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video lg:aspect-[4/3] bg-black/40 border border-white/10 shadow-lg group">
-                  <img src="/assets/images/proj_healthcare.webp" alt="FabPharma Pharmacy ERP & Inventory Architecture — Fabneon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 w-max backdrop-blur-md">
-                      💊 HealthTech ERP Suite
-                    </span>
-                    <h4 class="text-white text-lg font-bold mt-2 m-0">FabPharma</h4>
-                    <p class="text-white/80 text-xs mt-0.5">Automated Batch Expiry Tracking & High-Speed Retail POS</p>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-7 flex flex-col justify-between">
-                  <div>
-                    <div class="flex flex-wrap items-center gap-2 mb-3">
-                      <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-gold)]/20 text-[var(--brand-gold)] border border-[var(--brand-gold)]/30">
-                        Retail Health ERP
-                      </span>
-                      <span class="px-3 py-1 rounded-full text-[11px] font-semibold text-[var(--text-secondary)] bg-[var(--bg-overlay)] border border-[var(--border-muted)]">
-                        Zero-Waste Expiry Intelligence
-                      </span>
-                    </div>
-
-                    <h3 class="text-2xl md:text-3xl font-bold mb-3 text-[var(--text-primary)]">
-                      FabPharma — Intelligent Pharmacy & Healthcare POS ERP
-                    </h3>
-
-                    <p class="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-6">
-                      An enterprise healthcare ERP tailored for hospital dispensaries and retail pharmacy chains. Integrates batch expiry intelligence, generic alternative search, and wholesale procurement.
-                    </p>
-
-                    <div class="grid md:grid-cols-2 gap-4 mb-6">
-                      <div class="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20">
-                        <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                          The Problem Solved
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Pharmacies suffered 15% annual revenue write-offs from overlooked expired medications, slow counter checkouts during rush hours, and messy supplier credit reconciliation.
-                        </p>
-                      </div>
-
-                      <div class="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20">
-                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                          Fabneon's Solution
-                        </div>
-                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed m-0">
-                          Built automated 90/60/30-day proactive expiry notifications, sub-second POS barcode billing with generic drug cross-referencing, and automated supplier return ledgers.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-muted)]">
-                    <div class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 35% Less Stock Waste</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> 3x Faster Checkout</span>
-                      <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-teal-400"></span> Generic Search</span>
-                    </div>
-
-                    <a href="#contact" class="btn btn-outline-purple btn-sm inline-flex items-center gap-2">
-                      <span>Request Demo</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
+
+      <!-- 2.8. ENGINEERING BLOG & INDUSTRY BENCHMARKS -->
+      <BlogSection @select-post="openBlogPost" />
 
       <!-- 3. Process Section -->
       <section class="section section-alt" id="process">
@@ -1104,6 +1362,24 @@ onMounted(() => {
         </div>
       </section>
     </main>
+
+    <!-- Case Study Detail View -->
+    <CaseStudyDetail
+      v-else-if="currentPage === 'case-study'"
+      :case-study="currentCaseStudy"
+      :all-case-studies="caseStudies"
+      @back="closeCaseStudy"
+      @select="openCaseStudy"
+    />
+
+    <!-- Blog Post Detail View -->
+    <BlogPostDetail
+      v-else-if="currentPage === 'blog-post'"
+      :post="currentBlogPost"
+      :all-posts="blogPosts"
+      @back="closeBlogPost"
+      @select-post="openBlogPost"
+    />
 
     <!-- Legal Pages -->
     <TermsAndConditions v-else-if="currentPage === 'terms'" @back="navigateTo('home')" />
