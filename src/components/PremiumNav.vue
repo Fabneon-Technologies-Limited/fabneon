@@ -20,12 +20,12 @@ const logoSrc = computed(() =>
 );
 
 const updateScrollState = () => {
-  isScrolled.value = window.scrollY > 50;
+  isScrolled.value = window.scrollY > 40;
   
   const sections = props.items.map(item => document.querySelector(item.href)).filter(Boolean);
   let current = '#home';
   for (const section of sections) {
-    if (section && window.scrollY >= (section as HTMLElement).offsetTop - 150) {
+    if (section && window.scrollY >= (section as HTMLElement).offsetTop - 180) {
       current = `#${section.id}`;
     }
   }
@@ -57,7 +57,7 @@ onUnmounted(() => {
         
         <!-- Logo -->
         <a href="#home" class="nav-brand">
-          <img :src="logoSrc" alt="Fabneon" class="nav-logo-img" />
+          <img :src="logoSrc" alt="Fabneon Technologies Limited" class="nav-logo-img" />
         </a>
 
         <!-- Desktop Navigation -->
@@ -74,26 +74,25 @@ onUnmounted(() => {
         </nav>
 
         <!-- Actions & Mobile Toggle -->
-        <div class="mobile-actions-container">
+        <div class="nav-actions-wrapper">
           <!-- Theme Switcher -->
           <button 
             class="theme-toggle" 
             @click="emit('toggle-theme')" 
             :title="theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+            aria-label="Toggle Theme"
           >
-            <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
 
-          <!-- Desktop CTA -->
-          <div class="nav-actions">
-            <a href="#contact" class="nav-cta-btn">
-              Start Project
-            </a>
-          </div>
+          <!-- Desktop CTA Button -->
+          <a href="#contact" class="nav-cta-btn">
+            <span>Start Project</span>
+          </a>
 
-          <!-- Mobile Toggle -->
-          <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }">
+          <!-- Mobile Hamburger -->
+          <button class="mobile-toggle" @click="isMobileMenuOpen = !isMobileMenuOpen" :class="{ 'is-open': isMobileMenuOpen }" aria-label="Toggle Menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -126,153 +125,152 @@ onUnmounted(() => {
 <style scoped>
 .pill-nav-wrapper {
   position: fixed;
-  top: 1.5rem;
+  top: 1.25rem;
   left: 1rem;
   right: 1rem;
   width: auto;
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
-  z-index: 100;
-  pointer-events: none; /* Let clicks pass through outside the pill */
+  z-index: 1000;
+  pointer-events: none;
 }
 
 .pill-nav {
-  pointer-events: auto; /* Re-enable clicks for the actual nav */
+  pointer-events: auto;
   width: 100%;
   height: 60px;
-  background: rgba(var(--bg-secondary-rgb), 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-muted);
-  border-radius: 50px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 [data-theme='dark'] .pill-nav {
-  background: rgba(10, 12, 16, 0.75);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-[data-theme='light'] .pill-nav {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(13, 15, 20, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
-@media (min-width: 900px) {
-  .pill-nav-wrapper {
-    left: 2rem;
-    right: 2rem;
-  }
-  .pill-nav {
-    height: 70px;
-  }
+[data-theme='light'] .pill-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
 
 .pill-nav.is-scrolled {
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-  transform: translateY(-5px);
-}
-[data-theme='dark'] .pill-nav.is-scrolled {
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45);
 }
 
 .nav-container {
   height: 100%;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 0.85rem 0 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
-@media (min-width: 900px) {
-  .nav-container {
-    padding: 0 1rem 0 1.5rem;
-  }
-}
-
+/* Brand Logo */
 .nav-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .nav-logo-img {
-  height: 40px;
+  height: 32px;
   width: auto;
-  transition: transform 0.3s ease;
+  object-fit: contain;
+  transition: transform 0.25s ease;
 }
 
 .nav-brand:hover .nav-logo-img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
+/* Center Menu */
 .nav-menu {
   display: none;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 960px) {
   .nav-menu {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background: var(--bg-overlay);
-    padding: 0.35rem;
-    border-radius: 40px;
-    border: 1px solid var(--border-muted);
+    gap: 0.15rem;
+    padding: 0.25rem;
+    border-radius: 9999px;
+  }
+  
+  [data-theme='dark'] .nav-menu {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  
+  [data-theme='light'] .nav-menu {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
   }
 }
 
 .pill-link {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  padding: 0.5rem 1.25rem;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  position: relative;
+  white-space: nowrap;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+  line-height: 1.2;
 }
 
 .pill-link:hover {
   color: var(--text-primary);
 }
 
+[data-theme='dark'] .pill-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+[data-theme='light'] .pill-link:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
 .pill-link.active {
   color: var(--text-primary);
-  background: var(--bg-secondary);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-weight: 600;
 }
+
 [data-theme='dark'] .pill-link.active {
-  background: rgba(255,255,255,0.1);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.nav-actions {
-  display: none;
+[data-theme='light'] .pill-link.active {
+  color: #0b0c0e;
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.mobile-actions-container {
+/* Right Actions */
+.nav-actions-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-@media (min-width: 900px) {
-  .nav-actions {
-    display: flex;
-    align-items: center;
-  }
-  .mobile-actions-container {
-    gap: 1rem;
-  }
+  gap: 0.6rem;
+  flex-shrink: 0;
 }
 
 .theme-toggle {
-  background: var(--bg-overlay);
-  border: 1px solid var(--border-muted);
+  background: transparent;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -281,40 +279,55 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
 }
 
-@media (min-width: 900px) {
-  .theme-toggle {
-    width: 40px;
-    height: 40px;
-  }
+[data-theme='dark'] .theme-toggle {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+[data-theme='light'] .theme-toggle {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .theme-toggle:hover {
   color: var(--brand-gold);
-  border-color: var(--brand-gold);
-  transform: rotate(15deg);
+  transform: rotate(20deg);
+  border-color: rgba(255, 215, 0, 0.4);
 }
 
+/* CTA Button */
 .nav-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.6rem 1.5rem;
-  background: var(--gradient-signature);
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border-radius: 40px;
-  transition: all 0.3s ease;
+  display: none;
 }
 
-.nav-cta-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.1);
-  box-shadow: 0 10px 20px rgba(0, 90, 107, 0.3);
+@media (min-width: 960px) {
+  .nav-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 38px;
+    padding: 0 1.25rem;
+    background: var(--gradient-signature);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.86rem;
+    line-height: 1;
+    text-decoration: none;
+    border-radius: 9999px;
+    box-shadow: 0 4px 14px rgba(0, 90, 107, 0.28);
+    transition: all 0.25s ease;
+  }
+
+  .nav-cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 90, 107, 0.4);
+    filter: brightness(1.08);
+  }
 }
 
 /* Mobile Toggle */
@@ -326,14 +339,23 @@ onUnmounted(() => {
   gap: 4px;
   width: 36px;
   height: 36px;
-  background: var(--bg-overlay);
-  border: 1px solid var(--border-muted);
+  background: transparent;
   border-radius: 50%;
   cursor: pointer;
   padding: 0;
+  flex-shrink: 0;
 }
 
-@media (min-width: 900px) {
+[data-theme='dark'] .mobile-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+[data-theme='light'] .mobile-toggle {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 960px) {
   .mobile-toggle {
     display: none;
   }
@@ -341,88 +363,96 @@ onUnmounted(() => {
 
 .mobile-toggle .bar {
   display: block;
-  width: 18px;
+  width: 16px;
   height: 2px;
   background-color: var(--text-primary);
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .mobile-toggle.is-open .bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 .mobile-toggle.is-open .bar:nth-child(2) {
   opacity: 0;
 }
 .mobile-toggle.is-open .bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
-/* Mobile Menu */
+/* Mobile Dropdown Menu */
 .mobile-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 0;
   width: 100%;
-  background: rgba(var(--bg-secondary-rgb), 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-muted);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme='dark'] .mobile-menu {
-  background: rgba(10, 12, 16, 0.95);
+  background: rgba(14, 16, 21, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 [data-theme='light'] .mobile-menu {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .mobile-menu.is-open {
-  max-height: 500px;
+  max-height: 480px;
   opacity: 1;
   visibility: visible;
 }
 
 .mobile-nav {
-  padding: 1.5rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .mobile-link {
   color: var(--text-secondary);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
   border-radius: 12px;
-  transition: all 0.3s ease;
-  background: transparent;
+  transition: all 0.2s ease;
 }
 
 .mobile-link:hover {
   color: var(--text-primary);
-  background: var(--bg-overlay);
+}
+
+[data-theme='dark'] .mobile-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+[data-theme='light'] .mobile-link:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .mobile-cta-btn {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   display: block;
   text-align: center;
-  padding: 1rem;
+  padding: 0.85rem;
   background: var(--gradient-signature);
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
-  font-size: 1.1rem;
-  border-radius: 16px;
+  font-size: 0.95rem;
+  border-radius: 14px;
   text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 90, 107, 0.3);
 }
 </style>

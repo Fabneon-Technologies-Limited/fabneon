@@ -37,7 +37,6 @@ const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
   { label: 'Case Studies', href: '#case-studies' },
-  { label: 'Process', href: '#process' },
   { label: 'Portfolio', href: '#portfolio' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' }
