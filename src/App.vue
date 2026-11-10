@@ -883,94 +883,105 @@ onUnmounted(() => {
       </section>
 
       <!-- 2.5 FLAGSHIP CASE STUDIES & PROBLEMS SOLVED -->
-      <section class="section" id="case-studies" style="padding-top: 3rem; padding-bottom: 5rem;">
+      <section class="section" id="case-studies" style="padding-top: 3.5rem; padding-bottom: 5.5rem;">
         <div class="container">
           <div class="section-header text-center reveal-up">
             <div class="badge badge-purple mb-4">Engineering Case Studies</div>
             <h2 class="text-3xl md:text-5xl font-bold mb-4">
-              Flagship Projects & <span class="text-gradient">Problems We Solved</span>
+              Flagship Projects & <span class="text-gradient">Case Studies</span>
             </h2>
             <p class="lead max-w-3xl mx-auto">
               How Fabneon Technologies Limited engineered high-impact platforms for industry benchmarks — solving piracy, inventory shrinkage, and institutional compliance.
             </p>
           </div>
 
-          <div class="case-studies-grid flex flex-col gap-8 mt-10">
-            <!-- Modern Low-Wording Case Study Cards -->
+          <!-- Horizontal 4-Card Grid on Homepage -->
+          <div class="case-studies-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
             <div 
-              v-for="study in caseStudies" 
+              v-for="study in caseStudies.slice(0, 4)" 
               :key="study.id" 
-              class="case-study-card rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] overflow-hidden p-6 md:p-8 shadow-xl reveal-up transition-all hover:border-[var(--brand-teal)]/50 hover:shadow-2xl hover:shadow-[var(--brand-teal)]/5"
+              class="case-study-card reveal-stagger-child rounded-2xl md:rounded-3xl flex flex-col justify-between p-5 md:p-6 transition-all duration-300 group cursor-pointer"
+              @click="openCaseStudy(study.id)"
             >
-              <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-                <!-- Thumbnail with Badges -->
-                <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video lg:aspect-[16/10] bg-black/40 border border-white/10 shadow-lg group cursor-pointer" @click="openCaseStudy(study.id)">
-                  <img :src="study.image" :alt="study.title + ' — Case Study by Fabneon Technologies Limited'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-4">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 w-max backdrop-blur-md">
-                      ✓ {{ study.client }}
+              <div>
+                <!-- Clean Thumbnail with Subtle Inner Border (NO text overlay) -->
+                <div class="relative rounded-xl md:rounded-2xl overflow-hidden aspect-[16/10] bg-black/40 border border-white/10 mb-4 group-hover:border-[var(--brand-teal-light)]/40 transition-colors">
+                  <img 
+                    :src="study.image" 
+                    :alt="study.title + ' — Case Study by Fabneon Technologies Limited'" 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    loading="lazy" 
+                  />
+                  <!-- Floating Category Badge -->
+                  <div class="absolute top-2.5 left-2.5">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-black/80 backdrop-blur-md text-[var(--brand-teal-light)] border border-[var(--brand-teal-light)]/30 shadow-md">
+                      {{ study.badge }}
                     </span>
-                    <h4 class="text-white text-base md:text-lg font-bold mt-1.5 m-0 group-hover:text-[var(--brand-teal)] transition-colors">{{ study.title }}</h4>
                   </div>
                 </div>
 
-                <!-- Low-Wording Summary & Deep-Dive CTA -->
-                <div class="lg:col-span-7 flex flex-col justify-between h-full">
-                  <div>
-                    <div class="flex flex-wrap items-center gap-2 mb-2.5">
-                      <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[var(--brand-teal)]/15 text-[var(--brand-teal)] border border-[var(--brand-teal)]/30">
-                        {{ study.badge }}
-                      </span>
-                      <span class="px-2.5 py-1 rounded-full text-[11px] font-medium text-[var(--text-secondary)] bg-[var(--bg-overlay)] border border-[var(--border-muted)]">
-                        {{ study.founder }}
-                      </span>
-                    </div>
+                <!-- Client / Sector Subtitle -->
+                <div class="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-1.5 line-clamp-1">
+                  {{ study.client }}
+                </div>
 
-                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-[var(--text-primary)] cursor-pointer hover:text-[var(--brand-teal)] transition-colors" @click="openCaseStudy(study.id)">
-                      {{ study.title }}
-                    </h3>
+                <!-- Title -->
+                <h3 class="text-base md:text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--brand-teal-light)] transition-colors mb-2 leading-snug line-clamp-2">
+                  {{ study.title }}
+                </h3>
 
-                    <p class="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-4">
-                      {{ study.shortDesc }}
-                    </p>
+                <!-- Low Wording Summary -->
+                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4 line-clamp-2">
+                  {{ study.shortDesc }}
+                </p>
 
-                    <!-- Fast Scannable Metric Highlights -->
-                    <div class="flex flex-wrap gap-2 mb-6">
-                      <span 
-                        v-for="(hl, i) in study.highlights" 
-                        :key="i"
-                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-[var(--bg-overlay)] text-[var(--text-primary)] border border-[var(--border-muted)]"
-                      >
-                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-teal)]"></span>
-                        {{ hl }}
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- CTAs: View Details Screen + Live Site -->
-                  <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-[var(--border-muted)]">
-                    <button 
-                      @click="openCaseStudy(study.id)" 
-                      class="btn btn-primary btn-sm inline-flex items-center gap-2 cursor-pointer shadow-lg shadow-[var(--brand-teal)]/20"
-                    >
-                      <span>View Full Case Study & Architecture</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                    </button>
-
-                    <a 
-                      v-if="study.liveUrl && study.liveUrl !== '#contact'" 
-                      :href="study.liveUrl" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      class="btn btn-outline-purple btn-sm inline-flex items-center gap-1.5"
-                    >
-                      <span>Live Platform</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </a>
-                  </div>
+                <!-- Scannable Micro Metric Pills -->
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  <span 
+                    v-for="(hl, i) in study.highlights.slice(0, 2)" 
+                    :key="i"
+                    class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white/[0.04] text-[var(--text-secondary)] border border-white/10"
+                  >
+                    <span class="w-1 h-1 rounded-full bg-[var(--brand-teal)]"></span>
+                    {{ hl }}
+                  </span>
                 </div>
               </div>
+
+              <!-- Action Footer with "View Details" button -->
+              <div class="pt-4 border-t border-[var(--border-muted)] flex items-center justify-between gap-2 mt-auto">
+                <button 
+                  class="btn-case-detail inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white transition-all cursor-pointer shadow-md"
+                  @click.stop="openCaseStudy(study.id)"
+                >
+                  <span>View Details</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+
+                <a 
+                  v-if="study.liveUrl && study.liveUrl !== '#contact'" 
+                  :href="study.liveUrl" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--brand-teal-light)] inline-flex items-center gap-1 transition-colors px-2 py-1"
+                  @click.stop
+                >
+                  <span>Live</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </div>
             </div>
+          </div>
+
+          <!-- Section Footer CTA: View All Case Studies -->
+          <div class="text-center mt-12">
+            <button 
+              @click="openCaseStudy('gkiti')" 
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold text-[var(--text-primary)] hover:text-white bg-[var(--bg-secondary)] border border-[var(--border-muted)] hover:border-[var(--brand-teal-light)]/60 hover:shadow-lg hover:shadow-[var(--brand-teal-light)]/10 transition-all cursor-pointer"
+            >
+              <span>Explore All 6 Enterprise Case Studies & Architecture Specs</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -1453,16 +1464,44 @@ onUnmounted(() => {
 /* Case study card visual enhancement */
 .case-study-card {
   position: relative;
-  background: var(--bg-secondary);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 [data-theme="dark"] .case-study-card {
-  background: rgba(14, 15, 18, 0.7);
-  backdrop-filter: blur(12px);
+  background: rgba(18, 20, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .case-study-card:hover {
+  border-color: rgba(0, 163, 196, 0.45);
+  box-shadow: 0 16px 36px -10px rgba(0, 163, 196, 0.2), 0 0 20px rgba(75, 26, 127, 0.15);
+  transform: translateY(-6px);
 }
 
 [data-theme="light"] .case-study-card {
   background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .case-study-card:hover {
+  border-color: rgba(0, 163, 196, 0.5);
+  box-shadow: 0 16px 36px -10px rgba(0, 163, 196, 0.2);
+  transform: translateY(-6px);
+}
+
+.btn-case-detail {
+  background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);
+  border: 1px solid rgba(0, 163, 196, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 163, 196, 0.25);
+}
+
+.btn-case-detail:hover {
+  background: linear-gradient(135deg, #00BCE0 0%, #5C2299 100%) !important;
+  box-shadow: 0 6px 20px rgba(0, 163, 196, 0.4) !important;
+  transform: translateY(-1px);
 }
 </style>
