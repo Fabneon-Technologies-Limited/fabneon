@@ -20,7 +20,7 @@ Fabneon Technologies Limited (commonly known as Fabneon) is a registered corpora
 - **Key Features**: Multi-stage job sheet ticketing, component-level barcode inventory (SMD ICs, screens, flex cables), automated WhatsApp customer status alerts, technician commission analytics, and point-of-sale billing.
 
 ### 2. Global Knowledge Institute (GKITI) Ecosystem
-- **Client**: Global Knowledge (GKITI) — Bangladesh's first and leading BTEB-certified (Code: 23415) mobile repair and hardware diagnostic training institute with 23+ years of service bench experience (founded 2003 by Chief Instructor Md Hafijur Rahman Milon).
+- **Client**: Global Knowledge (GKITI) — Bangladesh's premier government-accredited mobile repair and hardware diagnostic training academy under the Bangladesh Technical Education Board (BTEB Code: 23415). Verified on Bangladesh Govt. BTEB Registry: https://btebcbt.gov.bd/utility/showInstitute/614 (Accredited under CBT&A NTVQF for Mobile Phone Servicing).
 - **Problems Solved**: Overcame pen-and-paper enrollment bottlenecks across 64 districts, solved lecture video piracy, automated counterfeit-proof certificate verification, and integrated lab biometric attendance.
 - **Key Features**: Student and alumni portal, proprietary anti-piracy DRM video player with dynamic student watermarking, automated BTEB-accredited digital certificate generation with instant QR verification, and admissions automation.
 

@@ -16,6 +16,13 @@ export interface CaseStudyData {
   shortDesc: string;
   highlights: string[];
   keyStats: { label: string; value: string; desc: string }[];
+  govVerification?: {
+    label: string;
+    code: string;
+    authority: string;
+    url: string;
+    details: string;
+  };
   problem: {
     title: string;
     description: string;
@@ -178,6 +185,32 @@ const scrollToTop = () => {
               <span class="text-white/80 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 hidden sm:inline-block">Production Deployment: {{ caseStudy.year }}</span>
             </div>
           </div>
+        </div>
+
+        <!-- Official Government Accreditation Card (If Applicable) -->
+        <div v-if="caseStudy.govVerification" class="p-5 md:p-6 rounded-2xl bg-emerald-500/[0.04] border border-emerald-500/25 shadow-lg my-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">{{ caseStudy.govVerification.label }}</span>
+                <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-emerald-400/10 text-emerald-300 border border-emerald-400/20">{{ caseStudy.govVerification.code }}</span>
+              </div>
+              <div class="text-sm font-semibold text-white mt-1">{{ caseStudy.govVerification.authority }}</div>
+              <p class="text-xs text-[var(--text-secondary)] mt-1 mb-0">{{ caseStudy.govVerification.details }}</p>
+            </div>
+          </div>
+          <a 
+            :href="caseStudy.govVerification.url" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all shrink-0 self-start sm:self-auto cursor-pointer"
+          >
+            <span>Verify on Govt. Registry</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
         </div>
 
         <!-- Key Impact Metrics (Airy 4-Column Grid) -->

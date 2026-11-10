@@ -9,3 +9,4 @@ fi
 nginx -t
 systemctl reload nginx
 echo "Nginx updated and reloaded successfully!"
+

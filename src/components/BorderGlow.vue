@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef, watch } from 'vue';
+import { computed, ref, useTemplateRef, onMounted, onUnmounted } from 'vue';
 
 interface BorderGlowProps {
   className?: string;
@@ -154,49 +154,77 @@ const handlePointerMove = (e: PointerEvent) => {
   cursorAngle.value = getCursorAngle(card, x, y);
 };
 
-watch(
-  () => [props.animated],
-  () => {
-    if (!props.animated) return;
-    const angleStart = 110;
-    const angleEnd = 465;
-    sweepActive.value = true;
-    cursorAngle.value = angleStart;
+let observer: IntersectionObserver | null = null;
+let isCurrentlySweeping = false;
 
-    animateValue({ duration: 500, onUpdate: v => (edgeProximity.value = v / 100) });
-    animateValue({
-      ease: easeInCubic,
-      duration: 1500,
-      end: 50,
-      onUpdate: v => {
-        cursorAngle.value = (angleEnd - angleStart) * (v / 100) + angleStart;
-      }
-    });
-    animateValue({
-      ease: easeOutCubic,
-      delay: 1500,
-      duration: 2250,
-      start: 50,
-      end: 100,
-      onUpdate: v => {
-        cursorAngle.value = (angleEnd - angleStart) * (v / 100) + angleStart;
-      }
-    });
-    animateValue({
-      ease: easeInCubic,
-      delay: 2500,
-      duration: 1500,
-      start: 100,
-      end: 0,
-      onUpdate: v => (edgeProximity.value = v / 100),
-      onEnd: () => (sweepActive.value = false)
-    });
-  },
-  {
-    deep: true,
-    immediate: true
+const startSweepAnimation = () => {
+  if (!props.animated || isCurrentlySweeping) return;
+  isCurrentlySweeping = true;
+  const angleStart = 110;
+  const angleEnd = 465;
+  sweepActive.value = true;
+  cursorAngle.value = angleStart;
+
+  animateValue({ duration: 500, onUpdate: v => (edgeProximity.value = v / 100) });
+  animateValue({
+    ease: easeInCubic,
+    duration: 1500,
+    end: 50,
+    onUpdate: v => {
+      cursorAngle.value = (angleEnd - angleStart) * (v / 100) + angleStart;
+    }
+  });
+  animateValue({
+    ease: easeOutCubic,
+    delay: 1500,
+    duration: 2250,
+    start: 50,
+    end: 100,
+    onUpdate: v => {
+      cursorAngle.value = (angleEnd - angleStart) * (v / 100) + angleStart;
+    }
+  });
+  animateValue({
+    ease: easeInCubic,
+    delay: 2500,
+    duration: 1500,
+    start: 100,
+    end: 0,
+    onUpdate: v => (edgeProximity.value = v / 100),
+    onEnd: () => {
+      sweepActive.value = false;
+      isCurrentlySweeping = false;
+    }
+  });
+};
+
+onMounted(() => {
+  if (props.animated && cardRef.value) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startSweepAnimation();
+          } else {
+            // Reset when leaving viewport so it triggers again when scrolled into view
+            isCurrentlySweeping = false;
+            sweepActive.value = false;
+            edgeProximity.value = 0;
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(cardRef.value);
   }
-);
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+});
 
 const colorSensitivity = computed(() => props.edgeSensitivity + 20);
 const isVisible = computed(() => isHovered.value || sweepActive.value);

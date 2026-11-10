@@ -94,6 +94,13 @@ const caseStudies: CaseStudyData[] = [
       { value: '100%', label: 'QR Tamper Verification', desc: 'Instant cryptographic validation' },
       { value: '10x', label: 'Admissions Velocity', desc: 'Zero manual paperwork' }
     ],
+    govVerification: {
+      label: 'Verified Govt. Accreditation',
+      code: 'BTEB Code: 23415',
+      authority: 'Bangladesh Technical Education Board (BTEB)',
+      url: 'https://btebcbt.gov.bd/utility/showInstitute/614',
+      details: 'Competency Based Training & Assessment (CBT&A) Under NTVQF · Occupation: Mobile Phone Servicing (124) · National Skill Certificate-I (23) · Accredited: 26/09/2022'
+    },
     problem: {
       title: 'Course Piracy, Paper Backlogs & Certificate Forgery',
       description: 'As Bangladesh\'s oldest and premier institute for CPU reballing and iPhone logic board diagnostics, GKITI was targeted by digital pirates who screen-recorded proprietary masterclasses to resell on Telegram. At the same time, manual admissions from 64 districts overwhelmed administrators, and paper certificates were being fraudulently forged.',
@@ -659,6 +666,47 @@ const techStack2 = ref([
   { name: 'GitLab', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg' }
 ]);
 
+const contactForm = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+});
+const isContactSubmitting = ref(false);
+const contactSent = ref(false);
+
+const handleContactSubmit = () => {
+  if (!contactForm.value.name.trim() || !contactForm.value.email.trim() || !contactForm.value.message.trim()) return;
+  isContactSubmitting.value = true;
+  
+  const recipient = 'business@fabneon.com';
+  const mailSubject = encodeURIComponent(`[Fabneon Enterprise Inquiry] ${contactForm.value.subject || 'Project Consultation'}`);
+  const mailBody = encodeURIComponent(
+    `Hello Fabneon Engineering Team,\n\n` +
+    `Client Name: ${contactForm.value.name}\n` +
+    `Client Email: ${contactForm.value.email}\n` +
+    `Project Scope: ${contactForm.value.subject || 'Not Specified'}\n\n` +
+    `Project Requirements:\n${contactForm.value.message}\n\n` +
+    `---\n` +
+    `Sent from Fabneon Official Portal (https://fabneon.com)`
+  );
+
+  const mailtoUri = `mailto:${recipient}?subject=${mailSubject}&body=${mailBody}`;
+  const a = document.createElement('a');
+  a.href = mailtoUri;
+  a.click();
+
+  setTimeout(() => {
+    isContactSubmitting.value = false;
+    contactSent.value = true;
+  }, 400);
+};
+
+const resetContactForm = () => {
+  contactForm.value = { name: '', email: '', subject: '', message: '' };
+  contactSent.value = false;
+};
+
 onMounted(() => {
   document.documentElement.setAttribute('data-theme', theme.value);
   document.documentElement.classList.remove('light-theme-loader');
@@ -667,11 +715,12 @@ onMounted(() => {
     // 1. Immediately remove any invisible classes so sections are never blank
     document.querySelectorAll('.invisible-until-scroll').forEach(el => el.classList.remove('invisible-until-scroll'));
 
-    // 2. Progressive enhancement GSAP animations
+    // 2. Progressive enhancement GSAP animations (re-triggers every time on scroll up/down)
     try {
       const revealElements = gsap.utils.toArray('.reveal-up, .reveal-left, .reveal-right') as HTMLElement[];
       ScrollTrigger.batch(revealElements, {
         start: 'top 92%',
+        end: 'bottom 8%',
         onEnter: (batch) => {
           batch.forEach((element) => {
             let xOffset = 0;
@@ -686,12 +735,36 @@ onMounted(() => {
             }
 
             gsap.fromTo(element,
-              { x: xOffset, y: yOffset, opacity: 0.25 },
+              { x: xOffset, y: yOffset, opacity: 0.2 },
               { x: 0, y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' }
             );
           });
         },
-        once: true
+        onEnterBack: (batch) => {
+          batch.forEach((element) => {
+            let xOffset = 0;
+            let yOffset = -25;
+
+            if (element.classList.contains('reveal-left')) {
+              xOffset = -35;
+              yOffset = 0;
+            } else if (element.classList.contains('reveal-right')) {
+              xOffset = 35;
+              yOffset = 0;
+            }
+
+            gsap.fromTo(element,
+              { x: xOffset, y: yOffset, opacity: 0.2 },
+              { x: 0, y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' }
+            );
+          });
+        },
+        onLeave: (batch) => {
+          gsap.to(batch, { opacity: 0.25, duration: 0.4, overwrite: 'auto' });
+        },
+        onLeaveBack: (batch) => {
+          gsap.to(batch, { opacity: 0.25, duration: 0.4, overwrite: 'auto' });
+        }
       });
 
       const staggerContainers = [
@@ -714,28 +787,38 @@ onMounted(() => {
         ScrollTrigger.create({
           trigger: container,
           start: 'top 88%',
+          end: 'bottom 12%',
           onEnter: () => {
             gsap.fromTo(children,
-              { y: 20, opacity: 0.3 },
-              { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power2.out', overwrite: 'auto' }
+              { y: 25, opacity: 0.2 },
+              { y: 0, opacity: 1, duration: 0.55, stagger: 0.08, ease: 'power2.out', overwrite: 'auto' }
             );
           },
-          once: true
+          onEnterBack: () => {
+            gsap.fromTo(children,
+              { y: -20, opacity: 0.2 },
+              { y: 0, opacity: 1, duration: 0.55, stagger: 0.08, ease: 'power2.out', overwrite: 'auto' }
+            );
+          },
+          onLeave: () => {
+            gsap.to(children, { opacity: 0.25, duration: 0.35, overwrite: 'auto' });
+          },
+          onLeaveBack: () => {
+            gsap.to(children, { opacity: 0.25, duration: 0.35, overwrite: 'auto' });
+          }
         });
       });
     } catch (err) {
       console.warn('ScrollTrigger fallback applied:', err);
     }
 
-    // 3. Absolute resilience fallback: force visible after 250ms
-    setTimeout(() => {
-      document.querySelectorAll<HTMLElement>('.reveal-stagger-child, .reveal-up, .reveal-left, .reveal-right, .invisible-until-scroll').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-        el.style.visibility = 'visible';
-      });
-      ScrollTrigger.refresh();
-    }, 250);
+    // Ensure hero section is immediately visible on first load
+    gsap.to('#home .reveal-up, #home .reveal-left, #home .reveal-right', {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: 0.5
+    });
 
     // FAQ Accordion
     document.querySelectorAll('.accordion-header').forEach(header => {
@@ -1377,17 +1460,55 @@ onUnmounted(() => {
 
             <div
               class="contact-form-container reveal-right bg-[var(--bg-overlay)] p-5 md:p-8 rounded-2xl border border-[var(--border-muted)]">
-              <form id="contact-form" class="flex-col gap-lg" @submit.prevent>
+              
+              <!-- Success State -->
+              <div v-if="contactSent" class="p-6 rounded-2xl bg-emerald-500/[0.08] border border-emerald-500/30 text-center">
+                <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Inquiry Prepared for business@fabneon.com!</h3>
+                <p class="text-xs sm:text-sm text-[var(--text-secondary)] mb-6 max-w-md mx-auto leading-relaxed">
+                  Your email client has been opened with your inquiry pre-addressed to <strong>business@fabneon.com</strong>. If your email application did not launch automatically, you can send directly or message us on WhatsApp.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <a 
+                    :href="`mailto:business@fabneon.com?subject=${encodeURIComponent('[Fabneon Inquiry] ' + (contactForm.subject || 'Consultation'))}&body=${encodeURIComponent(contactForm.message)}`" 
+                    class="btn btn-primary text-xs font-bold px-4 py-2.5 rounded-xl inline-flex items-center gap-2"
+                  >
+                    <span>Open Mail Client</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </a>
+                  <a 
+                    href="https://wa.me/8801569149839" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#25D366]/15 text-[#25D366] border border-[#25D366]/30 hover:bg-[#25D366]/25 transition-all inline-flex items-center gap-2 cursor-pointer"
+                  >
+                    <span>WhatsApp Lead Architect</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  </a>
+                </div>
+                <div class="mt-6">
+                  <button @click="resetContactForm" class="text-xs text-[var(--text-muted)] hover:text-white underline cursor-pointer">
+                    Send another inquiry
+                  </button>
+                </div>
+              </div>
+
+              <!-- Form -->
+              <form v-else id="contact-form" class="flex-col gap-lg" @submit.prevent="handleContactSubmit">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="form-group flex flex-col gap-sm">
                     <label class="form-label text-sm font-semibold" for="name">Full Name</label>
                     <input type="text" id="name"
+                      v-model="contactForm.name"
                       class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)]"
                       placeholder="e.g. Tariqul Islam" required>
                   </div>
                   <div class="form-group flex flex-col gap-sm">
                     <label class="form-label text-sm font-semibold" for="email">Email Address</label>
                     <input type="email" id="email"
+                      v-model="contactForm.email"
                       class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)]"
                       placeholder="client@enterprise.com" required>
                   </div>
@@ -1396,6 +1517,7 @@ onUnmounted(() => {
                 <div class="form-group flex flex-col gap-sm mt-6">
                   <label class="form-label text-sm font-semibold" for="subject">Project Scope</label>
                   <input type="text" id="subject"
+                    v-model="contactForm.subject"
                     class="form-input w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)]"
                     placeholder="e.g. Enterprise ERP, SaaS Platform, Healthcare OS" required>
                 </div>
@@ -1403,13 +1525,16 @@ onUnmounted(() => {
                 <div class="form-group flex flex-col gap-sm mt-6">
                   <label class="form-label text-sm font-semibold" for="message">Project Requirements</label>
                   <textarea id="message" rows="5"
+                    v-model="contactForm.message"
                     class="form-textarea w-full p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] resize-none"
                     placeholder="Tell us about your business workflow, target scale, and technical goals..." required></textarea>
                 </div>
 
                 <button type="submit"
-                  class="btn btn-primary w-full mt-8 p-4 rounded-lg flex items-center justify-center gap-2 font-semibold">
-                  <span>Send Inquiry to Fabneon</span>
+                  :disabled="isContactSubmitting"
+                  class="btn btn-primary w-full mt-8 p-4 rounded-lg flex items-center justify-center gap-2 font-semibold cursor-pointer">
+                  <span>{{ isContactSubmitting ? 'Opening Mail Client...' : 'Send Inquiry to business@fabneon.com' }}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </button>
               </form>
             </div>
