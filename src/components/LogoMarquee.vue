@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   items: { name: string; url: string }[];
   direction?: 'left' | 'right';
   speed?: 'slow' | 'normal' | 'fast';
   showNames?: boolean;
-}>();
+}>(), {
+  direction: 'left',
+  speed: 'normal',
+  showNames: false
+});
 
 const animationClass = computed(() => {
   if (props.direction === 'right') {
@@ -19,19 +23,33 @@ const animationClass = computed(() => {
 <template>
   <div class="logo-marquee-wrapper">
     <div class="logo-marquee-track" :class="animationClass">
-      <!-- Original set -->
-      <div v-for="(item, index) in items" :key="`orig-${index}`" class="logo-marquee-item">
-        <div class="logo-img-wrapper">
-          <img :src="item.url" :alt="item.name" :title="item.name" loading="lazy" />
+      <!-- First Group -->
+      <div class="logo-marquee-group">
+        <div v-for="(item, index) in items" :key="`g1-${index}`" class="logo-marquee-item">
+          <div class="logo-img-wrapper">
+            <img 
+              :src="item.url" 
+              :alt="item.name" 
+              :title="item.name" 
+              decoding="async" 
+            />
+          </div>
+          <span v-if="showNames" class="logo-name">{{ item.name }}</span>
         </div>
-        <span v-if="showNames" class="logo-name">{{ item.name }}</span>
       </div>
-      <!-- Duplicated set for infinite loop -->
-      <div v-for="(item, index) in items" :key="`dup-${index}`" class="logo-marquee-item">
-        <div class="logo-img-wrapper">
-          <img :src="item.url" :alt="item.name" :title="item.name" loading="lazy" />
+      <!-- Duplicate Group for Seamless 50% Infinite Loop -->
+      <div class="logo-marquee-group" aria-hidden="true">
+        <div v-for="(item, index) in items" :key="`g2-${index}`" class="logo-marquee-item">
+          <div class="logo-img-wrapper">
+            <img 
+              :src="item.url" 
+              :alt="item.name" 
+              :title="item.name" 
+              decoding="async" 
+            />
+          </div>
+          <span v-if="showNames" class="logo-name">{{ item.name }}</span>
         </div>
-        <span v-if="showNames" class="logo-name">{{ item.name }}</span>
       </div>
     </div>
   </div>
@@ -42,23 +60,51 @@ const animationClass = computed(() => {
   overflow: hidden;
   width: 100%;
   position: relative;
-  /* Road trail styling */
-  background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 20%, rgba(255,255,255,0.03) 80%, rgba(0,0,0,0) 100%);
+  isolation: isolate;
+  contain: content;
+  /* Road trail subtle contrast */
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(255,255,255,0.02) 20%, rgba(255,255,255,0.02) 80%, rgba(0,0,0,0) 100%);
   border-top: 1px dashed rgba(255,255,255,0.05);
   border-bottom: 1px dashed rgba(255,255,255,0.05);
-  /* Edge fading for the whole track */
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  padding: var(--space-xl) 0;
+  padding: 1.25rem 0;
+}
+
+/* Edge fading gradient overlays - Hardware accelerated, replaces expensive mask-image */
+.logo-marquee-wrapper::before,
+.logo-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.logo-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-primary, #0B0C0E) 0%, rgba(11, 12, 14, 0.8) 40%, transparent 100%);
+}
+
+.logo-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-primary, #0B0C0E) 0%, rgba(11, 12, 14, 0.8) 40%, transparent 100%);
 }
 
 .logo-marquee-track {
   display: flex;
-  align-items: center;
-  gap: 4rem; /* Spacing between logos */
   width: max-content;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.logo-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  padding-right: 3.5rem;
+  flex-shrink: 0;
 }
 
 .logo-marquee-item {
@@ -67,92 +113,109 @@ const animationClass = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  width: 160px;
-  transition: all var(--transition-base);
+  gap: 0.5rem;
+  width: 120px;
 }
 
 .logo-img-wrapper {
-  height: 50px;
+  height: 38px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.logo-marquee-item:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+.logo-marquee-item img {
+  max-width: 100%;
+  max-height: 34px;
+  object-fit: contain;
+  filter: grayscale(15%) opacity(0.85);
+  transition: filter 0.2s ease, transform 0.2s ease;
+  will-change: filter, transform;
+}
+
+.logo-marquee-item:hover img {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.12);
+}
+
+.logo-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
 .logo-marquee-item:hover .logo-name {
   color: var(--text-primary);
 }
 
-.logo-marquee-item img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.logo-name {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-align: center;
-  transition: color var(--transition-base);
-}
-
-/* Animations */
-.marquee-normal {
-  animation: marquee-left 40s linear infinite;
-}
-.marquee-slow {
-  animation: marquee-left 60s linear infinite;
-}
-.marquee-fast {
-  animation: marquee-left 25s linear infinite;
-}
-
-.marquee-right {
-  animation: marquee-right 40s linear infinite;
-}
-.marquee-right-slow {
-  animation: marquee-right 60s linear infinite;
-}
-.marquee-right-fast {
-  animation: marquee-right 25s linear infinite;
-}
-
+/* Pause on hover */
 .logo-marquee-wrapper:hover .logo-marquee-track {
   animation-play-state: paused;
 }
 
+/* Pure GPU-accelerated Keyframe Animations */
+.marquee-normal {
+  animation: marquee-left 35s linear infinite;
+}
+.marquee-slow {
+  animation: marquee-left 55s linear infinite;
+}
+.marquee-fast {
+  animation: marquee-left 22s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right 35s linear infinite;
+}
+.marquee-right-slow {
+  animation: marquee-right 55s linear infinite;
+}
+.marquee-right-fast {
+  animation: marquee-right 22s linear infinite;
+}
+
 @keyframes marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 2rem)); } /* -50% width minus half of the gap to perfectly loop */
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @keyframes marquee-right {
-  0% { transform: translateX(calc(-50% - 2rem)); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (max-width: 768px) {
+  .logo-marquee-wrapper {
+    padding: 1rem 0;
+  }
+  .logo-marquee-wrapper::before,
+  .logo-marquee-wrapper::after {
+    width: 50px;
+  }
+  .logo-marquee-group {
+    gap: 2.25rem;
+    padding-right: 2.25rem;
+  }
   .logo-marquee-item {
-    width: 120px;
-    height: 40px;
+    width: 90px;
   }
-  .logo-marquee-track {
-    gap: 2.5rem;
+  .logo-img-wrapper {
+    height: 30px;
   }
-  @keyframes marquee-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 1.25rem)); }
-  }
-  @keyframes marquee-right {
-    0% { transform: translateX(calc(-50% - 1.25rem)); }
-    100% { transform: translateX(0); }
+  .logo-marquee-item img {
+    max-height: 28px;
   }
 }
 </style>

@@ -166,22 +166,28 @@ const teamMembers = ref([
   }
 ]);
 
-// 100% locally served SVGs — zero external HTTP delay, zero 3rd-party latency
+// 20 Original Partner Brand Logos — Optimized, reduced size locally served images (zero external latency)
 const partners = ref([
-  { name: 'bKash', url: '/assets/logos/bkash.svg' },
-  { name: 'Nagad', url: '/assets/logos/nagad.svg' },
-  { name: 'Pathao', url: '/assets/logos/pathao.svg' },
-  { name: 'Grameenphone', url: '/assets/logos/grameenphone.svg' },
-  { name: 'Daraz', url: '/assets/logos/daraz.svg' },
-  { name: 'Walton', url: '/assets/logos/walton.svg' },
-  { name: 'Square Health', url: '/assets/logos/square.svg' },
-  { name: 'BRAC Bank', url: '/assets/logos/bracbank.svg' },
-  { name: 'City Bank', url: '/assets/logos/citybank.svg' },
-  { name: 'Aarong', url: '/assets/logos/aarong.svg' },
-  { name: 'Chaldal', url: '/assets/logos/chaldal.svg' },
-  { name: 'Samsung', url: '/assets/logos/samsung.svg' },
-  { name: 'Sony', url: '/assets/logos/sony.svg' },
-  { name: 'ASUS', url: '/assets/logos/asus.svg' }
+  { name: 'bKash', url: '/assets/logos/brand_bkash.png' },
+  { name: 'Pathao', url: '/assets/logos/brand_pathao.png' },
+  { name: 'Grameenphone', url: '/assets/logos/brand_grameenphone.png' },
+  { name: 'Daraz', url: '/assets/logos/brand_daraz.png' },
+  { name: 'Walton', url: '/assets/logos/brand_walton.png' },
+  { name: 'Square Hospital', url: '/assets/logos/brand_square_hospital.png' },
+  { name: 'United Hospital', url: '/assets/logos/brand_united_hospital.png' },
+  { name: 'Evercare', url: '/assets/logos/brand_evercare.png' },
+  { name: 'BRAC Bank', url: '/assets/logos/brand_brac_bank.png' },
+  { name: 'City Bank', url: '/assets/logos/brand_city_bank.png' },
+  { name: 'Aarong', url: '/assets/logos/brand_aarong.png' },
+  { name: 'Chaldal', url: '/assets/logos/brand_chaldal.png' },
+  { name: 'Foodpanda', url: '/assets/logos/brand_foodpanda.png' },
+  { name: 'LankaBangla', url: '/assets/logos/brand_lankabangla.png' },
+  { name: 'Shohoz', url: '/assets/logos/brand_shohoz.png' },
+  { name: 'Biman', url: '/assets/logos/brand_biman.png' },
+  { name: 'Samsung', url: '/assets/logos/brand_samsung.png' },
+  { name: 'ASUS', url: '/assets/logos/brand_asus.png' },
+  { name: 'Toyota', url: '/assets/logos/brand_toyota.png' },
+  { name: 'Sony', url: '/assets/logos/brand_sony.png' }
 ]);
 
 const techStack1 = ref([
@@ -315,7 +321,7 @@ onMounted(() => {
     <!-- Main Content -->
     <main v-if="currentPage === 'home'">
       <!-- 1. Hero Section -->
-      <section class="hero" id="home">
+      <section class="hero overflow-hidden [isolation:isolate]" id="home">
         <div class="hero-bg-glow"></div>
         <div class="hero-bg-glow-2"></div>
 
@@ -421,8 +427,8 @@ onMounted(() => {
         </div>
       </section>
 
-      <!-- 1.5 Our Partners Section (Optimized Local SVGs) -->
-      <section class="section" style="padding: 0; padding-bottom: 2rem;">
+      <!-- 1.5 Our Partners Section (Optimized Real Brand Logos) -->
+      <section class="section [isolation:isolate] overflow-hidden" style="padding: 0; padding-bottom: 2rem;">
         <div class="container text-center mb-4">
           <p class="text-sm font-semibold tracking-wider text-[var(--text-secondary)] uppercase">Trusted by forward-thinking companies & industry leaders</p>
         </div>

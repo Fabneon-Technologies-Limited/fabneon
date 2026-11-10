@@ -75,13 +75,9 @@ const placeNow = (el: HTMLElement, slot: ReturnType<typeof makeSlot>, skew: numb
     skewY: skew,
     transformOrigin: 'center center',
     zIndex: slot.zIndex,
-    force3D: true
+    force3D: true,
+    opacity: 1
   });
-
-const getConfig = () =>
-  props.easing === 'elastic'
-    ? { ease: 'power4.out', durDrop: 1.2, durMove: 1.2, durReturn: 1.2, promoteOverlap: 0.7, returnDelay: 0.05 }
-    : { ease: 'power1.inOut', durDrop: 0.8, durMove: 0.8, durReturn: 0.8, promoteOverlap: 0.45, returnDelay: 0.2 };
 
 let tlRef: gsap.core.Timeline | null = null;
 let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -106,41 +102,81 @@ function init() {
 function swap() {
   const cards = getCards();
   if (order.value.length < 2) return;
-  const config = getConfig();
   const [front, ...rest] = order.value;
   const elFront = cards[front];
   const tl = gsap.timeline();
   tlRef = tl;
 
-  tl.to(elFront, { y: '+=500', duration: config.durDrop, ease: config.ease });
-  tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+  // Snappy, GPU-optimized drop that fades out before leaving hero boundary
+  tl.to(elFront, { 
+    y: '+=180', 
+    opacity: 0,
+    scale: 0.95,
+    duration: 0.55, 
+    ease: 'power2.inOut',
+    force3D: true 
+  });
+  
+  tl.addLabel('promote', '-=0.35');
+
+  // Promote rest cards forward
   rest.forEach((idx, i) => {
     const el = cards[idx];
     const slot = makeSlot(i, props.cardDistance, props.verticalDistance, cards.length);
     tl.set(el, { zIndex: slot.zIndex }, 'promote');
-    tl.to(el, { x: slot.x, y: slot.y, z: slot.z, duration: config.durMove, ease: config.ease }, `promote+=${i * 0.15}`);
+    tl.to(el, { 
+      x: slot.x, 
+      y: slot.y, 
+      z: slot.z, 
+      opacity: 1,
+      scale: 1,
+      duration: 0.6, 
+      ease: 'power2.out',
+      force3D: true 
+    }, `promote+=${i * 0.08}`);
   });
 
   const backSlot = makeSlot(cards.length - 1, props.cardDistance, props.verticalDistance, cards.length);
-  tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+  tl.addLabel('return', 'promote+=0.25');
+
+  // Instant slot placement while invisible
   tl.call(
     () => {
-      gsap.set(elFront, { zIndex: backSlot.zIndex });
+      gsap.set(elFront, { 
+        x: backSlot.x, 
+        y: backSlot.y + 20, 
+        z: backSlot.z, 
+        zIndex: backSlot.zIndex,
+        opacity: 0,
+        scale: 0.96,
+        force3D: true
+      });
     },
     undefined,
     'return'
   );
+
+  // Smooth fade-in to the back slot
   tl.to(
     elFront,
-    { x: backSlot.x, y: backSlot.y, z: backSlot.z, duration: config.durReturn, ease: config.ease },
-    'return'
+    { 
+      y: backSlot.y, 
+      opacity: 1, 
+      scale: 1,
+      duration: 0.5, 
+      ease: 'power2.out',
+      force3D: true 
+    },
+    'return+=0.05'
   );
+
   tl.call(() => {
     order.value = [...rest, front];
   });
 }
 
 function startInterval() {
+  if (intervalId !== null) clearInterval(intervalId);
   intervalId = setInterval(swap, props.delay);
 }
 
@@ -181,7 +217,6 @@ let visibilityObserver: IntersectionObserver | null = null;
 onMounted(async () => {
   await nextTick();
   init();
-  swap();
   startInterval();
   setupHover();
 
@@ -217,7 +252,6 @@ watch(
     tlRef?.kill();
     await nextTick();
     init();
-    swap();
     startInterval();
     setupHover();
   }
@@ -227,7 +261,7 @@ watch(
 <template>
   <div
     ref="container"
-    class="relative mx-auto mt-20 overflow-visible perspective-[900px] origin-center transform scale-[0.6] md:scale-[0.8] lg:scale-90"
+    class="relative mx-auto mt-20 perspective-[900px] origin-center transform scale-[0.6] md:scale-[0.8] lg:scale-90 [contain:layout] [isolation:isolate]"
     :style="{ width: cssDim(width), height: cssDim(height) }"
   >
     <slot />

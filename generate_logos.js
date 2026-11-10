@@ -81,3 +81,4 @@ for (const [name, content] of Object.entries(logos)) {
   fs.writeFileSync(path.join(outDir, name), content.trim());
 }
 console.log(`Generated ${Object.keys(logos).length} crisp local partner SVG logos in ${outDir}`);
+

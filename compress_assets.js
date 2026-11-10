@@ -41,3 +41,4 @@ async function compressAll() {
 }
 
 compressAll().catch(console.error);
+
