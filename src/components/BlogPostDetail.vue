@@ -31,7 +31,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
 </script>
 
 <template>
-  <div class="blog-detail-view min-h-screen pt-28 pb-24 bg-[var(--bg-primary)] text-[var(--text-primary)]">
+  <div class="blog-detail-view min-h-screen pt-10 sm:pt-14 pb-24 bg-[var(--bg-primary)] text-[var(--text-primary)]">
     <div class="container max-w-4xl mx-auto px-4 sm:px-6">
 
       <!-- Top Navigation & Breadcrumbs -->

@@ -713,7 +713,7 @@ onUnmounted(() => {
     <!-- Non-blocking loader removed for instant First Contentful Paint -->
     <LoadingScreen :theme="theme" />
 
-    <PremiumNav :theme="theme" :items="navItems" @toggle-theme="toggleTheme" />
+    <PremiumNav v-if="currentPage === 'home'" :theme="theme" :items="navItems" @toggle-theme="toggleTheme" />
 
     <!-- Main Content -->
     <main v-if="currentPage === 'home'">
@@ -1379,8 +1379,10 @@ onUnmounted(() => {
       v-else-if="currentPage === 'case-study'"
       :case-study="currentCaseStudy"
       :all-case-studies="caseStudies"
+      :theme="theme"
       @back="closeCaseStudy"
       @select="openCaseStudy"
+      @toggle-theme="toggleTheme"
     />
 
     <!-- Blog Post Detail View -->
