@@ -1,23 +1,50 @@
 <template>
   <div class="policy-page">
-    <div class="policy-header">
-      <div class="container max-w-4xl mx-auto relative z-10">
-        <div class="header-top">
-          <button @click="$emit('back')" class="btn btn-outline-purple back-btn magnetic">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            <span class="font-medium">Back to Home</span>
+    
+    <!-- Unified Fixed Top Navigation Bar -->
+    <header class="policy-top-bar">
+      <div class="container max-w-5xl mx-auto px-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="#home" @click.prevent="$emit('back')" class="flex items-center gap-2 cursor-pointer mr-1">
+            <img src="/fabneon_logo_only.png" alt="Fabneon Technologies Limited" class="h-7 w-auto" />
+            <span class="font-bold text-sm tracking-tight text-white hidden sm:inline">Fabneon</span>
+          </a>
+
+          <button 
+            @click="$emit('back')" 
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-white/[0.06] border border-white/10 text-white/90 hover:text-white hover:bg-white/[0.12] hover:border-[var(--brand-teal-light)]/40 transition-all cursor-pointer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span>Back to Home</span>
           </button>
         </div>
-        
+
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--brand-teal-light)] hidden sm:block">
+          Legal & Compliance
+        </div>
+
+        <a 
+          href="#contact" 
+          @click="$emit('back')" 
+          class="inline-flex items-center gap-1 text-xs font-bold px-3.5 py-1.5 rounded-xl text-white shadow-md cursor-pointer"
+          style="background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);"
+        >
+          <span>Contact Legal</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="policy-header pt-28 md:pt-32 pb-16">
+      <div class="container max-w-4xl mx-auto px-4 relative z-10">
         <div class="header-title">
-          <div class="badge badge-teal mb-4">Legal Document</div>
+          <div class="badge badge-teal mb-4">Official Document</div>
           <h1 class="display title-text">{{ title }}</h1>
-          <p class="last-updated">Last Updated: <span>{{ lastUpdated }}</span></p>
+          <p class="last-updated text-xs sm:text-sm text-[var(--text-secondary)]">Last Updated: <span class="text-white font-semibold">{{ lastUpdated }}</span></p>
         </div>
       </div>
     </div>
 
-    <div class="container max-w-4xl mx-auto relative z-10 content-wrapper">
+    <div class="container max-w-4xl mx-auto px-4 relative z-10 content-wrapper">
       <div class="policy-card">
         <div class="prose">
           <slot></slot>
@@ -40,25 +67,31 @@ defineEmits(['back']);
 .policy-page {
   min-height: 100vh;
   background: var(--bg-primary);
+  position: relative;
+}
+
+.policy-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(13, 15, 20, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+[data-theme='light'] .policy-top-bar {
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .policy-header {
-  padding-top: 140px;
-  padding-bottom: 80px;
   background: var(--bg-overlay);
-}
-
-.header-top {
-  margin-bottom: 40px;
-  display: flex;
-}
-
-.back-btn {
-  border-radius: 50px;
-  padding: 10px 24px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .header-title {
@@ -68,29 +101,21 @@ defineEmits(['back']);
 }
 
 .title-text {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900;
   color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.last-updated {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-}
-
-.last-updated span {
-  color: var(--text-primary);
-  font-weight: 500;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
 }
 
 .content-wrapper {
-  margin-top: -40px;
+  margin-top: -30px;
   padding-bottom: 120px;
 }
 
 .policy-card {
   background: var(--bg-secondary);
-  padding: 60px;
+  padding: 48px;
   border-radius: var(--radius-2xl);
   border: 1px solid var(--border-muted);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
@@ -98,17 +123,17 @@ defineEmits(['back']);
 
 @media (max-width: 768px) {
   .policy-card {
-    padding: 30px;
+    padding: 24px;
   }
 }
 
 .prose :deep(h2) {
   color: var(--text-primary);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-top: 3rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-muted);
 }
 
@@ -118,30 +143,30 @@ defineEmits(['back']);
 
 .prose :deep(h3) {
   color: var(--text-primary);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .prose :deep(p) {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.8;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .prose :deep(ul) {
   list-style-type: disc;
-  padding-left: 2rem;
-  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
   color: var(--text-secondary);
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 .prose :deep(li) {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .prose :deep(li strong) {

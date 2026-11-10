@@ -47,7 +47,30 @@ const navItems = [
   { label: 'Contact', href: '#contact' }
 ];
 
-const currentPage = ref<'home' | 'terms' | 'privacy' | 'case-study' | 'blog-post'>('home');
+const getInitialRouting = () => {
+  if (typeof window === 'undefined') {
+    return { page: 'home' as const, caseStudyId: 'gkiti', blogSlug: 'best-software-company-in-rajshahi' };
+  }
+  const hash = window.location.hash;
+  if (hash.startsWith('#case-study-')) {
+    const id = hash.replace('#case-study-', '');
+    return { page: 'case-study' as const, caseStudyId: id, blogSlug: 'best-software-company-in-rajshahi' };
+  }
+  if (hash.startsWith('#blog-')) {
+    const slug = hash.replace('#blog-', '');
+    return { page: 'blog-post' as const, caseStudyId: 'gkiti', blogSlug: slug };
+  }
+  if (hash === '#terms') {
+    return { page: 'terms' as const, caseStudyId: 'gkiti', blogSlug: 'best-software-company-in-rajshahi' };
+  }
+  if (hash === '#privacy') {
+    return { page: 'privacy' as const, caseStudyId: 'gkiti', blogSlug: 'best-software-company-in-rajshahi' };
+  }
+  return { page: 'home' as const, caseStudyId: 'gkiti', blogSlug: 'best-software-company-in-rajshahi' };
+};
+
+const initialRoute = getInitialRouting();
+const currentPage = ref<'home' | 'terms' | 'privacy' | 'case-study' | 'blog-post'>(initialRoute.page);
 
 // Flagship Case Studies Data Model
 const caseStudies: CaseStudyData[] = [
@@ -360,7 +383,7 @@ const caseStudies: CaseStudyData[] = [
   }
 ];
 
-const selectedCaseStudyId = ref('gkiti');
+const selectedCaseStudyId = ref(initialRoute.caseStudyId);
 const currentCaseStudy = computed(() => 
   caseStudies.find(c => c.id === selectedCaseStudyId.value) || caseStudies[0]
 );
@@ -381,7 +404,7 @@ const closeCaseStudy = () => {
   });
 };
 
-const selectedBlogPostSlug = ref('best-software-company-in-rajshahi');
+const selectedBlogPostSlug = ref(initialRoute.blogSlug);
 const currentBlogPost = computed(() => 
   blogPosts.find(p => p.slug === selectedBlogPostSlug.value) || blogPosts[0]
 );
@@ -421,6 +444,14 @@ const handleHashRouting = () => {
       return;
     }
   }
+  if (hash === '#terms') {
+    currentPage.value = 'terms';
+    return;
+  }
+  if (hash === '#privacy') {
+    currentPage.value = 'privacy';
+    return;
+  }
   if (hash === '#blog' && currentPage.value === 'blog-post') {
     currentPage.value = 'home';
     nextTick(() => {
@@ -429,8 +460,11 @@ const handleHashRouting = () => {
     });
     return;
   }
-  if ((currentPage.value === 'case-study' || currentPage.value === 'blog-post') && 
-      !hash.startsWith('#case-study-') && !hash.startsWith('#blog-')) {
+  if (currentPage.value !== 'home' && 
+      !hash.startsWith('#case-study-') && 
+      !hash.startsWith('#blog-') && 
+      hash !== '#terms' && 
+      hash !== '#privacy') {
     currentPage.value = 'home';
   }
 };
@@ -1390,8 +1424,10 @@ onUnmounted(() => {
       v-else-if="currentPage === 'blog-post'"
       :post="currentBlogPost"
       :all-posts="blogPosts"
+      :theme="theme"
       @back="closeBlogPost"
       @select-post="openBlogPost"
+      @toggle-theme="toggleTheme"
     />
 
     <!-- Legal Pages -->
