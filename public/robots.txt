@@ -1,6 +1,28 @@
 User-agent: *
 Allow: /
 
+# Dedicated Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
 # Dedicated AI Search & Agent Crawlers
 User-agent: Google-Extended
 Allow: /
@@ -32,5 +54,6 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
+# XML Sitemap Specification
 Sitemap: https://fabneon.com/sitemap.xml
-Host: https://fabneon.com
+Host: fabneon.com

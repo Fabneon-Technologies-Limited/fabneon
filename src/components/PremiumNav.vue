@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   items: { label: string; href: string }[];
   theme: 'light' | 'dark';
-}>();
+  currentPage?: string;
+}>(), {
+  currentPage: 'home'
+});
 
 const emit = defineEmits<{
   (e: 'toggle-theme'): void;
+  (e: 'navigate', targetId: string): void;
 }>();
 
 const isScrolled = ref(false);
@@ -22,6 +26,15 @@ const logoSrc = computed(() =>
 const updateScrollState = () => {
   isScrolled.value = window.scrollY > 40;
   
+  if (props.currentPage === 'case-study') {
+    activeSection.value = '#case-studies';
+    return;
+  }
+  if (props.currentPage === 'blog-post') {
+    activeSection.value = '#blog';
+    return;
+  }
+
   const sections = props.items.map(item => document.querySelector(item.href)).filter(Boolean);
   let current = '#home';
   for (const section of sections) {
@@ -45,9 +58,15 @@ const handleNavClick = (e: MouseEvent, href: string) => {
     e.preventDefault();
     isMobileMenuOpen.value = false;
     const targetId = href.substring(1);
+
+    if (props.currentPage !== 'home') {
+      emit('navigate', targetId);
+      return;
+    }
+
     const targetEl = document.getElementById(targetId);
     if (targetEl) {
-      const navOffset = 95;
+      const navOffset = 110;
       const elTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: Math.max(0, elTop - navOffset),
@@ -76,7 +95,7 @@ onUnmounted(() => {
         
         <!-- Logo -->
         <a href="#home" class="nav-brand" @click="handleNavClick($event, '#home')">
-          <img :src="logoSrc" alt="Fabneon Technologies Limited" class="nav-logo-img" />
+          <img :src="logoSrc" alt="Fabneon Technologies Limited — Premier Software Company Logo" class="nav-logo-img" width="160" height="40" />
         </a>
 
         <!-- Desktop Navigation -->

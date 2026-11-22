@@ -82,7 +82,7 @@ onUnmounted(() => {
           :class="getSlideClass(idx)"
           @click="setActive(idx)"
         >
-          <img :src="item.image || item.img" :alt="item.name" />
+          <img :src="item.image || item.img" :alt="item.name + ' — ' + item.role + ' at Fabneon Technologies Limited'" width="360" height="450" loading="lazy" decoding="async" />
           <div class="slide-overlay">
             <template v-if="item.name || item.role">
               <div class="slide-text-container absolute inset-x-0 bottom-0 p-6 pt-16 pb-10 flex flex-col items-center justify-end z-10 pointer-events-none">

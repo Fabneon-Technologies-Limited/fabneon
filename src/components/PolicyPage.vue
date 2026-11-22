@@ -6,7 +6,7 @@
       <div class="container max-w-5xl mx-auto px-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <a href="#home" @click.prevent="$emit('back')" class="flex items-center gap-2 cursor-pointer mr-1">
-            <img src="/fabneon_logo_only.png" alt="Fabneon Technologies Limited" class="h-7 w-auto" />
+            <img src="/fabneon_logo_only.png" alt="Fabneon Technologies Limited Official Logo" class="h-7 w-auto" width="28" height="28" />
             <span class="font-bold text-sm tracking-tight text-white hidden sm:inline">Fabneon</span>
           </a>
 

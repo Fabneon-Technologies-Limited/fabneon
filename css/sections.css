@@ -122,13 +122,13 @@
 
 /* ─── 2. Hero Section ─── */
 .hero {
-  min-height: 85vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: var(--space-6xl); /* Offset for navbar */
-  padding-bottom: var(--space-2xl);
+  padding-top: 5rem; /* Clean calibrated offset for floating navbar */
+  padding-bottom: 2rem;
 }
 
 /* Background elements for hero */
@@ -167,18 +167,17 @@
 }
 
 .hero h1 {
-  margin-bottom: var(--space-lg);
+  margin-bottom: 0.75rem;
 }
 
 .hero .lead {
-  margin-bottom: var(--space-2xl);
-  font-size: var(--text-2xl);
+  margin-bottom: 1.25rem;
 }
 
 .hero-cta {
   display: flex;
   gap: var(--space-md);
-  margin-bottom: var(--space-3xl);
+  margin-bottom: 0;
 }
 
 .hero-stats {

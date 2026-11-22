@@ -35,72 +35,28 @@ const handleSelectOther = (otherPost: BlogPost) => {
 <template>
   <div class="blog-detail-view min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
     
-    <!-- Unified Top Navigation Bar (Solid Opaque, Zero Transparency / Bleed-through) -->
-    <header class="blog-top-bar">
-      <div class="container max-w-5xl mx-auto px-4 flex items-center justify-between">
-        
-        <!-- Left: Logo & Back Button -->
-        <div class="flex items-center gap-3">
-          <a href="#home" @click.prevent="handleBack" class="flex items-center gap-2 cursor-pointer mr-1">
-            <img src="/fabneon_logo_only.png" alt="Fabneon Technologies Limited" class="h-7 w-auto" />
-            <span class="font-bold text-sm tracking-tight text-[var(--text-primary)] hidden sm:inline">Fabneon</span>
-          </a>
+    <!-- Main Content Container with in-flow breadcrumbs and breathing room below Global Floating Navbar -->
+    <div class="container max-w-4xl mx-auto px-4 sm:px-6 pt-28 md:pt-32 pb-24">
+      
+      <!-- In-Flow Breadcrumb Header -->
+      <div class="flex items-center justify-between mb-8 pb-4 border-b border-[var(--border-muted)]">
+        <button 
+          @click="handleBack" 
+          class="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] hover:border-[var(--brand-teal-light)]/60 transition-all cursor-pointer shadow-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Back to All Articles</span>
+        </button>
 
-          <button 
-            @click="handleBack" 
-            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] hover:border-[var(--brand-teal-light)]/60 transition-all cursor-pointer shadow-sm"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            <span>All Articles</span>
-          </button>
-        </div>
-
-        <!-- Center: Truncated Article Title -->
-        <div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-xs font-semibold text-[var(--text-primary)] shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-teal-light)]"></span>
-          <span class="truncate max-w-[280px]">{{ post.title }}</span>
-        </div>
-
-        <!-- Right: Actions -->
-        <div class="flex items-center gap-2.5">
-          <!-- Theme Toggle -->
-          <button 
-            v-if="theme" 
-            class="p-2 rounded-xl text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors cursor-pointer" 
-            @click="emit('toggle-theme')" 
-            :title="theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-            aria-label="Toggle Theme"
-          >
-            <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </button>
-
-          <!-- Share Link -->
-          <button 
-            @click="copyArticleUrl" 
-            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] hover:border-[var(--brand-teal-light)]/40 transition-all cursor-pointer shadow-sm"
-          >
-            <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="20 6 9 17 4 12"/></svg>
-            <span class="hidden sm:inline">{{ copied ? 'Copied!' : 'Share' }}</span>
-          </button>
-
-          <!-- Start Project CTA -->
-          <a 
-            href="#contact" 
-            @click="handleBack" 
-            class="inline-flex items-center gap-1 text-xs font-bold px-3.5 py-1.5 rounded-xl text-white shadow-md cursor-pointer"
-            style="background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);"
-          >
-            <span>Start Project</span>
-          </a>
-        </div>
-
+        <button 
+          @click="copyArticleUrl" 
+          class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] hover:border-[var(--brand-teal-light)]/40 transition-all cursor-pointer shadow-sm"
+        >
+          <svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>{{ copied ? 'Link Copied!' : 'Share Article' }}</span>
+        </button>
       </div>
-    </header>
-
-    <!-- Main Content Container (Generous Breathing Room) -->
-    <div class="container max-w-4xl mx-auto px-4 sm:px-6 pt-32 md:pt-36 pb-24">
       
       <!-- Article Header -->
       <header class="mb-10 text-left">
@@ -117,7 +73,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
         </div>
 
         <!-- Headline -->
-        <h1 class="text-2xl sm:text-3xl md:text-5xl font-black text-[var(--text-primary)] tracking-tight leading-[1.18] mb-4">
+        <h1 class="blog-article-h1 font-extrabold text-[var(--text-primary)] tracking-tight mb-4">
           {{ post.title }}
         </h1>
 
@@ -128,9 +84,9 @@ const handleSelectOther = (otherPost: BlogPost) => {
 
         <!-- Author Byline Card -->
         <div class="inline-flex items-center gap-3.5 p-3.5 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] shadow-md">
-          <img :src="post.author.avatar" :alt="post.author.name" class="w-10 h-10 rounded-full bg-white/10 p-1" />
+          <img :src="post.author.avatar" :alt="post.author.name + ' — ' + post.author.role" class="w-10 h-10 rounded-full bg-white/10 p-1" width="40" height="40" />
           <div>
-            <h4 class="text-xs font-bold text-[var(--text-primary)] m-0 leading-tight">{{ post.author.name }}</h4>
+            <span class="text-xs font-bold text-[var(--text-primary)] m-0 leading-tight block">{{ post.author.name }}</span>
             <p class="text-[10px] text-[var(--text-muted)] m-0 mt-0.5">{{ post.author.role }}</p>
           </div>
         </div>
@@ -138,7 +94,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
 
       <!-- Featured Visual -->
       <div class="relative rounded-2xl md:rounded-3xl overflow-hidden aspect-video md:aspect-[16/9] max-h-[460px] mb-12 border border-[var(--border-muted)] shadow-2xl bg-black/60">
-        <img :src="post.featuredImage" :alt="post.title" class="w-full h-full object-cover" />
+        <img :src="post.featuredImage" :alt="post.title + ' — Fabneon Technologies Limited'" class="w-full h-full object-cover" width="900" height="460" />
       </div>
 
       <!-- Article Body (HTML rendered with spacious editorial typography) -->
@@ -148,7 +104,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
 
       <!-- Tags Bottom -->
       <div class="mt-14 pt-6 border-t border-[var(--border-muted)] text-left">
-        <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-3">Related Topics:</h4>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-3">Related Topics:</h3>
         <div class="flex flex-wrap gap-2">
           <span 
             v-for="tag in post.tags" 
@@ -186,7 +142,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
           >
             <div>
               <span class="text-[10px] font-bold uppercase text-[var(--brand-teal-light)] mb-1 block">{{ other.category }}</span>
-              <h4 class="text-sm font-bold text-[var(--text-primary)] group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug mb-2">{{ other.title }}</h4>
+              <p class="text-sm font-bold text-[var(--text-primary)] group-hover:text-[var(--brand-teal-light)] transition-colors leading-snug mb-2">{{ other.title }}</p>
             </div>
             <span class="text-xs text-[var(--text-muted)] font-medium mt-3 flex items-center gap-1 group-hover:text-[var(--text-primary)] transition-colors">
               <span>{{ other.readTime }}</span>
@@ -209,24 +165,9 @@ const handleSelectOther = (otherPost: BlogPost) => {
   overflow-x: hidden;
 }
 
-.blog-top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 68px;
-  background: #0E0F12 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-}
-
-[data-theme='light'] .blog-top-bar {
-  background: #FFFFFF !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+.blog-article-h1 {
+  font-size: clamp(1.75rem, 3vw + 0.25rem, 2.5rem) !important;
+  line-height: 1.25 !important;
 }
 
 :deep(.blog-prose h2) {
@@ -297,5 +238,73 @@ const handleSelectOther = (otherPost: BlogPost) => {
 
 :deep(.blog-prose a:hover) {
   opacity: 0.85;
+}
+
+/* Rich Prose Tables */
+:deep(.blog-prose table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-muted);
+}
+
+:deep(.blog-prose th) {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-muted);
+  font-size: 0.88rem;
+}
+
+:deep(.blog-prose td) {
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-muted);
+  font-size: 0.88rem;
+}
+
+:deep(.blog-prose tr:last-child td) {
+  border-bottom: none;
+}
+
+[data-theme='light'] :deep(.blog-prose table) {
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] :deep(.blog-prose th) {
+  background: #F8FAFC;
+  color: #0F172A;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+[data-theme='light'] :deep(.blog-prose td) {
+  border-bottom: 1px solid #E2E8F0;
+  color: #334155;
+}
+
+[data-theme='light'] :deep(.blog-prose tr:nth-child(even) td) {
+  background: #F8FAFC;
+}
+
+/* Blockquotes / Callout Highlights */
+:deep(.blog-prose blockquote) {
+  border-left: 4px solid var(--brand-teal);
+  padding: 1rem 1.5rem;
+  margin: 1.75rem 0;
+  border-radius: 0 12px 12px 0;
+  background: rgba(0, 163, 196, 0.05);
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+[data-theme='light'] :deep(.blog-prose blockquote) {
+  background: #F0FDF4;
+  border-left-color: #059669;
+  color: #065F46;
 }
 </style>

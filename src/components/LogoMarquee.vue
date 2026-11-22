@@ -29,9 +29,12 @@ const animationClass = computed(() => {
           <div class="logo-img-wrapper">
             <img 
               :src="item.url" 
-              :alt="item.name" 
+              :alt="item.name + ' — Technology Partner of Fabneon Technologies Limited'" 
               :title="item.name" 
+              loading="lazy"
               decoding="async" 
+              width="48"
+              height="48"
             />
           </div>
           <span v-if="showNames" class="logo-name">{{ item.name }}</span>
@@ -43,9 +46,12 @@ const animationClass = computed(() => {
           <div class="logo-img-wrapper">
             <img 
               :src="item.url" 
-              :alt="item.name" 
+              :alt="item.name + ' — Technology Partner of Fabneon Technologies Limited'" 
               :title="item.name" 
+              loading="lazy"
               decoding="async" 
+              width="48"
+              height="48"
             />
           </div>
           <span v-if="showNames" class="logo-name">{{ item.name }}</span>

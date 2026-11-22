@@ -41,7 +41,7 @@ const handleSelectPost = (post: BlogPost) => {
 </script>
 
 <template>
-  <section class="section" id="blog" style="padding-top: 6.5rem; padding-bottom: 6rem; scroll-margin-top: 110px;">
+  <section class="section" id="blog" style="padding-top: 5.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
     <div class="container max-w-7xl mx-auto px-4">
       
       <!-- Section Header -->
@@ -65,10 +65,8 @@ const handleSelectPost = (post: BlogPost) => {
             :key="cat"
             @click="selectedCategory = cat"
             :class="[
-              'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap',
-              selectedCategory === cat 
-                ? 'bg-gradient-to-r from-[var(--brand-teal)] to-cyan-500 text-slate-950 font-bold shadow-lg shadow-[var(--brand-teal)]/25' 
-                : 'bg-white/[0.04] text-[var(--text-secondary)] border border-white/10 hover:text-white hover:border-[var(--brand-teal-light)]/40'
+              'category-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap',
+              selectedCategory === cat ? 'active' : ''
             ]"
           >
             {{ cat }}
@@ -81,7 +79,7 @@ const handleSelectPost = (post: BlogPost) => {
             v-model="searchQuery" 
             type="text" 
             placeholder="Search Rajshahi, AI, ERP..."
-            class="w-full px-4 py-2 pl-9 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--brand-teal)] transition-colors"
+            class="blog-search-input w-full px-4 py-2 pl-9 rounded-xl text-xs focus:outline-none transition-colors"
           />
           <svg class="absolute left-3 top-2.5 w-3.5 h-3.5 text-[var(--text-muted)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -92,21 +90,23 @@ const handleSelectPost = (post: BlogPost) => {
       <!-- Featured Hero Article (If matches filter) -->
       <div 
         v-if="featuredPost" 
-        class="featured-blog-card rounded-3xl bg-[var(--bg-secondary)] border border-white/10 overflow-hidden p-6 md:p-8 mb-8 shadow-xl transition-all duration-300 hover:border-[var(--brand-teal-light)]/50 hover:shadow-2xl hover:shadow-[var(--brand-teal-light)]/10 group cursor-pointer"
+        class="featured-blog-card rounded-3xl overflow-hidden p-6 md:p-8 mb-8 transition-all duration-300 group cursor-pointer"
         @click="handleSelectPost(featuredPost)"
       >
         <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           <!-- Thumbnail -->
-          <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video bg-black/50 border border-white/10 shadow-lg group">
+          <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-video bg-black/50 border border-black/5 dark:border-white/10 shadow-lg group">
             <img 
               :src="featuredPost.featuredImage" 
-              :alt="featuredPost.title" 
+              :alt="featuredPost.title + ' — Fabneon Engineering Analysis'" 
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               loading="lazy"
+              width="600"
+              height="338"
             />
             <div class="absolute top-3 left-3">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/80 backdrop-blur-md text-[var(--brand-teal-light)] border border-[var(--brand-teal-light)]/30 shadow-md">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/85 backdrop-blur-md text-[var(--brand-teal-light)] border border-[var(--brand-teal-light)]/40 shadow-md">
                 ★ Featured Analysis
               </span>
             </div>
@@ -139,7 +139,7 @@ const handleSelectPost = (post: BlogPost) => {
                 <span 
                   v-for="tag in featuredPost.tags.slice(0, 4)" 
                   :key="tag"
-                  class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/[0.04] text-[var(--text-secondary)] border border-white/10"
+                  class="blog-tag-pill text-[10px] font-semibold px-2 py-0.5 rounded-md"
                 >
                   #{{ tag }}
                 </span>
@@ -147,18 +147,17 @@ const handleSelectPost = (post: BlogPost) => {
             </div>
 
             <!-- Author & Action -->
-            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-muted)]">
               <div class="flex items-center gap-3">
-                <img :src="featuredPost.author.avatar" :alt="featuredPost.author.name" class="w-8 h-8 rounded-full bg-white/10 p-1" />
+                <img :src="featuredPost.author.avatar" :alt="featuredPost.author.name + ' — ' + featuredPost.author.role" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 p-1" width="32" height="32" loading="lazy" />
                 <div>
-                  <h4 class="text-xs font-bold text-[var(--text-primary)] m-0 leading-tight">{{ featuredPost.author.name }}</h4>
+                  <span class="text-xs font-bold text-[var(--text-primary)] m-0 leading-tight block">{{ featuredPost.author.name }}</span>
                   <p class="text-[10px] text-[var(--text-muted)] m-0">{{ featuredPost.author.role }}</p>
                 </div>
               </div>
 
               <button 
                 class="btn-blog-action inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md cursor-pointer transition-all"
-                style="background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);"
                 @click.stop="handleSelectPost(featuredPost)"
               >
                 <span>Read Full Article</span>
@@ -174,20 +173,22 @@ const handleSelectPost = (post: BlogPost) => {
         <article 
           v-for="post in regularPosts" 
           :key="post.id"
-          class="blog-card rounded-2xl md:rounded-3xl bg-[var(--bg-secondary)] border border-white/10 p-5 flex flex-col justify-between transition-all duration-300 hover:border-[var(--brand-teal-light)]/50 hover:shadow-2xl hover:shadow-[var(--brand-teal-light)]/10 hover:-translate-y-1.5 cursor-pointer group"
+          class="blog-card rounded-2xl md:rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group"
           @click="handleSelectPost(post)"
         >
           <div>
             <!-- Thumbnail Image -->
-            <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-black/40 border border-white/10 mb-4 group-hover:border-[var(--brand-teal-light)]/40 transition-colors">
+            <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-black/40 border border-black/5 dark:border-white/10 mb-4 group-hover:border-[var(--brand-teal-light)]/40 transition-colors">
               <img 
                 :src="post.featuredImage" 
-                :alt="post.title" 
+                :alt="post.title + ' — Fabneon Technologies Limited'" 
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                 loading="lazy"
+                width="400"
+                height="250"
               />
               <div class="absolute top-2.5 left-2.5">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-black/80 backdrop-blur-md text-[var(--brand-teal-light)] border border-[var(--brand-teal-light)]/30 shadow-md">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-black/85 backdrop-blur-md text-[var(--brand-teal-light)] border border-[var(--brand-teal-light)]/40 shadow-md">
                   {{ post.category }}
                 </span>
               </div>
@@ -215,7 +216,7 @@ const handleSelectPost = (post: BlogPost) => {
               <span 
                 v-for="tag in post.tags.slice(0, 2)" 
                 :key="tag"
-                class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/[0.04] text-[var(--text-secondary)] border border-white/10"
+                class="blog-tag-pill text-[10px] font-semibold px-2 py-0.5 rounded-md"
               >
                 #{{ tag }}
               </span>
@@ -223,10 +224,9 @@ const handleSelectPost = (post: BlogPost) => {
           </div>
 
           <!-- Card Action Footer -->
-          <div class="flex items-center justify-between pt-3.5 border-t border-white/10 mt-auto">
+          <div class="flex items-center justify-between pt-3.5 border-t border-[var(--border-muted)] mt-auto">
             <button 
               class="btn-blog-action inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm cursor-pointer transition-all"
-              style="background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);"
               @click.stop="handleSelectPost(post)"
             >
               <span>Read Article</span>
@@ -237,7 +237,7 @@ const handleSelectPost = (post: BlogPost) => {
       </div>
 
       <!-- Empty State -->
-      <div v-else-if="!featuredPost && filteredPosts.length === 0" class="text-center py-16 rounded-3xl bg-[var(--bg-secondary)] border border-white/10">
+      <div v-else-if="!featuredPost && filteredPosts.length === 0" class="text-center py-16 rounded-3xl bg-[var(--bg-secondary)] border border-[var(--border-muted)]">
         <p class="text-base text-[var(--text-secondary)]">No articles found matching "{{ searchQuery }}"</p>
         <button @click="searchQuery = ''; selectedCategory = 'All'" class="btn btn-outline-purple btn-sm mt-3">Reset Filters</button>
       </div>
@@ -257,17 +257,109 @@ const handleSelectPost = (post: BlogPost) => {
   background: rgba(18, 20, 26, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-[data-theme='light'] .featured-blog-card,
+[data-theme='dark'] .featured-blog-card:hover,
+[data-theme='dark'] .blog-card:hover {
+  border-color: rgba(0, 163, 196, 0.45);
+  box-shadow: 0 16px 36px -10px rgba(0, 163, 196, 0.2), 0 0 20px rgba(75, 26, 127, 0.15);
+}
+
+[data-theme='light'] .featured-blog-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+[data-theme='light'] .featured-blog-card:hover {
+  border-color: rgba(0, 90, 107, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(0, 90, 107, 0.15);
+}
+
 [data-theme='light'] .blog-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.08);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.btn-blog-action:hover {
-  background: linear-gradient(135deg, #00BCE0 0%, #5C2299 100%) !important;
-  box-shadow: 0 6px 20px rgba(0, 163, 196, 0.4) !important;
-  transform: translateY(-1px);
+[data-theme='light'] .blog-card:hover {
+  border-color: rgba(0, 90, 107, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(0, 90, 107, 0.15);
+}
+
+/* Category Filter Pills */
+.category-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-filter-btn:hover {
+  color: #FFFFFF;
+  border-color: rgba(0, 163, 196, 0.4);
+}
+
+.category-filter-btn.active {
+  background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-color: rgba(0, 163, 196, 0.5) !important;
+  box-shadow: 0 4px 14px rgba(0, 163, 196, 0.25) !important;
+}
+
+[data-theme='light'] .category-filter-btn {
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+}
+
+[data-theme='light'] .category-filter-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+
+[data-theme='light'] .category-filter-btn.active {
+  background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%) !important;
+  color: #FFFFFF !important;
+  border-color: transparent !important;
+}
+
+/* Search Input */
+.blog-search-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.blog-search-input:focus {
+  border-color: var(--brand-teal);
+  box-shadow: 0 0 0 2px rgba(0, 163, 196, 0.2);
+}
+
+[data-theme='light'] .blog-search-input {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .blog-search-input::placeholder {
+  color: #94A3B8;
+}
+
+/* Tag Pills */
+.blog-tag-pill {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .blog-tag-pill {
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
 }
 </style>
