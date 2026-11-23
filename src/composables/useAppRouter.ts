@@ -6,8 +6,8 @@ export type AppPage = 'home' | 'case-studies' | 'terms' | 'privacy' | 'case-stud
 
 const SITE_CANONICAL_BASE = 'https://fabneon.com';
 
-const HOME_META_TITLE = 'Fabneon Technologies Limited | Best Software Company in Rajshahi & Bangladesh | Enterprise ERP & AI Solutions';
-const HOME_META_DESC = 'Fabneon Technologies Limited is the premier corporate software engineering firm in Rajshahi & Bangladesh. We build scalable enterprise ERPs, cloud SaaS operating systems (RepairSoft, FabPharma), and government-accredited digital ecosystems (Global Knowledge Institute GKITI BTEB 23415).';
+const HOME_META_TITLE = 'Fabneon Technologies | Software Company in Rajshahi & Bangladesh';
+const HOME_META_DESC = 'Fabneon Technologies Limited architects scalable enterprise ERPs, cloud SaaS systems (RepairSoft, FabPharma), and applied AI platforms in Bangladesh.';
 
 export function updateMetaTags(title: string, desc: string, canonicalPath: string) {
   if (typeof document === 'undefined') return;

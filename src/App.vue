@@ -61,8 +61,8 @@ const handleNavAction = (targetId: string) => {
     window.location.hash = targetId;
   }
   updateMetaTags(
-    'Fabneon Technologies Limited | Best Software Company in Rajshahi & Bangladesh | Enterprise ERP & AI Solutions',
-    'Fabneon Technologies Limited is the premier corporate software engineering firm in Rajshahi & Bangladesh. We build scalable enterprise ERPs, cloud SaaS operating systems (RepairSoft, FabPharma), and government-accredited digital ecosystems (Global Knowledge Institute GKITI BTEB 23415).',
+    'Fabneon Technologies | Software Company in Rajshahi & Bangladesh',
+    'Fabneon Technologies Limited architects scalable enterprise ERPs, cloud SaaS systems (RepairSoft, FabPharma), and applied AI platforms in Bangladesh.',
     '/'
   );
   nextTick(() => {
