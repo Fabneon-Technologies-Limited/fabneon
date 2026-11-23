@@ -105,7 +105,7 @@ export const teamMembers = [
   {
     id: 1,
     name: 'Mahfuz Ahmad',
-    role: 'Lead Software Architect & Engineer',
+    role: 'Founder & Lead Engineer',
     image: '/assets/images/team_mahfuz.webp',
     colorClass: 'text-[var(--brand-teal)]',
     shadowClass: 'hover:shadow-[var(--glow-teal)]'

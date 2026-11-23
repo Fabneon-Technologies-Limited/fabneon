@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import CardSwap from '../CardSwap.vue';
+// import ParticleVortex from '../ParticleVortex.vue';
 import { scrollToTarget } from '../../composables/useAppRouter';
 </script>
 
 <template>
   <section class="hero overflow-hidden [isolation:isolate]" id="home">
+    <!-- ParticleVortex dot matrix commented out as requested -->
+    <!-- <ParticleVortex /> -->
     <div class="hero-bg-glow"></div>
     <div class="hero-bg-glow-2"></div>
 

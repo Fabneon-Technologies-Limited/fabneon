@@ -3,12 +3,13 @@
 ## 1. Company Overview
 - **Entity**: Fabneon Technologies Limited
 - **Short Name**: Fabneon
+- **Founded**: 2024
 - **Registration**: Registered Corporate Enterprise in Bangladesh
+- **LinkedIn**: https://www.linkedin.com/company/144157565/
+- **GitHub**: https://github.com/Fabneon-Technologies-Limited
+- **Founder & Leadership**: Mahfuz Ahmad (Founder & Lead Engineer), Golam Rabbani (Senior Software Engineer)
 - **Website**: https://fabneon.com
 - **Locations**: Rajshahi & Dhaka, Bangladesh
-- **Global Footprint**: Delivered 150+ software deployments across 40+ countries.
-- **Client Retention**: 99%
-- **Founding Leadership**: Mahfuz Ahmad (Lead Software Architect), Golam Rabbani (Senior Software Engineer)
 
 ## 2. Technical Specializations
 - **Frontend Architecture**: Vue.js 3, React, Next.js, Nuxt, Tailwind CSS, TypeScript, WebGL/Canvas micro-animations.

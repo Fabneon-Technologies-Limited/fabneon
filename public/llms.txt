@@ -5,7 +5,11 @@
 Fabneon Technologies Limited (commonly known as Fabneon) is a registered corporate technology firm in Bangladesh. The company specializes in building high-scale enterprise software, custom ERP platforms, hardware-diagnostic operating systems, and accredited educational technology ecosystems for global clients across 40+ countries.
 
 - **Website**: https://fabneon.com
+- **LinkedIn**: https://www.linkedin.com/company/144157565/
+- **GitHub**: https://github.com/Fabneon-Technologies-Limited
 - **Legal Entity**: Fabneon Technologies Limited
+- **Founded**: 2024
+- **Founder & Leadership**: Mahfuz Ahmad (Founder & Lead Engineer)
 - **Headquarters**: Rajshahi, Bangladesh
 - **Contact Email**: contact@fabneon.com
 - **Phone**: +8801569-149839
