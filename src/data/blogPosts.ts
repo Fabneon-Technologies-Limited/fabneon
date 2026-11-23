@@ -34,7 +34,7 @@ export const blogPosts: BlogPost[] = [
       role: 'Enterprise Systems Architecture Office',
       avatar: '/fabneon_logo_only.png'
     },
-    featuredImage: '/assets/images/card_scalable.webp',
+    featuredImage: '/assets/images/blog_rajshahi_tech_office.webp',
     featured: true,
     content: `
       <h2>The Rise of Rajshahi as Northern Bangladesh's Premier Tech Hub</h2>
@@ -105,7 +105,7 @@ export const blogPosts: BlogPost[] = [
       role: 'Enterprise Software & Market Analysis',
       avatar: '/fabneon_logo_only.png'
     },
-    featuredImage: '/assets/images/card_growth.webp',
+    featuredImage: '/assets/images/blog_bangladesh_engineers.webp',
     featured: true,
     content: `
       <h2>The Evolution of Bangladesh's $2 Billion+ Software Economy</h2>
@@ -234,7 +234,7 @@ export const blogPosts: BlogPost[] = [
       role: 'Machine Learning & Applied Analytics Team',
       avatar: '/fabneon_logo_only.png'
     },
-    featuredImage: '/assets/images/card_uiux.webp',
+    featuredImage: '/assets/images/blog_applied_ai_developer.webp',
     content: `
       <h2>Beyond the Hype: The Need for Deterministic, High-Utility AI</h2>
       <p>While the tech industry has been inundated with generic conversational chatbots and wrapper apps, true enterprise value lies in <strong>Applied Artificial Intelligence</strong>—algorithms engineered to solve deterministic, expensive business bottlenecks.</p>
@@ -325,7 +325,7 @@ export const blogPosts: BlogPost[] = [
       role: 'Full-Stack Performance & Conversion Engineers',
       avatar: '/fabneon_logo_only.png'
     },
-    featuredImage: '/assets/images/proj_ecommerce.webp',
+    featuredImage: '/assets/images/blog_ecommerce_craftsman.webp',
     content: `
       <h2>The Challenge: When a Platform Rebuild Crashes Conversions</h2>
       <p>Following a greenfield migration to a new framework, consumer retail brand <strong>iTrust</strong> (<a href="https://itrust.com.bd" target="_blank" rel="noopener noreferrer" class="text-[var(--brand-teal)] underline">itrust.com.bd</a>) experienced a catastrophic drop in online sales during peak Meta advertisement campaigns. Orders plummeted from 10+ per day to zero.</p>

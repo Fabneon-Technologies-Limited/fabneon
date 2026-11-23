@@ -93,6 +93,7 @@ function getInitialRouting() {
 
 const initialRoute = getInitialRouting();
 const currentPage = ref<AppPage>(initialRoute.page);
+const previousPage = ref<AppPage>('home');
 const selectedCaseStudyId = ref(initialRoute.caseStudyId);
 const selectedBlogPostSlug = ref(initialRoute.blogSlug);
 
@@ -106,6 +107,7 @@ export function useAppRouter() {
   );
 
   const openCaseStudy = (id: string) => {
+    previousPage.value = currentPage.value;
     selectedCaseStudyId.value = id;
     currentPage.value = 'case-study';
     try {
@@ -123,6 +125,10 @@ export function useAppRouter() {
   };
 
   const closeCaseStudy = () => {
+    if (previousPage.value === 'case-studies') {
+      navigateTo('case-studies');
+      return;
+    }
     currentPage.value = 'home';
     try {
       window.history.pushState(null, '', '/#case-studies');
@@ -138,6 +144,7 @@ export function useAppRouter() {
   };
 
   const openBlogPost = (post: BlogPost) => {
+    previousPage.value = currentPage.value;
     selectedBlogPostSlug.value = post.slug;
     currentPage.value = 'blog-post';
     try {
@@ -280,6 +287,12 @@ export function useAppRouter() {
       return;
     }
     if (currentPage.value !== 'home' &&
+        !path.startsWith('/case-study/') &&
+        !path.startsWith('/blog/') &&
+        path !== '/case-studies' &&
+        path !== '/case-studies/' &&
+        path !== '/terms' &&
+        path !== '/privacy' &&
         !hash.startsWith('#case-study-') &&
         !hash.startsWith('#blog-') &&
         hash !== '#terms' &&

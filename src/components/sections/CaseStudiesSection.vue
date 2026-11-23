@@ -158,40 +158,49 @@ const emit = defineEmits<{
 
 /* Explore All Case Studies CTA Button */
 .all-case-studies-btn {
-  background: var(--bg-secondary);
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
-.all-case-studies-btn:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--brand-teal-light);
-  color: var(--brand-teal-light) !important;
+[data-theme="dark"] .all-case-studies-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(0, 163, 196, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .all-case-studies-btn:hover {
+  background: rgba(0, 163, 196, 0.15);
+  border-color: #00A3C4;
+  color: #FFFFFF !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 163, 196, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 163, 196, 0.35);
+}
+
+[data-theme="light"] .all-case-studies-btn {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #0F172A !important;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15) !important;
+}
+
+[data-theme="light"] .all-case-studies-btn:hover {
+  background: #005A6B !important;
+  border-color: #005A6B !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 90, 107, 0.25) !important;
 }
 
 .all-case-studies-btn span,
 .all-case-studies-btn svg {
-  color: inherit !important;
-}
-
-[data-theme="light"] .all-case-studies-btn {
-  background: #FFFFFF !important;
-  color: #0F172A !important;
-  border: 1.5px solid #CBD5E1 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
-}
-
-[data-theme="light"] .all-case-studies-btn:hover {
-  background: #F8FAFC !important;
-  color: #005A6B !important;
-  border-color: #00A3C4 !important;
-  box-shadow: 0 6px 20px rgba(0, 163, 196, 0.18) !important;
-}
-
-[data-theme="light"] .all-case-studies-btn span,
-[data-theme="light"] .all-case-studies-btn svg {
   color: inherit !important;
 }
 </style>

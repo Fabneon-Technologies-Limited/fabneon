@@ -30,21 +30,21 @@ export const portfolioItems: PortfolioItem[] = [
     badge: 'Govt. Accredited Ecosystem'
   },
   {
-    image: '/assets/images/proj_gktool.webp',
+    image: '/assets/images/cs_repairsoft_real.webp',
     title: 'RepairSoft (GKTool) — Repair Bench & Workshop OS',
     description: 'Enterprise repair shop operating system for mobile tool inventory, component IC tracking, multi-stage repair tickets, POS, and WhatsApp automation.',
-    link: 'https://gktool.fabneon.com',
+    link: 'https://repairsoft.fabneon.com',
     badge: 'Live SaaS Product'
   },
   {
-    image: '/assets/images/proj_healthcare.webp',
+    image: '/assets/images/cs_fabpharma_real.webp',
     title: 'FabPharma — Healthcare & Retail Pharmacy ERP',
     description: 'Smart pharmaceutical management system featuring automated drug expiry alerts, batch tracking, multi-counter POS, and wholesale inventory restocking.',
     link: '#case-studies',
     badge: 'Healthcare ERP'
   },
   {
-    image: '/assets/images/proj_school.webp',
+    image: '/assets/images/cs_centraio_real.webp',
     title: 'Centraio Higher Education Campus ERP',
     description: 'High-availability multi-tenant university and college operating system with automated CGPA grading, fee ledgers, and biometric attendance.',
     link: '#case-studies',
@@ -65,7 +65,7 @@ export const portfolioItems: PortfolioItem[] = [
     badge: 'Enterprise Architecture'
   },
   {
-    image: '/assets/images/proj_training.webp',
+    image: '/assets/images/cs_madrasah_real.webp',
     title: 'Madrasah Management System (MMS OS)',
     description: 'Purpose-built residential academy ERP featuring 30-Para Quran Hifz progress radar, hostel dining hall quota control, and parent SMS billing.',
     link: '#case-studies',
@@ -79,7 +79,7 @@ export const portfolioItems: PortfolioItem[] = [
     badge: 'Enterprise CRM'
   },
   {
-    image: '/assets/images/proj_ecommerce.webp',
+    image: '/assets/images/cs_itrust_real.webp',
     title: 'iTrust E-Commerce Platform (Nuxt 3 SSR)',
     description: 'High-conversion consumer storefront with sub-second checkout, automated 64-district thana shipping matrix, and server-side Meta CAPI.',
     link: 'https://itrust.com.bd',

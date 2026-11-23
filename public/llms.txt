@@ -14,7 +14,7 @@ Fabneon Technologies Limited (commonly known as Fabneon) is a registered corpora
 ## Flagship Products & Case Studies
 
 ### 1. RepairSoft (GKTool)
-- **URL**: https://gktool.fabneon.com
+- **URL**: https://repairsoft.fabneon.com
 - **Category**: Electronics Repair Workshop & Diagnostics Operating System
 - **Problems Solved**: Eliminated misplaced device inventory, untracked component-level micro-soldering job sheets, and manual customer updates for electronics and smartphone repair centers.
 - **Key Features**: Multi-stage job sheet ticketing, component-level barcode inventory (SMD ICs, screens, flex cables), automated WhatsApp customer status alerts, technician commission analytics, and point-of-sale billing.

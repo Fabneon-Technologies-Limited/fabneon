@@ -329,4 +329,16 @@ const handleSelectStudy = (id: string) => {
   color: #065F46;
   border: 1px solid #BBF7D0;
 }
+
+.btn-case-detail {
+  background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);
+  color: #FFFFFF !important;
+  border: none;
+}
+
+.btn-case-detail:hover {
+  background: linear-gradient(135deg, #00BFDF 0%, #6025A5 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 163, 196, 0.35);
+}
 </style>

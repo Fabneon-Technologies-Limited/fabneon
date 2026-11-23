@@ -52,8 +52,8 @@ import { scrollToTarget } from '../../composables/useAppRouter';
               class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
               style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
               <img 
-                src="/assets/images/card_scalable.webp" 
-                alt="Scalable Enterprise Architecture and Cloud Systems — Fabneon Technologies Limited"
+                src="/assets/images/cs_centraio_real.webp" 
+                alt="Centraio Cloud OS Multi-Tenant Campus Architecture — Fabneon Technologies Limited"
                 class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-105 [will-change:transform]" 
                 style="transform: translateZ(0);" 
                 loading="eager" 
@@ -74,7 +74,7 @@ import { scrollToTarget } from '../../composables/useAppRouter';
                   </svg>
                 </div>
                 <div class="text-xl sm:text-2xl font-bold mb-1 text-white" role="heading" aria-level="2">Scalable Architectures</div>
-                <p class="text-xs sm:text-sm text-white/85">Engineered for millions of transactions.</p>
+                <p class="text-xs sm:text-sm text-white/85">Centraio Multi-Tenant Cloud OS for institutions.</p>
               </div>
             </div>
 
@@ -83,8 +83,8 @@ import { scrollToTarget } from '../../composables/useAppRouter';
               class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
               style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
               <img 
-                src="/assets/images/card_uiux.webp" 
-                alt="Intuitive UI/UX Design and Design Systems — Fabneon Technologies Limited"
+                src="/assets/images/cs_repairsoft_real.webp" 
+                alt="RepairSoft Electronics Diagnostics OS — Fabneon Technologies Limited"
                 class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-105 [will-change:transform]" 
                 style="transform: translateZ(0);" 
                 loading="lazy" 
@@ -103,8 +103,8 @@ import { scrollToTarget } from '../../composables/useAppRouter';
                     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
                   </svg>
                 </div>
-                <div class="text-xl sm:text-2xl font-bold mb-1 text-white" role="heading" aria-level="2">Intuitive UI/UX</div>
-                <p class="text-xs sm:text-sm text-white/85">Design systems that drive business conversion.</p>
+                <div class="text-xl sm:text-2xl font-bold mb-1 text-white" role="heading" aria-level="2">High-Throughput SaaS</div>
+                <p class="text-xs sm:text-sm text-white/85">RepairSoft Electronics Diagnostics &amp; Workshop OS.</p>
               </div>
             </div>
 
@@ -113,8 +113,8 @@ import { scrollToTarget } from '../../composables/useAppRouter';
               class="absolute top-1/2 left-1/2 w-full h-full rounded-2xl flex flex-col justify-end text-left overflow-hidden [transform-style:preserve-3d] [backface-visibility:hidden] [will-change:transform]"
               style="padding: 1.5rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);">
               <img 
-                src="/assets/images/card_growth.webp" 
-                alt="Enterprise Growth and Mission-Critical ERPs — Fabneon Technologies Limited"
+                src="/assets/images/cs_fabpharma_real.webp" 
+                alt="FabPharma Enterprise Healthcare & Retail POS — Fabneon Technologies Limited"
                 class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 hover:scale-105 [will-change:transform]" 
                 style="transform: translateZ(0);" 
                 loading="lazy" 
@@ -133,7 +133,7 @@ import { scrollToTarget } from '../../composables/useAppRouter';
                   </svg>
                 </div>
                 <div class="text-xl sm:text-2xl font-bold mb-1 text-white" role="heading" aria-level="2">Mission-Critical ERP</div>
-                <p class="text-xs sm:text-sm text-white/85">Empowering enterprises with real-time operational control.</p>
+                <p class="text-xs sm:text-sm text-white/85">FabPharma Healthcare POS with proactive batch radar.</p>
               </div>
             </div>
           </CardSwap>

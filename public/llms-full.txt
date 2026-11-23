@@ -34,7 +34,7 @@
 
 ### Case Study B: RepairSoft (formerly GKTool)
 - **Product Overview**: Cloud Operating System for electronics, smartphone, and logic board repair centers.
-- **Live URL**: https://gktool.fabneon.com
+- **Live URL**: https://repairsoft.fabneon.com
 - **Business Challenges**:
   1. Repair shops suffered chaotic job sheet tracking, lost paper receipts, and unrecorded technician labor.
   2. Inventory shrinkage: High-value SMD ICs, screens, and test tools vanished without barcode logging.
