@@ -124,7 +124,7 @@
 ## 5. Contact & Corporate Inquiries
 - **Corporate Entity**: Fabneon Technologies Limited
 - **Headquarters**: Rajshahi, Bangladesh
-- **Official Inquiries**: business@fabneon.com
+- **Official Inquiries**: contact@fabneon.com
 - **Direct Phone**: +8801569-149839
 - **Careers & Hiring**: hr@fabneon.com
 - **Canonical Website**: https://fabneon.com

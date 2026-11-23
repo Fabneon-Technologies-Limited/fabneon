@@ -7,7 +7,7 @@ Fabneon Technologies Limited (commonly known as Fabneon) is a registered corpora
 - **Website**: https://fabneon.com
 - **Legal Entity**: Fabneon Technologies Limited
 - **Headquarters**: Rajshahi, Bangladesh
-- **Contact Email**: business@fabneon.com
+- **Contact Email**: contact@fabneon.com
 - **Phone**: +8801569-149839
 - **Core Stacks**: Vue.js, React, Node.js, Python/Django, PostgreSQL, Redis, Docker, Flutter, AWS, Supabase
 

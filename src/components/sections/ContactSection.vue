@@ -15,7 +15,7 @@ const handleContactSubmit = () => {
   if (!contactForm.value.name.trim() || !contactForm.value.email.trim() || !contactForm.value.message.trim()) return;
   isContactSubmitting.value = true;
   
-  const recipient = 'business@fabneon.com';
+  const recipient = 'contact@fabneon.com';
   const mailSubject = encodeURIComponent(`[Fabneon Enterprise Inquiry] ${contactForm.value.subject || 'Project Consultation'}`);
   const mailBody = encodeURIComponent(
     `Hello Fabneon Engineering Team,\n\n` +
@@ -67,8 +67,8 @@ const resetContactForm = () => {
               </div>
               <div>
                 <h3 class="m-0 mb-1 text-base font-semibold">Email Us</h3>
-                <a href="mailto:business@fabneon.com"
-                  class="text-[var(--text-secondary)] hover:text-[var(--brand-teal-light)] transition-colors">business@fabneon.com</a>
+                <a href="mailto:contact@fabneon.com"
+                  class="text-[var(--text-secondary)] hover:text-[var(--brand-teal-light)] transition-colors">contact@fabneon.com</a>
               </div>
             </div>
 
@@ -114,13 +114,13 @@ const resetContactForm = () => {
             <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">Inquiry Prepared for business@fabneon.com!</h3>
+            <h3 class="text-xl font-bold text-white mb-2">Inquiry Prepared for contact@fabneon.com!</h3>
             <p class="text-xs sm:text-sm text-[var(--text-secondary)] mb-6 max-w-md mx-auto leading-relaxed">
-              Your email client has been opened with your inquiry pre-addressed to <strong>business@fabneon.com</strong>. If your email application did not launch automatically, you can send directly or message us on WhatsApp.
+              Your email client has been opened with your inquiry pre-addressed to <strong>contact@fabneon.com</strong>. If your email application did not launch automatically, you can send directly or message us on WhatsApp.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3">
               <a 
-                :href="`mailto:business@fabneon.com?subject=${encodeURIComponent('[Fabneon Inquiry] ' + (contactForm.subject || 'Consultation'))}&body=${encodeURIComponent(contactForm.message)}`" 
+                :href="`mailto:contact@fabneon.com?subject=${encodeURIComponent('[Fabneon Inquiry] ' + (contactForm.subject || 'Consultation'))}&body=${encodeURIComponent(contactForm.message)}`" 
                 class="btn btn-primary text-xs font-bold px-4 py-2.5 rounded-xl inline-flex items-center gap-2"
               >
                 <span>Open Mail Client</span>
@@ -181,7 +181,7 @@ const resetContactForm = () => {
             <button type="submit"
               :disabled="isContactSubmitting"
               class="btn btn-primary w-full mt-8 p-4 rounded-lg flex items-center justify-center gap-2 font-semibold cursor-pointer">
-              <span>{{ isContactSubmitting ? 'Opening Mail Client...' : 'Send Inquiry to business@fabneon.com' }}</span>
+              <span>{{ isContactSubmitting ? 'Opening Mail Client...' : 'Send Inquiry to contact@fabneon.com' }}</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
           </form>

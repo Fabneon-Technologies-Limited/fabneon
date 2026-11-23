@@ -141,7 +141,7 @@ async function generateOgImage() {
         |
       </text>
       <text x="220" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#94A3B8">
-        Corporate Inquiries: business@fabneon.com
+        Corporate Inquiries: contact@fabneon.com
       </text>
       <text x="700" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#94A3B8">
         Rajshahi &amp; Dhaka, Bangladesh
