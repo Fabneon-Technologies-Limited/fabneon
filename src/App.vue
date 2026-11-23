@@ -79,10 +79,10 @@ onMounted(() => {
     // 1. Immediately remove invisible classes so content is never blank
     document.querySelectorAll('.invisible-until-scroll').forEach(el => el.classList.remove('invisible-until-scroll'));
 
-    // 2. Progressive GSAP ScrollTrigger batch animations (Excluding Hero elements so above-the-fold CTA is always 100% visible)
+    // 2. Progressive GSAP ScrollTrigger batch animations (Excluding Hero & Section Headers so titles are always 100% visible)
     try {
       const revealElements = (gsap.utils.toArray('.reveal-up, .reveal-left, .reveal-right') as HTMLElement[])
-        .filter(el => !el.closest('.hero'));
+        .filter(el => !el.closest('.hero') && !el.closest('.section-header') && !el.classList.contains('section-header'));
 
       ScrollTrigger.batch(revealElements, {
         start: 'top 92%',
@@ -124,12 +124,6 @@ onMounted(() => {
               { x: 0, y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' }
             );
           });
-        },
-        onLeave: (batch) => {
-          gsap.to(batch, { opacity: 0.25, duration: 0.4, overwrite: 'auto' });
-        },
-        onLeaveBack: (batch) => {
-          gsap.to(batch, { opacity: 0.25, duration: 0.4, overwrite: 'auto' });
         }
       });
 

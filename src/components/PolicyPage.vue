@@ -1,41 +1,19 @@
 <template>
   <div class="policy-page">
-    
-    <!-- Unified Fixed Top Navigation Bar -->
-    <header class="policy-top-bar">
-      <div class="container max-w-5xl mx-auto px-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <a href="#home" @click.prevent="$emit('back')" class="flex items-center gap-2 cursor-pointer mr-1">
-            <img src="/fabneon_logo_only.png" alt="Fabneon Technologies Limited Official Logo" class="h-7 w-auto" width="28" height="28" />
-            <span class="font-bold text-sm tracking-tight text-white hidden sm:inline">Fabneon</span>
-          </a>
-
+    <div class="policy-header pb-16">
+      <div class="container max-w-4xl mx-auto px-4 relative z-10">
+        <!-- In-flow back breadcrumb -->
+        <div class="mb-8 pb-4 border-b border-[var(--border-muted)] flex items-center justify-between">
           <button 
             @click="$emit('back')" 
-            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-white/[0.06] border border-white/10 text-white/90 hover:text-white hover:bg-white/[0.12] hover:border-[var(--brand-teal-light)]/40 transition-all cursor-pointer"
+            class="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-muted)] text-[var(--text-primary)] hover:border-[var(--brand-teal-light)]/60 transition-all cursor-pointer shadow-sm"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             <span>Back to Home</span>
           </button>
+          <span class="text-xs font-bold uppercase tracking-wider text-[var(--brand-teal-light)]">Legal &amp; Compliance</span>
         </div>
 
-        <div class="text-xs font-bold uppercase tracking-wider text-[var(--brand-teal-light)] hidden sm:block">
-          Legal & Compliance
-        </div>
-
-        <a 
-          href="#contact" 
-          @click="$emit('back')" 
-          class="inline-flex items-center gap-1 text-xs font-bold px-3.5 py-1.5 rounded-xl text-white shadow-md cursor-pointer"
-          style="background: linear-gradient(135deg, #00A3C4 0%, #4B1A7F 100%);"
-        >
-          <span>Contact Legal</span>
-        </a>
-      </div>
-    </header>
-
-    <div class="policy-header pt-28 md:pt-32 pb-16">
-      <div class="container max-w-4xl mx-auto px-4 relative z-10">
         <div class="header-title">
           <div class="badge badge-teal mb-4">Official Document</div>
           <h1 class="display title-text">{{ title }}</h1>
@@ -70,27 +48,8 @@ defineEmits(['back']);
   position: relative;
 }
 
-.policy-top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  background: rgba(13, 15, 20, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-}
-
-[data-theme='light'] .policy-top-bar {
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
 .policy-header {
+  padding-top: clamp(7.5rem, 9vw + 1.5rem, 9.5rem) !important;
   background: var(--bg-overlay);
 }
 

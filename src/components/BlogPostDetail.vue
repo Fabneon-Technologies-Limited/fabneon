@@ -36,7 +36,7 @@ const handleSelectOther = (otherPost: BlogPost) => {
   <div class="blog-detail-view min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
     
     <!-- Main Content Container with in-flow breadcrumbs and breathing room below Global Floating Navbar -->
-    <div class="container max-w-4xl mx-auto px-4 sm:px-6 pt-28 md:pt-32 pb-24">
+    <div class="blog-detail-content container max-w-4xl mx-auto px-4 sm:px-6 pb-24">
       
       <!-- In-Flow Breadcrumb Header -->
       <div class="flex items-center justify-between mb-8 pb-4 border-b border-[var(--border-muted)]">
@@ -163,6 +163,11 @@ const handleSelectOther = (otherPost: BlogPost) => {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+.blog-detail-content {
+  padding-top: clamp(7.5rem, 9vw + 1.5rem, 9.5rem) !important;
+  padding-bottom: 6rem;
 }
 
 .blog-article-h1 {

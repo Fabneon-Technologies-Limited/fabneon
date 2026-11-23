@@ -81,7 +81,7 @@ const scrollToTop = () => {
   <div class="case-study-page">
     
     <!-- Hero Header (Generous Breathing Room below Global Floating Navbar) -->
-    <section class="detail-hero pt-28 md:pt-32 pb-12">
+    <section class="detail-hero pb-12">
       <div class="container max-w-5xl mx-auto px-4">
         
         <!-- Breadcrumb & Back Navigation -->
@@ -345,6 +345,11 @@ const scrollToTop = () => {
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+}
+
+.detail-hero {
+  padding-top: clamp(7.5rem, 9vw + 1.5rem, 9.5rem) !important;
+  padding-bottom: 3rem;
 }
 
 .case-study-h1 {

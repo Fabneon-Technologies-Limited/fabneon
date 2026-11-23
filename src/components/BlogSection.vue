@@ -41,11 +41,11 @@ const handleSelectPost = (post: BlogPost) => {
 </script>
 
 <template>
-  <section class="section" id="blog" style="padding-top: 5.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
+  <section class="section" id="blog" style="padding-top: 4.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
     <div class="container max-w-7xl mx-auto px-4">
       
       <!-- Section Header -->
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge badge-purple mb-4">Engineering & Industry Insights</div>
         <h2 class="text-3xl md:text-5xl font-bold mb-4">
           Insights on <span class="text-gradient">Software, AI & Architecture</span>

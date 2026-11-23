@@ -7,9 +7,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <section class="section" id="case-studies" style="padding-top: 5.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
+  <section class="section" id="case-studies" style="padding-top: 4.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
     <div class="container">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge badge-purple mb-4">Engineering Case Studies</div>
         <h2 class="text-3xl md:text-5xl font-bold mb-4">
           Flagship Projects &amp; <span class="text-gradient">Case Studies</span>

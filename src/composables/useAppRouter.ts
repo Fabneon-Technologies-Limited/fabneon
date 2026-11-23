@@ -196,6 +196,7 @@ export function useAppRouter() {
         if (study) {
           updateMetaTags(`${study.title} | Case Study | Fabneon Technologies Limited`, study.shortDesc, `/case-study/${id}`);
         }
+        window.scrollTo({ top: 0, behavior: 'instant' });
         return;
       }
     }
@@ -206,17 +207,20 @@ export function useAppRouter() {
         selectedBlogPostSlug.value = slug;
         currentPage.value = 'blog-post';
         updateMetaTags(`${found.title} | Fabneon Technologies Limited`, found.excerpt, `/blog/${slug}`);
+        window.scrollTo({ top: 0, behavior: 'instant' });
         return;
       }
     }
     if (path === '/terms' || path === '/terms/') {
       currentPage.value = 'terms';
       updateMetaTags('Terms & Conditions | Fabneon Technologies Limited', 'Terms of service and legal conditions for Fabneon Technologies Limited.', '/terms');
+      window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
     if (path === '/privacy' || path === '/privacy/') {
       currentPage.value = 'privacy';
       updateMetaTags('Privacy Policy | Fabneon Technologies Limited', 'Privacy policy and data governance at Fabneon Technologies Limited.', '/privacy');
+      window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
 
