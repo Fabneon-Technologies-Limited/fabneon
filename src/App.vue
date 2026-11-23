@@ -31,6 +31,7 @@ import ContactSection from './components/sections/ContactSection.vue';
 import FooterSection from './components/sections/FooterSection.vue';
 
 // Code-Split Dynamic Subpages (Lazy-Loaded for ultra-fast initial bundle)
+const AllCaseStudies = defineAsyncComponent(() => import('./components/AllCaseStudies.vue'));
 const CaseStudyDetail = defineAsyncComponent(() => import('./components/CaseStudyDetail.vue'));
 const BlogPostDetail = defineAsyncComponent(() => import('./components/BlogPostDetail.vue'));
 const TermsAndConditions = defineAsyncComponent(() => import('./components/TermsAndConditions.vue'));
@@ -206,7 +207,7 @@ onUnmounted(() => {
       <HeroSection />
       <PartnersSection />
       <ServicesSection />
-      <CaseStudiesSection @open-case-study="openCaseStudy" />
+      <CaseStudiesSection @open-case-study="openCaseStudy" @view-all-case-studies="navigateTo('case-studies')" />
       <BlogSection @select-post="openBlogPost" />
       <ProcessSection />
       <ImpactSection />
@@ -217,6 +218,15 @@ onUnmounted(() => {
       <FaqSection />
       <ContactSection />
     </main>
+
+    <!-- All Case Studies Page -->
+    <AllCaseStudies
+      v-else-if="currentPage === 'case-studies'"
+      :all-case-studies="caseStudies"
+      :theme="theme"
+      @back="navigateTo('home')"
+      @open-case-study="openCaseStudy"
+    />
 
     <!-- Case Study Detail View -->
     <CaseStudyDetail

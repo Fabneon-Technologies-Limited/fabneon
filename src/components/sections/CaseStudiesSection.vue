@@ -3,6 +3,7 @@ import { caseStudies } from '../../data/caseStudies';
 
 const emit = defineEmits<{
   (e: 'open-case-study', id: string): void;
+  (e: 'view-all-case-studies'): void;
 }>();
 </script>
 
@@ -100,8 +101,8 @@ const emit = defineEmits<{
       <!-- Section Footer CTA: View All Case Studies -->
       <div class="text-center mt-12">
         <button 
-          @click="emit('open-case-study', 'gkiti')" 
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold text-[var(--text-primary)] hover:text-white bg-[var(--bg-secondary)] border border-[var(--border-muted)] hover:border-[var(--brand-teal-light)]/60 hover:shadow-lg hover:shadow-[var(--brand-teal-light)]/10 transition-all cursor-pointer"
+          @click="emit('view-all-case-studies')" 
+          class="all-case-studies-btn inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-xs md:text-sm font-bold transition-all cursor-pointer shadow-md"
         >
           <span>Explore All 6 Enterprise Case Studies &amp; Architecture Specs</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
@@ -153,5 +154,44 @@ const emit = defineEmits<{
   background: #F1F5F9;
   color: #334155;
   border: 1px solid #E2E8F0;
+}
+
+/* Explore All Case Studies CTA Button */
+.all-case-studies-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-muted);
+}
+
+.all-case-studies-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--brand-teal-light);
+  color: var(--brand-teal-light) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 163, 196, 0.2);
+}
+
+.all-case-studies-btn span,
+.all-case-studies-btn svg {
+  color: inherit !important;
+}
+
+[data-theme="light"] .all-case-studies-btn {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1.5px solid #CBD5E1 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .all-case-studies-btn:hover {
+  background: #F8FAFC !important;
+  color: #005A6B !important;
+  border-color: #00A3C4 !important;
+  box-shadow: 0 6px 20px rgba(0, 163, 196, 0.18) !important;
+}
+
+[data-theme="light"] .all-case-studies-btn span,
+[data-theme="light"] .all-case-studies-btn svg {
+  color: inherit !important;
 }
 </style>

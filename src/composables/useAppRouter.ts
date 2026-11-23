@@ -2,7 +2,7 @@ import { ref, computed, nextTick } from 'vue';
 import { caseStudies, type CaseStudyData } from '../data/caseStudies';
 import { blogPosts, type BlogPost } from '../data/blogPosts';
 
-export type AppPage = 'home' | 'terms' | 'privacy' | 'case-study' | 'blog-post';
+export type AppPage = 'home' | 'case-studies' | 'terms' | 'privacy' | 'case-study' | 'blog-post';
 
 const SITE_CANONICAL_BASE = 'https://fabneon.com';
 
@@ -54,6 +54,9 @@ function getInitialRouting() {
   const hash = window.location.hash;
 
   // Pathname routing check
+  if (path === '/case-studies' || path === '/case-studies/') {
+    return { page: 'case-studies' as AppPage, caseStudyId: 'gkiti', blogSlug: 'best-software-company-in-rajshahi' };
+  }
   if (path.startsWith('/case-study/')) {
     const id = path.replace('/case-study/', '').replace(/\/$/, '');
     return { page: 'case-study' as AppPage, caseStudyId: id, blogSlug: 'best-software-company-in-rajshahi' };
@@ -167,7 +170,14 @@ export function useAppRouter() {
 
   const navigateTo = (page: AppPage) => {
     currentPage.value = page;
-    if (page === 'terms') {
+    if (page === 'case-studies') {
+      try { window.history.pushState(null, '', '/case-studies'); } catch (_) { window.location.hash = 'all-case-studies'; }
+      updateMetaTags(
+        'Enterprise Case Studies & Architecture Specs | Fabneon Technologies Limited',
+        'Explore all enterprise software case studies, cloud SaaS platforms, and digital ecosystems engineered by Fabneon Technologies Limited.',
+        '/case-studies'
+      );
+    } else if (page === 'terms') {
       try { window.history.pushState(null, '', '/terms'); } catch (_) { window.location.hash = 'terms'; }
       updateMetaTags('Terms & Conditions | Fabneon Technologies Limited', 'Terms of service and legal conditions for Fabneon Technologies Limited.', '/terms');
     } else if (page === 'privacy') {
@@ -187,6 +197,16 @@ export function useAppRouter() {
     const hash = window.location.hash;
 
     // Path-based match
+    if (path === '/case-studies' || path === '/case-studies/') {
+      currentPage.value = 'case-studies';
+      updateMetaTags(
+        'Enterprise Case Studies & Architecture Specs | Fabneon Technologies Limited',
+        'Explore all enterprise software case studies, cloud SaaS platforms, and digital ecosystems engineered by Fabneon Technologies Limited.',
+        '/case-studies'
+      );
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
     if (path.startsWith('/case-study/')) {
       const id = path.replace('/case-study/', '').replace(/\/$/, '');
       if (caseStudies.some(c => c.id === id)) {

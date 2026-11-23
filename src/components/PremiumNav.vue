@@ -26,7 +26,7 @@ const logoSrc = computed(() =>
 const updateScrollState = () => {
   isScrolled.value = window.scrollY > 40;
   
-  if (props.currentPage === 'case-study') {
+  if (props.currentPage === 'case-study' || props.currentPage === 'case-studies') {
     activeSection.value = '#case-studies';
     return;
   }
