@@ -8,7 +8,7 @@ import { teamMembers } from '../../data/siteContent';
     <div class="container relative">
       <div class="grid md:grid-cols-2 gap-12 items-center mt-6 md:mt-12">
         <!-- Left Side: Title and Subtitle -->
-        <div class="text-left reveal-up">
+        <div class="text-left">
           <div class="badge mb-4 inline-block">Who We Are</div>
           <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6">Meet The <span class="text-gradient">Team</span></h2>
           <p class="lead text-base sm:text-lg text-[var(--text-muted)] max-w-lg">
@@ -17,7 +17,7 @@ import { teamMembers } from '../../data/siteContent';
         </div>
 
         <!-- Right Side: Coverflow Carousel -->
-        <div class="flex justify-center items-center h-[400px] md:h-[500px] relative w-full reveal-up" style="animation-delay: 0.2s;">
+        <div class="flex justify-center items-center h-[400px] md:h-[500px] relative w-full">
           <HeroCarousel :items="teamMembers" />
         </div>
       </div>

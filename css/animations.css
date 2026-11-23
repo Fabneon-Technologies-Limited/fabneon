@@ -102,31 +102,23 @@
 }
 
 /* ─── Reveal Helper Classes (for GSAP/ScrollTrigger) ─── */
-/* These classes set the initial state before GSAP animates them */
+/* Default to visible so content is NEVER hidden if JS skips or delays an element */
 
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-}
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.9);
-}
-
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
 .reveal-clip {
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-  opacity: 0;
+  opacity: 1;
+  transform: none;
+}
+
+/* Section headers and titles must ALWAYS be 100% visible */
+.section-header,
+.section-header *,
+.section-title {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Used for staggered children - default visible for zero-flicker and crawler resilience */

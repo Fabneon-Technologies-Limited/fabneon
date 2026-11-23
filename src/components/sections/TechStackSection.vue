@@ -6,7 +6,7 @@ import { techStack1, techStack2 } from '../../data/siteContent';
 <template>
   <section class="section" id="technologies" style="padding-top: 2rem; padding-bottom: 4rem;">
     <div class="container mb-8">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge badge-teal mb-4 mx-auto w-max">Tech Stack</div>
         <h2>Technologies We Use</h2>
         <p class="lead">Built with modern, scalable, and secure technologies tailored for enterprise needs.</p>

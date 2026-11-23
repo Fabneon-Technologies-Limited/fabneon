@@ -6,7 +6,7 @@ import { processSteps } from '../../data/siteContent';
 <template>
   <section class="section section-alt" id="process" style="padding-top: 5.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
     <div class="container">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge badge-purple mb-4">How We Work</div>
         <h2>Our Process</h2>
         <p class="lead">A proven methodology that ensures project success from conception to deployment.</p>

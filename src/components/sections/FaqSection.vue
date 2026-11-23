@@ -13,7 +13,7 @@ const toggleFaq = (index: number) => {
   <section class="section section-alt" id="faq" style="padding-top: 5.5rem; padding-bottom: 5.5rem; scroll-margin-top: 110px;">
     <div class="container">
       <div class="faq-grid grid md:grid-cols-2 gap-12">
-        <div class="faq-content reveal-up">
+        <div class="faq-content">
           <div class="badge badge-purple mb-4">Got Questions?</div>
           <h2>Frequently Asked Questions</h2>
           <p class="lead mb-8">
@@ -22,7 +22,7 @@ const toggleFaq = (index: number) => {
           <a href="#contact" class="btn btn-secondary magnetic inline-block">Ask Us Directly</a>
         </div>
         
-        <div class="faq-accordion reveal-up">
+        <div class="faq-accordion">
           <div
             v-for="(item, idx) in faqItems"
             :key="item.question"

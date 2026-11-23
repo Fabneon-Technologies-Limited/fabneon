@@ -193,7 +193,7 @@ const resetContactForm = () => {
   <!-- Pre-Footer CTA -->
   <section class="section cta-section pb-0">
     <div class="container">
-      <div class="cta-banner reveal-up text-center shadow-2xl">
+      <div class="cta-banner text-center shadow-2xl">
         <div class="cta-banner-bg"></div>
         <div class="cta-banner-content mx-auto flex flex-col items-center justify-center">
           <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Ready to Transform Your Business?</h2>

@@ -76,3 +76,34 @@ button.btn-primary * {
   color: #FFFFFF !important;
   fill: currentColor !important;
 }
+
+/* =========================================================
+   UNIVERSAL SECTION HEADER & TITLE VISIBILITY
+   Guarantees all section headers, badges, h2 titles, and lead
+   descriptions are always 100% visible, fully opaque, and
+   perfectly contrasted across light and dark modes.
+   ========================================================= */
+.section-header,
+.section-header *,
+.section-header h2,
+.section-header p,
+.section-header .badge {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme="light"] .section-header h2 {
+  color: #0F172A !important;
+}
+
+[data-theme="dark"] .section-header h2 {
+  color: #FFFFFF !important;
+}
+
+[data-theme="light"] .section-header .lead {
+  color: #475569 !important;
+}
+
+[data-theme="dark"] .section-header .lead {
+  color: rgba(255, 255, 255, 0.7) !important;
+}

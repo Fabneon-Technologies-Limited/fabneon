@@ -79,6 +79,10 @@ onMounted(() => {
   nextTick(() => {
     // 1. Immediately remove invisible classes so content is never blank
     document.querySelectorAll('.invisible-until-scroll').forEach(el => el.classList.remove('invisible-until-scroll'));
+    document.querySelectorAll('.section-header').forEach(el => {
+      (el as HTMLElement).style.opacity = '1';
+      (el as HTMLElement).style.visibility = 'visible';
+    });
 
     // 2. Progressive GSAP ScrollTrigger batch animations (Excluding Hero & Section Headers so titles are always 100% visible)
     try {

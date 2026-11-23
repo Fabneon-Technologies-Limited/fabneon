@@ -6,7 +6,7 @@ import { testimonials } from '../../data/siteContent';
 <template>
   <section class="section" id="testimonials">
     <div class="container">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge mb-4">Client Stories</div>
         <h2>Don't Just Take Our Word</h2>
       </div>

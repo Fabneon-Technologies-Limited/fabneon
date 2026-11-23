@@ -5,7 +5,7 @@ import BorderGlow from '../BorderGlow.vue';
 <template>
   <section class="section" id="services">
     <div class="container">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge mb-4">What We Do</div>
         <h2>Our Expertise</h2>
         <p class="lead">Delivering cutting-edge solutions across the entire technology stack.</p>

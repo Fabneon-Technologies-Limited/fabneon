@@ -6,7 +6,7 @@ import { impactStats } from '../../data/siteContent';
 <template>
   <section class="section" id="impact">
     <div class="container">
-      <div class="section-header text-center reveal-up">
+      <div class="section-header text-center">
         <div class="badge badge-gold mb-4">Our Impact</div>
         <h2>Numbers That Matter</h2>
       </div>
